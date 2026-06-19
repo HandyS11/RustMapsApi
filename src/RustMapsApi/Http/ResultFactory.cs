@@ -22,6 +22,7 @@ internal static class ResultFactory
 #if NET
         var body = await response.Content.ReadAsStringAsync(cancellationToken).ConfigureAwait(false);
 #else
+        cancellationToken.ThrowIfCancellationRequested();
         var body = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
 #endif
 
