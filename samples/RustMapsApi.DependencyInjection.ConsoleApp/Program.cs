@@ -5,9 +5,9 @@ using Microsoft.Extensions.Options;
 using RustMapsApi.Samples.Shared;
 using RustMapsApi.V4;
 
-// Ensure Host.CreateApplicationBuilder resolves appsettings.json from the binary output
-// directory rather than the process working directory (which is the solution root when
-// running via `dotnet run`).
+// Ensure Host.CreateApplicationBuilder resolves appsettings.json (and the host environment)
+// from the binary output directory rather than the process working directory (which is the
+// solution root when running via `dotnet run`).
 var hostOptions = new HostApplicationBuilderSettings
 {
     ContentRootPath = AppContext.BaseDirectory
@@ -25,7 +25,7 @@ try
     // Build triggers ValidateOnStart — throws OptionsValidationException if ApiKey is blank.
     using var host = builder.Build();
 
-    // Resolving the client also goes through options validation.
+    // Validation already ran during Build above; resolve the now-validated client.
     var client = host.Services.GetRequiredService<IRustMapsClient>();
     await MapsMenu.RunAsync(client);
     return 0;

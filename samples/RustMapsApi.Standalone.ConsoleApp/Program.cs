@@ -8,6 +8,8 @@ if (string.IsNullOrWhiteSpace(apiKey))
     return 1;
 }
 
+// Host-only base address by design: the client appends relative paths (e.g. "v4/maps"),
+// so don't add a path segment here — a trailing path without a "/" would be dropped on combine.
 using var http = new HttpClient
 {
     BaseAddress = new Uri("https://api.rustmaps.com")
