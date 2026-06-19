@@ -59,7 +59,10 @@ public class QueryStringBuilderTests
         var handler = new TestHttpMessageHandler(HttpStatusCode.OK, PagedJson);
         var client = CreateClient(handler);
 
-        await client.SearchByFilterAsync("f", page: 0, new SearchOptions { SortBy = "" });
+        await client.SearchByFilterAsync("f", page: 0, new SearchOptions
+        {
+            SortBy = ""
+        });
 
         Assert.DoesNotContain("sortBy", handler.LastRequest!.RequestUri!.Query);
     }

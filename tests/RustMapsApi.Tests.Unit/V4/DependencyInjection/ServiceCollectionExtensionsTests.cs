@@ -35,7 +35,12 @@ public class ServiceCollectionExtensionsTests
     public void AddRustMapsClientV4_WithIConfiguration_RegistersTypedClient()
     {
         var configuration = new ConfigurationBuilder()
-            .AddInMemoryCollection(new Dictionary<string, string?> { { "ApiKey", "cfg-key-456" } })
+            .AddInMemoryCollection(new Dictionary<string, string?>
+            {
+                {
+                    "ApiKey", "cfg-key-456"
+                }
+            })
             .Build();
 
         var services = new ServiceCollection();

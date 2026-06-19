@@ -19,7 +19,8 @@ public class RecordCoverageTests
     [Fact]
     public void MapSettings_DeserializesIdAndName()
     {
-        const string json = """{"data":{"id":"cfg-42","name":"My Config","settings":null},"meta":{"status":"success","statusCode":200}}""";
+        const string json =
+            """{"data":{"id":"cfg-42","name":"My Config","settings":null},"meta":{"status":"success","statusCode":200}}""";
         var options = Options();
 
         var envelope = JsonSerializer.Deserialize<ServiceResponse<MapSettings>>(json, options);
@@ -35,7 +36,8 @@ public class RecordCoverageTests
     [Fact]
     public void MapSettings_DeserializesNestedSettings()
     {
-        const string json = """{"data":{"id":"cfg-99","name":"Full","settings":{"removeCarWrecks":true}},"meta":{"status":"success","statusCode":200}}""";
+        const string json =
+            """{"data":{"id":"cfg-99","name":"Full","settings":{"removeCarWrecks":true}},"meta":{"status":"success","statusCode":200}}""";
         var options = Options();
 
         var envelope = JsonSerializer.Deserialize<ServiceResponse<MapSettings>>(json, options);
@@ -99,7 +101,8 @@ public class RecordCoverageTests
     [Fact]
     public void PrefabCustomizableMonumentConfiguration_DeserializesCustomPrefabAndBase()
     {
-        const string json = """{"type":90,"blocked":false,"allowedToSetBiomes":true,"desired":true,"customPrefab":{"enabled":true,"id":"prefab-xyz"}}""";
+        const string json =
+            """{"type":90,"blocked":false,"allowedToSetBiomes":true,"desired":true,"customPrefab":{"enabled":true,"id":"prefab-xyz"}}""";
 
         var config = JsonSerializer.Deserialize<PrefabCustomizableMonumentConfiguration>(json, Options());
 
@@ -120,7 +123,10 @@ public class RecordCoverageTests
         {
             OrgId = "org-99",
             ConfigName = "my-config",
-            MapParameters = new MapGenerationRequest { Size = 3500, Seed = 777, Staging = false },
+            MapParameters = new MapGenerationRequest
+            {
+                Size = 3500, Seed = 777, Staging = false
+            },
         };
         var options = Options();
 

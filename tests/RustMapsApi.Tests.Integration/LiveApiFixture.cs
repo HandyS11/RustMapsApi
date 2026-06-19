@@ -10,8 +10,8 @@ namespace RustMapsApi.Tests.Integration;
 /// </summary>
 public sealed class LiveApiFixture : IAsyncLifetime, IDisposable
 {
-    private readonly SemaphoreSlim _gate = new(1, 1);
     private readonly int _delayMs;
+    private readonly SemaphoreSlim _gate = new(1, 1);
     private readonly HttpClient? _http;
 
     public LiveApiFixture()
@@ -46,6 +46,21 @@ public sealed class LiveApiFixture : IAsyncLifetime, IDisposable
 
     public int AnchorSeed { get; }
 
+    public Task InitializeAsync() => Task.CompletedTask;
+
+    public Task DisposeAsync()
+    {
+        Dispose();
+        return Task.CompletedTask;
+    }
+
+    /// <inheritdoc/>
+    public void Dispose()
+    {
+        _http?.Dispose();
+        _gate.Dispose();
+    }
+
     /// <summary>
     /// Serializes live calls and spaces them apart. Combined with the non-parallel
     /// collection this guarantees at most one in-flight request, spaced by the delay.
@@ -61,21 +76,6 @@ public sealed class LiveApiFixture : IAsyncLifetime, IDisposable
         {
             _gate.Release();
         }
-    }
-
-    public Task InitializeAsync() => Task.CompletedTask;
-
-    public Task DisposeAsync()
-    {
-        Dispose();
-        return Task.CompletedTask;
-    }
-
-    /// <inheritdoc/>
-    public void Dispose()
-    {
-        _http?.Dispose();
-        _gate.Dispose();
     }
 
     private static int ReadInt(string name, int fallback) =>

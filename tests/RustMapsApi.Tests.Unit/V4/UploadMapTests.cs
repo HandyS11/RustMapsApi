@@ -20,10 +20,7 @@ public class UploadMapTests
 
     private static MapUpload Upload(string? note) => new()
     {
-        Map = new MemoryStream(Encoding.UTF8.GetBytes("MAPDATA")),
-        FileName = "world.map",
-        Staging = true,
-        Note = note,
+        Map = new MemoryStream(Encoding.UTF8.GetBytes("MAPDATA")), FileName = "world.map", Staging = true, Note = note,
     };
 
     [Fact]
