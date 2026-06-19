@@ -133,20 +133,48 @@ public sealed class RustMapsClient : IRustMapsClient
     }
 
     /// <inheritdoc/>
-    public Task<Result<CustomMapSettings>> GetMapSettingsAsync(string mapId, CancellationToken cancellationToken = default) =>
-        throw new NotImplementedException();
+    public async Task<Result<CustomMapSettings>> GetMapSettingsAsync(string mapId, CancellationToken cancellationToken = default)
+    {
+        using var response = await _httpClient
+            .GetAsync($"{BasePath}/{Uri.EscapeDataString(mapId)}/settings", cancellationToken)
+            .ConfigureAwait(false);
+        return await ResultFactory.FromResponseAsync<CustomMapSettings>(response, _jsonOptions, cancellationToken).ConfigureAwait(false);
+    }
 
     /// <inheritdoc/>
-    public Task<Result<CustomMapSettings>> GetDefaultCustomConfigAsync(CancellationToken cancellationToken = default) =>
-        throw new NotImplementedException();
+    public async Task<Result<CustomMapSettings>> GetDefaultCustomConfigAsync(CancellationToken cancellationToken = default)
+    {
+        using var response = await _httpClient.GetAsync($"{BasePath}/custom", cancellationToken).ConfigureAwait(false);
+        return await ResultFactory.FromResponseAsync<CustomMapSettings>(response, _jsonOptions, cancellationToken).ConfigureAwait(false);
+    }
 
     /// <inheritdoc/>
-    public Task<Result<MapGenerationStatus>> CreateCustomMapAsync(CreateCustomMapRequest request, CancellationToken cancellationToken = default) =>
-        throw new NotImplementedException();
+    public Task<Result<MapGenerationStatus>> CreateCustomMapAsync(CreateCustomMapRequest request, CancellationToken cancellationToken = default)
+    {
+#if NET
+        ArgumentNullException.ThrowIfNull(request);
+#else
+        if (request is null)
+        {
+            throw new ArgumentNullException(nameof(request));
+        }
+#endif
+        return PostJsonAsync<CreateCustomMapRequest, MapGenerationStatus>($"{BasePath}/custom", request, request.OrgId, cancellationToken);
+    }
 
     /// <inheritdoc/>
-    public Task<Result<MapGenerationStatus>> CreateCustomMapFromConfigAsync(CreateCustomMapFromConfigRequest request, CancellationToken cancellationToken = default) =>
-        throw new NotImplementedException();
+    public Task<Result<MapGenerationStatus>> CreateCustomMapFromConfigAsync(CreateCustomMapFromConfigRequest request, CancellationToken cancellationToken = default)
+    {
+#if NET
+        ArgumentNullException.ThrowIfNull(request);
+#else
+        if (request is null)
+        {
+            throw new ArgumentNullException(nameof(request));
+        }
+#endif
+        return PostJsonAsync<CreateCustomMapFromConfigRequest, MapGenerationStatus>($"{BasePath}/custom/saved-config", request, request.OrgId, cancellationToken);
+    }
 
     private async Task<Result<TResponse>> GetAsync<TResponse>(string path, string? orgId, CancellationToken cancellationToken)
     {
