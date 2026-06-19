@@ -12,7 +12,7 @@ generation limits — with `Result<T>` everywhere and first-class dependency inj
 ![.NET](https://img.shields.io/badge/.NET-Standard%202.0%20%7C%2010-512BD4)
 [![NuGet Version](https://img.shields.io/nuget/v/RustMapsApi.svg)](https://www.nuget.org/packages/RustMapsApi)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![codecov](https://codecov.io/gh/HandyS11/RustMapsApi/graph/badge.svg)](https://codecov.io/gh/HandyS11/RustMapsApi)
+[![codecov](https://codecov.io/gh/HandyS11/RustMapsApi/branch/develop/graph/badge.svg?token=ua3M5MyCNz)](https://codecov.io/gh/HandyS11/RustMapsApi)
 [![Mutation Score](https://img.shields.io/endpoint?style=flat&url=https%3A%2F%2Fbadge-api.stryker-mutator.io%2Fgithub.com%2FHandyS11%2FRustMapsApi%2Fdevelop)](https://dashboard.stryker-mutator.io/reports/github.com/HandyS11/RustMapsApi/develop)
 
 </div>
