@@ -43,7 +43,7 @@ jobs:
           git diff --exit-code
 
       - name: Test
-        run: dotnet test --no-build --configuration Release --verbosity normal --collect:"XPlat Code Coverage" --results-directory ./coverage
+        run: dotnet test tests/RustMapsApi.Tests.Unit/RustMapsApi.Tests.Unit.csproj --no-build --configuration Release --verbosity normal --collect:"XPlat Code Coverage" --results-directory ./coverage
 
       - name: Upload coverage reports
         if: matrix.os == 'ubuntu-latest'

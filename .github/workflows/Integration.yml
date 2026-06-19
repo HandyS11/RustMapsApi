@@ -1,0 +1,31 @@
+name: Integration Tests
+
+permissions:
+  contents: read
+
+# Live API tests hit api.rustmaps.com. They self-skip when RUSTMAPS_API_KEY is
+# absent, so this job is safe without the secret. Gate behind manual dispatch and a
+# light weekly schedule so PRs never depend on the network or risk rate limits.
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 4 * * 1" # Mondays 04:00 UTC
+
+jobs:
+  integration:
+    name: Live API integration tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v5
+        with:
+          dotnet-version: 10.0.x
+
+      - name: Test (live)
+        env:
+          RUSTMAPS_API_KEY: ${{ secrets.RUSTMAPS_API_KEY }}
+          RUSTMAPS_TEST_FILTER_ID: ${{ secrets.RUSTMAPS_TEST_FILTER_ID }}
+        run: dotnet test tests/RustMapsApi.Tests.Integration/RustMapsApi.Tests.Integration.csproj --verbosity normal
