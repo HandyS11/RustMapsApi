@@ -18,9 +18,12 @@ public class UploadMapTests
             BaseAddress = new Uri("https://api.rustmaps.com")
         });
 
-    private static MapUpload Upload(string? note) => new()
+    private static MapUpload Upload(string? note, bool staging = true) => new()
     {
-        Map = new MemoryStream(Encoding.UTF8.GetBytes("MAPDATA")), FileName = "world.map", Staging = true, Note = note,
+        Map = new MemoryStream(Encoding.UTF8.GetBytes("MAPDATA")),
+        FileName = "world.map",
+        Staging = staging,
+        Note = note,
     };
 
     [Fact]
@@ -54,6 +57,22 @@ public class UploadMapTests
 
         var body = handler.LastRequestBody!;
         Assert.DoesNotContain("name=note", body.Replace("\"", string.Empty));
+    }
+
+    [Fact]
+    public async Task UploadMapAsync_StagingFalse_WritesFalseStagingPart()
+    {
+        var handler = new TestHttpMessageHandler(HttpStatusCode.OK, UploadedJson);
+        var client = CreateClient(handler);
+
+        await client.UploadMapAsync(Upload(note: null, staging: false));
+
+        // Isolate the staging part so an unrelated "false"/"true" elsewhere can't mask the mutant.
+        var body = handler.LastRequestBody!.Replace("\"", string.Empty);
+        var stagingIndex = body.IndexOf("name=staging", StringComparison.Ordinal);
+        Assert.True(stagingIndex >= 0);
+        var stagingPart = body[stagingIndex..];
+        Assert.Contains("false", stagingPart);
     }
 
     [Fact]

@@ -13,6 +13,10 @@ public class RustMapsClientCoreTests
         });
 
     [Fact]
+    public void Constructor_NullHttpClient_Throws() =>
+        Assert.Throws<ArgumentNullException>(() => new RustMapsClient(null!));
+
+    [Fact]
     public async Task GetMapByIdAsync_SendsGetToExpectedRoute()
     {
         var handler = new TestHttpMessageHandler(

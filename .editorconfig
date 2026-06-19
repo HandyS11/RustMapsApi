@@ -439,6 +439,12 @@ resharper_wrap_linq_expressions = chop_always
 resharper_csharp_wrap_parameters_style = chop_if_long
 resharper_csharp_place_method_parameter_on_same_line = false
 
+# DI registration extensions intentionally live in the Microsoft.Extensions.DependencyInjection
+# namespace (the idiomatic .NET convention) so callers get AddRustMapsClientV4 without an extra
+# using, even though that does not match the folder structure.
+[**/DependencyInjection/*.cs]
+dotnet_diagnostic.IDE0130.severity = none # Namespace does not match folder — intentional DI convention
+
 [**/Migrations/*.cs]
 generated_code = true
 dotnet_diagnostic.CS1591.severity = none # XML docs not required in generated migrations

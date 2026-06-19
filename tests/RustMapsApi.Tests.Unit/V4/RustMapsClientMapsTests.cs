@@ -28,6 +28,19 @@ public class RustMapsClientMapsTests
     }
 
     [Fact]
+    public async Task GetMapBySeedAndSizeAsync_StagingFalse_BuildsFalseQuery()
+    {
+        var handler = new TestHttpMessageHandler(
+            HttpStatusCode.OK, "{\"meta\":{\"status\":\"Success\",\"statusCode\":200},\"data\":{\"id\":\"x\"}}");
+        var client = CreateClient(handler);
+
+        await client.GetMapBySeedAndSizeAsync(4500, 12345, staging: false);
+
+        Assert.Contains("staging=false", handler.LastRequest!.RequestUri!.Query);
+        Assert.DoesNotContain("staging=true", handler.LastRequest.RequestUri.Query);
+    }
+
+    [Fact]
     public async Task GetMapByUrlAsync_PutsUrlInQuery()
     {
         var handler = new TestHttpMessageHandler(

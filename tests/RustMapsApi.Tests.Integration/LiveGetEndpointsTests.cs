@@ -4,11 +4,9 @@ using RustMapsApi.V4.Requests;
 namespace RustMapsApi.Tests.Integration;
 
 [Collection("LiveApi")]
-public sealed class LiveGetEndpointsTests
+public sealed class LiveGetEndpointsTests(LiveApiFixture fixture)
 {
-    private readonly LiveApiFixture _fixture;
-
-    public LiveGetEndpointsTests(LiveApiFixture fixture) => _fixture = fixture;
+    private readonly LiveApiFixture _fixture = fixture;
 
     [SkippableFact]
     public async Task GetLimits_Succeeds()
@@ -22,7 +20,7 @@ public sealed class LiveGetEndpointsTests
     }
 
     [SkippableFact]
-    public async Task GetSavedConfigs_Succeeds()
+    public async Task GetSavedConfigs_SucceedsOrSkipsWithoutSubscription()
     {
         Skip.IfNot(_fixture.KeyAvailable, "RUSTMAPS_API_KEY not set.");
 
@@ -30,6 +28,7 @@ public sealed class LiveGetEndpointsTests
         var result = await _fixture.Client.GetSavedConfigsAsync();
 
         // Account-scoped; may be empty. We assert the call succeeds, not its contents.
+        SkipIfSubscriptionRequired(result.Error?.Kind);
         Assert.True(result.IsSuccess, result.Error?.Message);
     }
 
