@@ -4,7 +4,7 @@ using RustMapsApi.V4;
 var apiKey = Environment.GetEnvironmentVariable("RUSTMAPS_API_KEY");
 if (string.IsNullOrWhiteSpace(apiKey))
 {
-    Console.Error.WriteLine("Set the RUSTMAPS_API_KEY environment variable, then re-run.");
+    await Console.Error.WriteLineAsync("Set the RUSTMAPS_API_KEY environment variable, then re-run.");
     return 1;
 }
 
