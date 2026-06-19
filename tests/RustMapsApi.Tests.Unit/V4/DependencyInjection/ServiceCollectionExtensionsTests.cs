@@ -44,6 +44,9 @@ public class ServiceCollectionExtensionsTests
 
         var client = provider.GetService<IRustMapsClient>();
         Assert.NotNull(client);
+
+        var options = provider.GetRequiredService<IOptions<RustMapsClientOptions>>();
+        Assert.Equal("cfg-key-456", options.Value.ApiKey);
     }
 
     [Fact]
