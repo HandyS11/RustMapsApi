@@ -85,6 +85,7 @@ public class RustMapsClientCustomTests
         Assert.Equal("/v4/maps/custom/saved-config", handler.LastRequest.RequestUri!.AbsolutePath);
         Assert.True(handler.LastRequest.Headers.Contains("x-org-id"));
         Assert.NotNull(handler.LastRequest.Content);
+        Assert.NotNull(handler.LastRequestBody);
         Assert.Contains("config-1", handler.LastRequestBody);
     }
 

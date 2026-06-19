@@ -60,6 +60,7 @@ public class RustMapsClientSearchTests
         }, page: 0);
 
         Assert.NotNull(handler.LastRequest!.Content);
+        Assert.NotNull(handler.LastRequestBody);
         Assert.Contains("searchQuery", handler.LastRequestBody);
         Assert.Contains("4500", handler.LastRequestBody);
     }

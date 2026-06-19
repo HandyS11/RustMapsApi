@@ -6,7 +6,8 @@ namespace RustMapsApi.Tests.Unit;
 public sealed class TestHttpMessageHandler(Func<HttpRequestMessage, HttpResponseMessage> responder)
     : HttpMessageHandler
 {
-    private readonly Func<HttpRequestMessage, HttpResponseMessage> _responder = responder;
+    private readonly Func<HttpRequestMessage, HttpResponseMessage> _responder =
+        responder ?? throw new ArgumentNullException(nameof(responder));
 
     public TestHttpMessageHandler(HttpStatusCode statusCode, string json)
         : this(_ => new HttpResponseMessage(statusCode)
