@@ -30,6 +30,9 @@ dotnet user-secrets set "RustMaps:ApiKey" "YOUR_KEY" \
 dotnet run --project samples/RustMapsApi.DependencyInjection.ConsoleApp
 ```
 
+Until a real key is supplied, the app detects the `REPLACE_ME` placeholder (and a
+blank key via `ValidateOnStart`), prints the command above, and exits non-zero.
+
 ## Menu
 
 ```text
