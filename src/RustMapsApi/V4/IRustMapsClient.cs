@@ -15,7 +15,11 @@ public interface IRustMapsClient
     /// <param name="cancellationToken">A token to cancel the request.</param>
     /// <returns>The matching map thumbnails.</returns>
     Task<Result<IReadOnlyList<MapThumbnail>>> SearchByFilterAsync(
-        string filterId, int page, SearchOptions? options = null, string? orgId = null, CancellationToken cancellationToken = default);
+        string filterId,
+        int page,
+        SearchOptions? options = null,
+        string? orgId = null,
+        CancellationToken cancellationToken = default);
 
     /// <summary>Searches maps using a structured query.</summary>
     /// <param name="query">The search query.</param>
@@ -25,7 +29,11 @@ public interface IRustMapsClient
     /// <param name="cancellationToken">A token to cancel the request.</param>
     /// <returns>The matching map thumbnails.</returns>
     Task<Result<IReadOnlyList<MapThumbnail>>> SearchAsync(
-        SearchQuery query, int page, SearchOptions? options = null, string? orgId = null, CancellationToken cancellationToken = default);
+        SearchQuery query,
+        int page,
+        SearchOptions? options = null,
+        string? orgId = null,
+        CancellationToken cancellationToken = default);
 
     /// <summary>Gets a map by its identifier.</summary>
     /// <param name="mapId">The map identifier.</param>
@@ -39,7 +47,10 @@ public interface IRustMapsClient
     /// <param name="staging">Whether to query the staging branch.</param>
     /// <param name="cancellationToken">A token to cancel the request.</param>
     /// <returns>The map information.</returns>
-    Task<Result<MapInfo>> GetMapBySeedAndSizeAsync(int size, int seed, bool staging, CancellationToken cancellationToken = default);
+    Task<Result<MapInfo>> GetMapBySeedAndSizeAsync(int size,
+        int seed,
+        bool staging,
+        CancellationToken cancellationToken = default);
 
     /// <summary>Gets a map by its RustMaps URL.</summary>
     /// <param name="url">The RustMaps map URL.</param>
@@ -51,7 +62,8 @@ public interface IRustMapsClient
     /// <param name="request">The generation parameters.</param>
     /// <param name="cancellationToken">A token to cancel the request.</param>
     /// <returns>The generation status.</returns>
-    Task<Result<MapGenerationStatus>> CreateMapAsync(MapGenerationRequest request, CancellationToken cancellationToken = default);
+    Task<Result<MapGenerationStatus>> CreateMapAsync(MapGenerationRequest request,
+        CancellationToken cancellationToken = default);
 
     /// <summary>Uploads a pre-generated map save file.</summary>
     /// <param name="upload">The upload payload.</param>
@@ -85,11 +97,13 @@ public interface IRustMapsClient
     /// <param name="request">The custom-map request.</param>
     /// <param name="cancellationToken">A token to cancel the request.</param>
     /// <returns>The generation status.</returns>
-    Task<Result<MapGenerationStatus>> CreateCustomMapAsync(CreateCustomMapRequest request, CancellationToken cancellationToken = default);
+    Task<Result<MapGenerationStatus>> CreateCustomMapAsync(CreateCustomMapRequest request,
+        CancellationToken cancellationToken = default);
 
     /// <summary>Requests generation of a custom map from a saved config.</summary>
     /// <param name="request">The custom-map-from-config request.</param>
     /// <param name="cancellationToken">A token to cancel the request.</param>
     /// <returns>The generation status.</returns>
-    Task<Result<MapGenerationStatus>> CreateCustomMapFromConfigAsync(CreateCustomMapFromConfigRequest request, CancellationToken cancellationToken = default);
+    Task<Result<MapGenerationStatus>> CreateCustomMapFromConfigAsync(CreateCustomMapFromConfigRequest request,
+        CancellationToken cancellationToken = default);
 }

@@ -11,7 +11,10 @@ public class RustMapsClientSearchTests
         "{\"meta\":{\"status\":\"Success\",\"statusCode\":200},\"data\":[{\"mapId\":\"a\",\"seed\":1,\"size\":4500}]}";
 
     private static RustMapsClient CreateClient(TestHttpMessageHandler handler) =>
-        new(new HttpClient(handler) { BaseAddress = new Uri("https://api.rustmaps.com") });
+        new(new HttpClient(handler)
+        {
+            BaseAddress = new Uri("https://api.rustmaps.com")
+        });
 
     [Fact]
     public async Task SearchByFilterAsync_BuildsPagedFilterRoute()
@@ -19,7 +22,10 @@ public class RustMapsClientSearchTests
         var handler = new TestHttpMessageHandler(HttpStatusCode.OK, PagedJson);
         var client = CreateClient(handler);
 
-        var result = await client.SearchByFilterAsync("filter-1", page: 2, new SearchOptions { CustomMaps = true });
+        var result = await client.SearchByFilterAsync("filter-1", page: 2, new SearchOptions
+        {
+            CustomMaps = true
+        });
 
         Assert.True(result.IsSuccess);
         Assert.Single(result.Data!);

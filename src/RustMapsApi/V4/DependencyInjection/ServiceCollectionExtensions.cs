@@ -14,7 +14,8 @@ public static class ServiceCollectionExtensions
     /// <param name="configure">Configures the client options.</param>
     /// <returns>The HTTP client builder for further configuration.</returns>
     public static IHttpClientBuilder AddRustMapsClientV4(
-        this IServiceCollection services, Action<RustMapsClientOptions> configure)
+        this IServiceCollection services,
+        Action<RustMapsClientOptions> configure)
     {
         services.AddOptions<RustMapsClientOptions>()
             .Configure(configure)
@@ -29,7 +30,8 @@ public static class ServiceCollectionExtensions
     /// <param name="configuration">The configuration section to bind options from.</param>
     /// <returns>The HTTP client builder for further configuration.</returns>
     public static IHttpClientBuilder AddRustMapsClientV4(
-        this IServiceCollection services, IConfiguration configuration)
+        this IServiceCollection services,
+        IConfiguration configuration)
     {
         services.AddOptions<RustMapsClientOptions>()
             .Bind(configuration)

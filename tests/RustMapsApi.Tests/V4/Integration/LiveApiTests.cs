@@ -11,7 +11,10 @@ public class LiveApiTests
         var apiKey = Environment.GetEnvironmentVariable("RUSTMAPS_API_KEY");
         Skip.If(string.IsNullOrWhiteSpace(apiKey), "RUSTMAPS_API_KEY not set.");
 
-        using var http = new HttpClient { BaseAddress = new Uri("https://api.rustmaps.com") };
+        using var http = new HttpClient
+        {
+            BaseAddress = new Uri("https://api.rustmaps.com")
+        };
         http.DefaultRequestHeaders.Add("X-API-Key", apiKey);
         var client = new RustMapsClient(http);
 

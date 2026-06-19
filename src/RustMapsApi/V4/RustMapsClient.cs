@@ -37,11 +37,15 @@ public sealed class RustMapsClient : IRustMapsClient
     }
 
     /// <inheritdoc/>
-    public async Task<Result<MapInfo>> GetMapBySeedAndSizeAsync(int size, int seed, bool staging, CancellationToken cancellationToken = default)
+    public async Task<Result<MapInfo>> GetMapBySeedAndSizeAsync(int size,
+        int seed,
+        bool staging,
+        CancellationToken cancellationToken = default)
     {
         var path = $"{BasePath}/{size}/{seed}?staging={(staging ? "true" : "false")}";
         using var response = await _httpClient.GetAsync(path, cancellationToken).ConfigureAwait(false);
-        return await ResultFactory.FromResponseAsync<MapInfo>(response, _jsonOptions, cancellationToken).ConfigureAwait(false);
+        return await ResultFactory.FromResponseAsync<MapInfo>(response, _jsonOptions, cancellationToken)
+            .ConfigureAwait(false);
     }
 
     /// <inheritdoc/>
@@ -49,18 +53,22 @@ public sealed class RustMapsClient : IRustMapsClient
     {
         var path = $"{BasePath}/url?url={Uri.EscapeDataString(url)}";
         using var response = await _httpClient.GetAsync(path, cancellationToken).ConfigureAwait(false);
-        return await ResultFactory.FromResponseAsync<MapInfo>(response, _jsonOptions, cancellationToken).ConfigureAwait(false);
+        return await ResultFactory.FromResponseAsync<MapInfo>(response, _jsonOptions, cancellationToken)
+            .ConfigureAwait(false);
     }
 
     /// <inheritdoc/>
-    public Task<Result<MapGenerationStatus>> CreateMapAsync(MapGenerationRequest request, CancellationToken cancellationToken = default) =>
+    public Task<Result<MapGenerationStatus>> CreateMapAsync(MapGenerationRequest request,
+        CancellationToken cancellationToken = default) =>
         PostJsonAsync<MapGenerationRequest, MapGenerationStatus>(BasePath, request, orgId: null, cancellationToken);
 
     /// <inheritdoc/>
     [System.Diagnostics.CodeAnalysis.SuppressMessage(
         "Reliability", "CA2000:Dispose objects before losing scope",
-        Justification = "Child HttpContent instances are owned and disposed by the enclosing MultipartFormDataContent.")]
-    public async Task<Result<UploadedMap>> UploadMapAsync(MapUpload upload, CancellationToken cancellationToken = default)
+        Justification =
+            "Child HttpContent instances are owned and disposed by the enclosing MultipartFormDataContent.")]
+    public async Task<Result<UploadedMap>> UploadMapAsync(MapUpload upload,
+        CancellationToken cancellationToken = default)
     {
 #if NET
         ArgumentNullException.ThrowIfNull(upload);
@@ -80,14 +88,22 @@ public sealed class RustMapsClient : IRustMapsClient
             content.Add(new StringContent(upload.Note), "note");
         }
 
-        using var request = new HttpRequestMessage(HttpMethod.Post, $"{BasePath}/upload") { Content = content };
+        using var request = new HttpRequestMessage(HttpMethod.Post, $"{BasePath}/upload")
+        {
+            Content = content
+        };
         using var response = await _httpClient.SendAsync(request, cancellationToken).ConfigureAwait(false);
-        return await ResultFactory.FromResponseAsync<UploadedMap>(response, _jsonOptions, cancellationToken).ConfigureAwait(false);
+        return await ResultFactory.FromResponseAsync<UploadedMap>(response, _jsonOptions, cancellationToken)
+            .ConfigureAwait(false);
     }
 
     /// <inheritdoc/>
     public async Task<Result<IReadOnlyList<MapThumbnail>>> SearchByFilterAsync(
-        string filterId, int page, SearchOptions? options = null, string? orgId = null, CancellationToken cancellationToken = default)
+        string filterId,
+        int page,
+        SearchOptions? options = null,
+        string? orgId = null,
+        CancellationToken cancellationToken = default)
     {
         var path = $"{BasePath}/filter/{Uri.EscapeDataString(filterId)}{QueryStringBuilder.Build(page, options)}";
         using var request = new HttpRequestMessage(HttpMethod.Get, path);
@@ -97,17 +113,25 @@ public sealed class RustMapsClient : IRustMapsClient
         }
 
         using var response = await _httpClient.SendAsync(request, cancellationToken).ConfigureAwait(false);
-        return await ResultFactory.FromPagedResponseAsync<MapThumbnail>(response, _jsonOptions, cancellationToken).ConfigureAwait(false);
+        return await ResultFactory.FromPagedResponseAsync<MapThumbnail>(response, _jsonOptions, cancellationToken)
+            .ConfigureAwait(false);
     }
 
     /// <inheritdoc/>
     public async Task<Result<IReadOnlyList<MapThumbnail>>> SearchAsync(
-        SearchQuery query, int page, SearchOptions? options = null, string? orgId = null, CancellationToken cancellationToken = default)
+        SearchQuery query,
+        int page,
+        SearchOptions? options = null,
+        string? orgId = null,
+        CancellationToken cancellationToken = default)
     {
         var path = $"{BasePath}/search{QueryStringBuilder.Build(page, options)}";
         using var request = new HttpRequestMessage(HttpMethod.Post, path)
         {
-            Content = JsonContent(new MapSearchRequest { SearchQuery = query }),
+            Content = JsonContent(new MapSearchRequest
+            {
+                SearchQuery = query
+            }),
         };
         if (orgId is not null)
         {
@@ -115,41 +139,52 @@ public sealed class RustMapsClient : IRustMapsClient
         }
 
         using var response = await _httpClient.SendAsync(request, cancellationToken).ConfigureAwait(false);
-        return await ResultFactory.FromPagedResponseAsync<MapThumbnail>(response, _jsonOptions, cancellationToken).ConfigureAwait(false);
+        return await ResultFactory.FromPagedResponseAsync<MapThumbnail>(response, _jsonOptions, cancellationToken)
+            .ConfigureAwait(false);
     }
 
     // Remaining members implemented in Tasks 14-15.
     // Temporary NotImplemented stubs keep the interface satisfied until then.
 
     /// <inheritdoc/>
-    public Task<Result<MapGenLimits>> GetLimitsAsync(string? orgId = null, CancellationToken cancellationToken = default) =>
+    public Task<Result<MapGenLimits>> GetLimitsAsync(string? orgId = null,
+        CancellationToken cancellationToken = default) =>
         GetAsync<MapGenLimits>($"{BasePath}/limits", orgId, cancellationToken);
 
     /// <inheritdoc/>
-    public async Task<Result<IReadOnlyList<MapSettings>>> GetSavedConfigsAsync(CancellationToken cancellationToken = default)
+    public async Task<Result<IReadOnlyList<MapSettings>>> GetSavedConfigsAsync(CancellationToken cancellationToken =
+        default)
     {
-        using var response = await _httpClient.GetAsync($"{BasePath}/custom/saved-configs", cancellationToken).ConfigureAwait(false);
-        return await ResultFactory.FromResponseAsync<IReadOnlyList<MapSettings>>(response, _jsonOptions, cancellationToken).ConfigureAwait(false);
+        using var response = await _httpClient.GetAsync($"{BasePath}/custom/saved-configs", cancellationToken)
+            .ConfigureAwait(false);
+        return await ResultFactory
+            .FromResponseAsync<IReadOnlyList<MapSettings>>(response, _jsonOptions, cancellationToken)
+            .ConfigureAwait(false);
     }
 
     /// <inheritdoc/>
-    public async Task<Result<CustomMapSettings>> GetMapSettingsAsync(string mapId, CancellationToken cancellationToken = default)
+    public async Task<Result<CustomMapSettings>> GetMapSettingsAsync(string mapId,
+        CancellationToken cancellationToken = default)
     {
         using var response = await _httpClient
             .GetAsync($"{BasePath}/{Uri.EscapeDataString(mapId)}/settings", cancellationToken)
             .ConfigureAwait(false);
-        return await ResultFactory.FromResponseAsync<CustomMapSettings>(response, _jsonOptions, cancellationToken).ConfigureAwait(false);
+        return await ResultFactory.FromResponseAsync<CustomMapSettings>(response, _jsonOptions, cancellationToken)
+            .ConfigureAwait(false);
     }
 
     /// <inheritdoc/>
-    public async Task<Result<CustomMapSettings>> GetDefaultCustomConfigAsync(CancellationToken cancellationToken = default)
+    public async Task<Result<CustomMapSettings>> GetDefaultCustomConfigAsync(CancellationToken cancellationToken =
+        default)
     {
         using var response = await _httpClient.GetAsync($"{BasePath}/custom", cancellationToken).ConfigureAwait(false);
-        return await ResultFactory.FromResponseAsync<CustomMapSettings>(response, _jsonOptions, cancellationToken).ConfigureAwait(false);
+        return await ResultFactory.FromResponseAsync<CustomMapSettings>(response, _jsonOptions, cancellationToken)
+            .ConfigureAwait(false);
     }
 
     /// <inheritdoc/>
-    public Task<Result<MapGenerationStatus>> CreateCustomMapAsync(CreateCustomMapRequest request, CancellationToken cancellationToken = default)
+    public Task<Result<MapGenerationStatus>> CreateCustomMapAsync(CreateCustomMapRequest request,
+        CancellationToken cancellationToken = default)
     {
 #if NET
         ArgumentNullException.ThrowIfNull(request);
@@ -159,11 +194,13 @@ public sealed class RustMapsClient : IRustMapsClient
             throw new ArgumentNullException(nameof(request));
         }
 #endif
-        return PostJsonAsync<CreateCustomMapRequest, MapGenerationStatus>($"{BasePath}/custom", request, request.OrgId, cancellationToken);
+        return PostJsonAsync<CreateCustomMapRequest, MapGenerationStatus>($"{BasePath}/custom", request, request.OrgId,
+            cancellationToken);
     }
 
     /// <inheritdoc/>
-    public Task<Result<MapGenerationStatus>> CreateCustomMapFromConfigAsync(CreateCustomMapFromConfigRequest request, CancellationToken cancellationToken = default)
+    public Task<Result<MapGenerationStatus>> CreateCustomMapFromConfigAsync(CreateCustomMapFromConfigRequest request,
+        CancellationToken cancellationToken = default)
     {
 #if NET
         ArgumentNullException.ThrowIfNull(request);
@@ -173,10 +210,13 @@ public sealed class RustMapsClient : IRustMapsClient
             throw new ArgumentNullException(nameof(request));
         }
 #endif
-        return PostJsonAsync<CreateCustomMapFromConfigRequest, MapGenerationStatus>($"{BasePath}/custom/saved-config", request, request.OrgId, cancellationToken);
+        return PostJsonAsync<CreateCustomMapFromConfigRequest, MapGenerationStatus>($"{BasePath}/custom/saved-config",
+            request, request.OrgId, cancellationToken);
     }
 
-    private async Task<Result<TResponse>> GetAsync<TResponse>(string path, string? orgId, CancellationToken cancellationToken)
+    private async Task<Result<TResponse>> GetAsync<TResponse>(string path,
+        string? orgId,
+        CancellationToken cancellationToken)
     {
         using var request = new HttpRequestMessage(HttpMethod.Get, path);
         if (orgId is not null)
@@ -185,11 +225,15 @@ public sealed class RustMapsClient : IRustMapsClient
         }
 
         using var response = await _httpClient.SendAsync(request, cancellationToken).ConfigureAwait(false);
-        return await ResultFactory.FromResponseAsync<TResponse>(response, _jsonOptions, cancellationToken).ConfigureAwait(false);
+        return await ResultFactory.FromResponseAsync<TResponse>(response, _jsonOptions, cancellationToken)
+            .ConfigureAwait(false);
     }
 
     private async Task<Result<TResponse>> PostJsonAsync<TRequest, TResponse>(
-        string path, TRequest body, string? orgId, CancellationToken cancellationToken)
+        string path,
+        TRequest body,
+        string? orgId,
+        CancellationToken cancellationToken)
     {
         using var request = new HttpRequestMessage(HttpMethod.Post, path)
         {

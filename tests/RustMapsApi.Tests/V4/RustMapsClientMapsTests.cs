@@ -9,7 +9,10 @@ namespace RustMapsApi.Tests.V4;
 public class RustMapsClientMapsTests
 {
     private static RustMapsClient CreateClient(TestHttpMessageHandler handler) =>
-        new(new HttpClient(handler) { BaseAddress = new Uri("https://api.rustmaps.com") });
+        new(new HttpClient(handler)
+        {
+            BaseAddress = new Uri("https://api.rustmaps.com")
+        });
 
     [Fact]
     public async Task GetMapBySeedAndSizeAsync_BuildsRouteWithStagingQuery()
@@ -41,10 +44,14 @@ public class RustMapsClientMapsTests
     public async Task CreateMapAsync_Created_ReturnsStatus()
     {
         var handler = new TestHttpMessageHandler(
-            HttpStatusCode.Created, "{\"meta\":{\"status\":\"Success\",\"statusCode\":201},\"data\":{\"mapId\":\"x\",\"state\":\"inQueue\"}}");
+            HttpStatusCode.Created,
+            "{\"meta\":{\"status\":\"Success\",\"statusCode\":201},\"data\":{\"mapId\":\"x\",\"state\":\"inQueue\"}}");
         var client = CreateClient(handler);
 
-        var result = await client.CreateMapAsync(new MapGenerationRequest { Size = 4500, Seed = 1, Staging = false });
+        var result = await client.CreateMapAsync(new MapGenerationRequest
+        {
+            Size = 4500, Seed = 1, Staging = false
+        });
 
         Assert.True(result.IsSuccess);
         Assert.Equal(HttpMethod.Post, handler.LastRequest!.Method);
@@ -58,7 +65,10 @@ public class RustMapsClientMapsTests
             HttpStatusCode.Conflict, "{\"meta\":{\"status\":\"Failed\",\"statusCode\":409},\"data\":{\"id\":\"x\"}}");
         var client = CreateClient(handler);
 
-        var result = await client.CreateMapAsync(new MapGenerationRequest { Size = 4500, Seed = 1, Staging = false });
+        var result = await client.CreateMapAsync(new MapGenerationRequest
+        {
+            Size = 4500, Seed = 1, Staging = false
+        });
 
         Assert.False(result.IsSuccess);
         Assert.Equal(RustMapsErrorKind.Queued, result.Error!.Kind);

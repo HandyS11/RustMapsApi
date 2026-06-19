@@ -10,10 +10,6 @@ namespace RustMapsApi.Tests.Http;
 
 public partial class ResultFactoryTests
 {
-    [JsonSerializable(typeof(ServiceResponse<string>))]
-    [JsonSerializable(typeof(ServiceResponse<object>))]
-    private sealed partial class TestContext : JsonSerializerContext;
-
     private static JsonSerializerOptions Options() => RustMapsJsonOptions.Create(TestContext.Default);
 
     [Fact]
@@ -66,4 +62,8 @@ public partial class ResultFactoryTests
 
         Assert.Equal(TimeSpan.FromSeconds(30), result.Error!.RetryAfter);
     }
+
+    [JsonSerializable(typeof(ServiceResponse<string>))]
+    [JsonSerializable(typeof(ServiceResponse<object>))]
+    private sealed partial class TestContext : JsonSerializerContext;
 }

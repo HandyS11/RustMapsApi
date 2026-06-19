@@ -7,13 +7,17 @@ namespace RustMapsApi.Tests.V4;
 public class RustMapsClientMiscTests
 {
     private static RustMapsClient CreateClient(TestHttpMessageHandler handler) =>
-        new(new HttpClient(handler) { BaseAddress = new Uri("https://api.rustmaps.com") });
+        new(new HttpClient(handler)
+        {
+            BaseAddress = new Uri("https://api.rustmaps.com")
+        });
 
     [Fact]
     public async Task GetLimitsAsync_SendsOrgHeaderWhenProvided()
     {
         var handler = new TestHttpMessageHandler(
-            HttpStatusCode.OK, "{\"meta\":{\"status\":\"Success\",\"statusCode\":200},\"data\":{\"concurrent\":{\"current\":0,\"allowed\":1}}}");
+            HttpStatusCode.OK,
+            "{\"meta\":{\"status\":\"Success\",\"statusCode\":200},\"data\":{\"concurrent\":{\"current\":0,\"allowed\":1}}}");
         var client = CreateClient(handler);
 
         var result = await client.GetLimitsAsync(orgId: "org-7");

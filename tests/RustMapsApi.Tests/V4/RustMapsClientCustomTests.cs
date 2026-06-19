@@ -9,7 +9,10 @@ namespace RustMapsApi.Tests.V4;
 public class RustMapsClientCustomTests
 {
     private static RustMapsClient CreateClient(TestHttpMessageHandler handler) =>
-        new(new HttpClient(handler) { BaseAddress = new Uri("https://api.rustmaps.com") });
+        new(new HttpClient(handler)
+        {
+            BaseAddress = new Uri("https://api.rustmaps.com")
+        });
 
     [Fact]
     public async Task GetMapSettingsAsync_BuildsSettingsRoute()
@@ -27,13 +30,17 @@ public class RustMapsClientCustomTests
     public async Task CreateCustomMapAsync_SendsOrgHeaderFromRequest()
     {
         var handler = new TestHttpMessageHandler(
-            HttpStatusCode.Created, "{\"meta\":{\"status\":\"Success\",\"statusCode\":201},\"data\":{\"mapId\":\"x\",\"state\":\"inQueue\"}}");
+            HttpStatusCode.Created,
+            "{\"meta\":{\"status\":\"Success\",\"statusCode\":201},\"data\":{\"mapId\":\"x\",\"state\":\"inQueue\"}}");
         var client = CreateClient(handler);
 
         var request = new CreateCustomMapRequest
         {
             OrgId = "org-3",
-            MapParameters = new MapGenerationRequest { Size = 4500, Seed = 1, Staging = false },
+            MapParameters = new MapGenerationRequest
+            {
+                Size = 4500, Seed = 1, Staging = false
+            },
             CustomMapSettings = new CustomMapSettings(),
         };
 

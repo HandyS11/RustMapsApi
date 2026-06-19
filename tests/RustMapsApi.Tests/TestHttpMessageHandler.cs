@@ -8,7 +8,10 @@ public sealed class TestHttpMessageHandler : HttpMessageHandler
     private readonly Func<HttpRequestMessage, HttpResponseMessage> _responder;
 
     public TestHttpMessageHandler(HttpStatusCode statusCode, string json)
-        : this(_ => new HttpResponseMessage(statusCode) { Content = new StringContent(json) })
+        : this(_ => new HttpResponseMessage(statusCode)
+        {
+            Content = new StringContent(json)
+        })
     {
     }
 
@@ -20,7 +23,8 @@ public sealed class TestHttpMessageHandler : HttpMessageHandler
     public HttpRequestMessage? LastRequest { get; private set; }
 
     protected override async Task<HttpResponseMessage> SendAsync(
-        HttpRequestMessage request, CancellationToken cancellationToken)
+        HttpRequestMessage request,
+        CancellationToken cancellationToken)
     {
         LastRequest = request;
         if (request.Content is not null)

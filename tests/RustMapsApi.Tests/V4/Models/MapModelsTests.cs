@@ -7,10 +7,6 @@ namespace RustMapsApi.Tests.V4.Models;
 
 public partial class MapModelsTests
 {
-    [JsonSerializable(typeof(MapThumbnail))]
-    [JsonSerializable(typeof(MapState))]
-    private sealed partial class ModelsContext : JsonSerializerContext;
-
     [Fact]
     public void MapThumbnail_DeserializesCamelCaseWireFormat()
     {
@@ -34,4 +30,8 @@ public partial class MapModelsTests
 
         Assert.Equal(MapState.InQueue, state);
     }
+
+    [JsonSerializable(typeof(MapThumbnail))]
+    [JsonSerializable(typeof(MapState))]
+    private sealed partial class ModelsContext : JsonSerializerContext;
 }

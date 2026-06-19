@@ -7,7 +7,10 @@ namespace RustMapsApi.Tests.V4;
 public class RustMapsClientCoreTests
 {
     private static RustMapsClient CreateClient(TestHttpMessageHandler handler) =>
-        new(new HttpClient(handler) { BaseAddress = new Uri("https://api.rustmaps.com") });
+        new(new HttpClient(handler)
+        {
+            BaseAddress = new Uri("https://api.rustmaps.com")
+        });
 
     [Fact]
     public async Task GetMapByIdAsync_SendsGetToExpectedRoute()

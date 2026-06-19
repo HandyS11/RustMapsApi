@@ -6,6 +6,20 @@ namespace RustMapsApi.Tests.Serialization;
 
 public partial class RustMapsJsonOptionsTests
 {
+    [Fact]
+    public void Create_UsesCamelCase_AndOmitsNulls()
+    {
+        var options = RustMapsJsonOptions.Create(ProbeContext.Default);
+
+        var json = JsonSerializer.Serialize(new Probe
+        {
+            ExampleName = "x"
+        }, typeof(Probe), options);
+
+        Assert.Contains("\"exampleName\":\"x\"", json);
+        Assert.DoesNotContain("maybe", json);
+    }
+
     private sealed class Probe
     {
         public string ExampleName { get; set; } = "";
@@ -15,15 +29,4 @@ public partial class RustMapsJsonOptionsTests
 
     [JsonSerializable(typeof(Probe))]
     private sealed partial class ProbeContext : JsonSerializerContext;
-
-    [Fact]
-    public void Create_UsesCamelCase_AndOmitsNulls()
-    {
-        var options = RustMapsJsonOptions.Create(ProbeContext.Default);
-
-        var json = JsonSerializer.Serialize(new Probe { ExampleName = "x" }, typeof(Probe), options);
-
-        Assert.Contains("\"exampleName\":\"x\"", json);
-        Assert.DoesNotContain("maybe", json);
-    }
 }
