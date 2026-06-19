@@ -1,0 +1,60 @@
+{
+  "meta": { "status": "Success", "statusCode": 200 },
+  "data": {
+    "generateRingRoad": "wanted",
+    "removeSmallPowerLines": true,
+    "removeCarWrecks": true,
+    "allowBuildingOnRoads": true,
+    "modifyTiers": false,
+    "trySpawningOutpostInCenter": true,
+    "removeUndergroundTunnels": false,
+    "embedCargoShipPath": true,
+    "blockedPrefabs": ["prefab/a", "prefab/b"],
+    "fileName": { "en": "my-map" },
+    "terrainConfiguration": {
+      "islandConfig": { "minAmount": 1, "maxAmount": 4, "blocked": false },
+      "mountainConfig": { "minAmount": 2, "maxAmount": 6, "blocked": false },
+      "tierConfig": { "tier0": 0.3, "tier1": 0.4, "tier2": 0.3 },
+      "biomeConfig": {
+        "enabled": true,
+        "aridPercentage": 0.25,
+        "temperatePercentage": 0.35,
+        "tundraPercentage": 0.10,
+        "arcticPercentage": 0.20,
+        "junglePercentage": 0.10
+      },
+      "flattenShoreAndBay": true,
+      "biomeAxisAngle": 0,
+      "lootAxisAngle": 0
+    },
+    "oilRigConfigurations": [
+      {
+        "type": 115,
+        "blocked": false,
+        "allowedToSetBiomes": true,
+        "minAmount": 1,
+        "maxAmount": 1,
+        "biomePreference": { "enabled": true, "biome": 8 },
+        "position": { "enabled": true, "alignment": 0, "position": 0.5 }
+      }
+    ],
+    "safezones": [],
+    "largeMonuments": [],
+    "smallMonuments": [
+      { "type": 5, "blocked": false, "allowedToSetBiomes": false }
+    ],
+    "harbors": [],
+    "waterWells": [],
+    "caves": [],
+    "mountains": [],
+    "quarries": [],
+    "icebergs": [],
+    "iceLakes": [],
+    "ruins": [],
+    "lakesConfiguration": { "minAmount": 0, "maxAmount": 2, "blocked": false, "generate": "wanted" },
+    "oasesConfiguration": { "minAmount": 0, "maxAmount": 1, "blocked": false },
+    "canyonsConfiguration": { "minAmount": 0, "maxAmount": 1, "blocked": false },
+    "underwaterLabsConfiguration": { "minAmount": 0, "maxAmount": 3, "blocked": false },
+    "webhook": { "enabled": true, "url": "https://hooks.example.com/rust" }
+  }
+}
