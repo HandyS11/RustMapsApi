@@ -4,7 +4,7 @@ using RustMapsApi.Serialization;
 using RustMapsApi.V4.Models;
 using RustMapsApi.V4.Requests;
 
-namespace RustMapsApi.Tests.V4.Models;
+namespace RustMapsApi.Tests.Unit.V4.Models;
 
 public partial class EnumWireFormatTests
 {

@@ -15,7 +15,6 @@
     <PackageReference Include="xunit" />
     <PackageReference Include="xunit.runner.visualstudio" />
     <PackageReference Include="NSubstitute" />
-    <PackageReference Include="Xunit.SkippableFact" />
     <PackageReference Include="coverlet.collector" />
   </ItemGroup>
 

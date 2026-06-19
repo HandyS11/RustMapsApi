@@ -3,7 +3,7 @@ using global::Microsoft.Extensions.Options;
 using RustMapsApi;
 using RustMapsApi.V4;
 
-namespace RustMapsApi.Tests.V4.DependencyInjection;
+namespace RustMapsApi.Tests.Unit.V4.DependencyInjection;
 
 public class ServiceCollectionExtensionsTests
 {

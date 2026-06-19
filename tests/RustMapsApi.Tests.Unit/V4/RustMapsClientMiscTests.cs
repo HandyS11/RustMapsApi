@@ -2,7 +2,7 @@ using System.Net;
 using System.Net.Http;
 using RustMapsApi.V4;
 
-namespace RustMapsApi.Tests.V4;
+namespace RustMapsApi.Tests.Unit.V4;
 
 public class RustMapsClientMiscTests
 {

@@ -1,6 +1,6 @@
 using RustMapsApi.Results;
 
-namespace RustMapsApi.Tests.Results;
+namespace RustMapsApi.Tests.Unit.Results;
 
 public class ResultTests
 {

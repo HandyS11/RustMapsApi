@@ -1,3 +1,3 @@
 using System.Runtime.CompilerServices;
 
-[assembly: InternalsVisibleTo("RustMapsApi.Tests")]
+[assembly: InternalsVisibleTo("RustMapsApi.Tests.Unit")]

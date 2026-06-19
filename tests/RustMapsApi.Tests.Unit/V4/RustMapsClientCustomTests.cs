@@ -4,7 +4,7 @@ using RustMapsApi.V4;
 using RustMapsApi.V4.Models;
 using RustMapsApi.V4.Requests;
 
-namespace RustMapsApi.Tests.V4;
+namespace RustMapsApi.Tests.Unit.V4;
 
 public class RustMapsClientCustomTests
 {

@@ -2,7 +2,7 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 using RustMapsApi.Serialization;
 
-namespace RustMapsApi.Tests.Serialization;
+namespace RustMapsApi.Tests.Unit.Serialization;
 
 public partial class RustMapsJsonOptionsTests
 {

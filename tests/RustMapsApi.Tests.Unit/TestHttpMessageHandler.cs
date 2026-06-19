@@ -1,7 +1,7 @@
 using System.Net;
 using System.Net.Http;
 
-namespace RustMapsApi.Tests;
+namespace RustMapsApi.Tests.Unit;
 
 public sealed class TestHttpMessageHandler : HttpMessageHandler
 {

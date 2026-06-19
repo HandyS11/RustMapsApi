@@ -6,7 +6,7 @@ using RustMapsApi.Http;
 using RustMapsApi.Results;
 using RustMapsApi.Serialization;
 
-namespace RustMapsApi.Tests.Http;
+namespace RustMapsApi.Tests.Unit.Http;
 
 public partial class ResultFactoryTests
 {

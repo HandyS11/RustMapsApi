@@ -1,4 +1,4 @@
-namespace RustMapsApi.Tests;
+namespace RustMapsApi.Tests.Unit;
 
 public class SmokeTests
 {
