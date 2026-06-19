@@ -22,6 +22,9 @@ public sealed class TestHttpMessageHandler : HttpMessageHandler
 
     public HttpRequestMessage? LastRequest { get; private set; }
 
+    /// <summary>The raw body of the last request, read before the content is disposed.</summary>
+    public string? LastRequestBody { get; private set; }
+
     protected override async Task<HttpResponseMessage> SendAsync(
         HttpRequestMessage request,
         CancellationToken cancellationToken)
@@ -29,7 +32,7 @@ public sealed class TestHttpMessageHandler : HttpMessageHandler
         LastRequest = request;
         if (request.Content is not null)
         {
-            await request.Content.LoadIntoBufferAsync(cancellationToken).ConfigureAwait(false);
+            LastRequestBody = await request.Content.ReadAsStringAsync(cancellationToken).ConfigureAwait(false);
         }
 
         return _responder(request);
