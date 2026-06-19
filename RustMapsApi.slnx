@@ -1,4 +1,9 @@
 <Solution>
+  <Folder Name="/samples/">
+    <Project Path="samples/RustMapsApi.DependencyInjection.ConsoleApp/RustMapsApi.DependencyInjection.ConsoleApp.csproj" />
+    <Project Path="samples/RustMapsApi.Samples.Shared/RustMapsApi.Samples.Shared.csproj" />
+    <Project Path="samples/RustMapsApi.Standalone.ConsoleApp/RustMapsApi.Standalone.ConsoleApp.csproj" />
+  </Folder>
   <Folder Name="/src/">
     <Project Path="src/RustMapsApi/RustMapsApi.csproj" />
   </Folder>
