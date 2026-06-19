@@ -1,8 +1,8 @@
-namespace RustMapsApi.Http;
-
 using System.Net.Http;
 using System.Text.Json;
 using RustMapsApi.Results;
+
+namespace RustMapsApi.Http;
 
 /// <summary>Maps HTTP responses (and the RustMaps envelope) into <see cref="Result{T}"/>.</summary>
 internal static class ResultFactory

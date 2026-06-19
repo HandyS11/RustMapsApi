@@ -1,6 +1,6 @@
-namespace RustMapsApi.V4.Requests;
-
 using RustMapsApi.V4.Models;
+
+namespace RustMapsApi.V4.Requests;
 
 /// <summary>A filter on the share of a biome.</summary>
 public sealed record BiomeFilter

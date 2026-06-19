@@ -1,6 +1,6 @@
-namespace RustMapsApi.V4.Models;
-
 using System.Text.Json.Serialization;
+
+namespace RustMapsApi.V4.Models;
 
 /// <summary>The per-biome percentage breakdown of a map.</summary>
 public sealed record Biomes

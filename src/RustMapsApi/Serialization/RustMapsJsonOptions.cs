@@ -1,7 +1,7 @@
-namespace RustMapsApi.Serialization;
-
 using System.Text.Json;
 using System.Text.Json.Serialization;
+
+namespace RustMapsApi.Serialization;
 
 /// <summary>Builds the shared <see cref="JsonSerializerOptions"/> for RustMaps payloads.</summary>
 internal static class RustMapsJsonOptions

@@ -1,7 +1,7 @@
-namespace RustMapsApi.V4.Requests;
-
 using System.Text.Json.Serialization;
 using RustMapsApi.V4.Models;
+
+namespace RustMapsApi.V4.Requests;
 
 /// <summary>A request to generate a custom map from explicit settings.</summary>
 public sealed record CreateCustomMapRequest

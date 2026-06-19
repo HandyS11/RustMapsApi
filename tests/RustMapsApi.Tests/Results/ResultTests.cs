@@ -1,6 +1,6 @@
-namespace RustMapsApi.Tests.Results;
-
 using RustMapsApi.Results;
+
+namespace RustMapsApi.Tests.Results;
 
 public class ResultTests
 {

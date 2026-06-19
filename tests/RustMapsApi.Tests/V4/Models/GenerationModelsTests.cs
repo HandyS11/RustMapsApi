@@ -1,9 +1,9 @@
-namespace RustMapsApi.Tests.V4.Models;
-
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using RustMapsApi.Serialization;
 using RustMapsApi.V4.Models;
+
+namespace RustMapsApi.Tests.V4.Models;
 
 public partial class GenerationModelsTests
 {

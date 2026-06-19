@@ -1,8 +1,8 @@
-namespace RustMapsApi.Tests.Serialization;
-
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using RustMapsApi.Serialization;
+
+namespace RustMapsApi.Tests.Serialization;
 
 public partial class RustMapsJsonOptionsTests
 {

@@ -1,5 +1,3 @@
-namespace RustMapsApi.Tests.Http;
-
 using System.Net;
 using System.Net.Http;
 using System.Text.Json;
@@ -7,6 +5,8 @@ using System.Text.Json.Serialization;
 using RustMapsApi.Http;
 using RustMapsApi.Results;
 using RustMapsApi.Serialization;
+
+namespace RustMapsApi.Tests.Http;
 
 public partial class ResultFactoryTests
 {

@@ -1,9 +1,9 @@
-namespace RustMapsApi.Tests.V4.Requests;
-
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using RustMapsApi.Serialization;
 using RustMapsApi.V4.Requests;
+
+namespace RustMapsApi.Tests.V4.Requests;
 
 public partial class RequestModelsTests
 {

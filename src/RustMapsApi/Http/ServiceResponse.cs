@@ -1,6 +1,6 @@
-namespace RustMapsApi.Http;
-
 using RustMapsApi.Results;
+
+namespace RustMapsApi.Http;
 
 /// <summary>The metadata block of a RustMaps response envelope.</summary>
 internal sealed record Meta

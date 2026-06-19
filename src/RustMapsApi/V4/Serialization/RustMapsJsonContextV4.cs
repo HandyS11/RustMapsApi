@@ -1,9 +1,9 @@
-namespace RustMapsApi.V4.Serialization;
-
 using System.Text.Json.Serialization;
 using RustMapsApi.Http;
 using RustMapsApi.V4.Models;
 using RustMapsApi.V4.Requests;
+
+namespace RustMapsApi.V4.Serialization;
 
 /// <summary>The source-gen serialization context for the RustMaps API v4 surface.</summary>
 [JsonSerializable(typeof(ServiceResponse<MapInfo>))]
