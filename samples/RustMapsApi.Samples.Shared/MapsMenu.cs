@@ -1,4 +1,5 @@
 using RustMapsApi.V4;
+using RustMapsApi.V4.Models;
 using RustMapsApi.V4.Requests;
 
 namespace RustMapsApi.Samples.Shared;
@@ -28,6 +29,10 @@ public static class MapsMenu
                 case "7": await GetSavedConfigsAsync(client, ct); break;
                 case "8": await GetMapSettingsAsync(client, ct); break;
                 case "9": await GetDefaultCustomConfigAsync(client, ct); break;
+                case "10": await CreateMapAsync(client, ct); break;
+                case "11": await CreateCustomMapAsync(client, ct); break;
+                case "12": await CreateCustomMapFromConfigAsync(client, ct); break;
+                case "13": await UploadMapAsync(client, ct); break;
                 case "q" or "Q": return;
                 default: Console.WriteLine("Unknown choice."); break;
             }
@@ -48,6 +53,11 @@ public static class MapsMenu
         Console.WriteLine("  7) Get saved configs");
         Console.WriteLine("  8) Get map settings");
         Console.WriteLine("  9) Get default custom config");
+        Console.WriteLine("  -- writes (consume credits) --");
+        Console.WriteLine("  10) Create map");
+        Console.WriteLine("  11) Create custom map (from default config)");
+        Console.WriteLine("  12) Create custom map from saved config");
+        Console.WriteLine("  13) Upload map save file");
         Console.WriteLine("  q) Quit");
     }
 
@@ -106,5 +116,90 @@ public static class MapsMenu
     private static async Task GetDefaultCustomConfigAsync(IRustMapsClient client, CancellationToken ct)
     {
         ResultRenderer.Render(await client.GetDefaultCustomConfigAsync(ct));
+    }
+
+    private static async Task CreateMapAsync(IRustMapsClient client, CancellationToken ct)
+    {
+        var size = ConsolePrompt.ReadInt("Size", 4500);
+        var seed = ConsolePrompt.ReadInt("Seed", 1234);
+        if (!ConsolePrompt.Confirm($"This will generate a {size}/{seed} map and CONSUME CREDITS."))
+        {
+            Console.WriteLine("  Cancelled.");
+            return;
+        }
+
+        var request = new MapGenerationRequest { Size = size, Seed = seed, Staging = false };
+        ResultRenderer.Render(await client.CreateMapAsync(request, ct));
+    }
+
+    private static async Task CreateCustomMapAsync(IRustMapsClient client, CancellationToken ct)
+    {
+        var size = ConsolePrompt.ReadInt("Size", 4500);
+        var seed = ConsolePrompt.ReadInt("Seed", 1234);
+        if (!ConsolePrompt.Confirm("This will generate a custom map and CONSUME CREDITS."))
+        {
+            Console.WriteLine("  Cancelled.");
+            return;
+        }
+
+        // Fetch the default custom-map settings, then submit them unchanged.
+        var defaults = await client.GetDefaultCustomConfigAsync(ct);
+        if (!defaults.IsSuccess)
+        {
+            Console.WriteLine("  Could not fetch default custom config:");
+            ResultRenderer.RenderFailure(defaults);
+            return;
+        }
+
+        var request = new CreateCustomMapRequest
+        {
+            MapParameters = new MapGenerationRequest { Size = size, Seed = seed, Staging = false },
+            CustomMapSettings = defaults.Data!,
+        };
+        ResultRenderer.Render(await client.CreateCustomMapAsync(request, ct));
+    }
+
+    private static async Task CreateCustomMapFromConfigAsync(IRustMapsClient client, CancellationToken ct)
+    {
+        var size = ConsolePrompt.ReadInt("Size", 4500);
+        var seed = ConsolePrompt.ReadInt("Seed", 1234);
+        var configName = ConsolePrompt.ReadLine("Saved config name: ");
+        if (!ConsolePrompt.Confirm($"This will generate a custom map from '{configName}' and CONSUME CREDITS."))
+        {
+            Console.WriteLine("  Cancelled.");
+            return;
+        }
+
+        var request = new CreateCustomMapFromConfigRequest
+        {
+            MapParameters = new MapGenerationRequest { Size = size, Seed = seed, Staging = false },
+            ConfigName = configName,
+        };
+        ResultRenderer.Render(await client.CreateCustomMapFromConfigAsync(request, ct));
+    }
+
+    private static async Task UploadMapAsync(IRustMapsClient client, CancellationToken ct)
+    {
+        var path = ConsolePrompt.ReadLine("Path to .map save file: ");
+        if (string.IsNullOrWhiteSpace(path) || !File.Exists(path))
+        {
+            Console.WriteLine("  File not found; cancelled.");
+            return;
+        }
+
+        if (!ConsolePrompt.Confirm("This will upload the map and CONSUME CREDITS."))
+        {
+            Console.WriteLine("  Cancelled.");
+            return;
+        }
+
+        await using var stream = File.OpenRead(path);
+        var upload = new MapUpload
+        {
+            Map = stream,
+            FileName = Path.GetFileName(path),
+            Staging = false,
+        };
+        ResultRenderer.Render(await client.UploadMapAsync(upload, ct));
     }
 }
