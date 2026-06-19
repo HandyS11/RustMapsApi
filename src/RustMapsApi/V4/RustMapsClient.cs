@@ -1,6 +1,7 @@
 using System.Net.Http;
 using System.Text;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 using RustMapsApi.Http;
 using RustMapsApi.Results;
 using RustMapsApi.Serialization;
@@ -23,7 +24,10 @@ public sealed class RustMapsClient : IRustMapsClient
     public RustMapsClient(HttpClient httpClient)
     {
         _httpClient = httpClient ?? throw new ArgumentNullException(nameof(httpClient));
-        _jsonOptions = RustMapsJsonOptions.Create(RustMapsJsonContextV4.Default);
+        _jsonOptions = RustMapsJsonOptions.Create(
+            RustMapsJsonContextV4.Default,
+            new JsonNumberEnumConverter<BiomeType>(),
+            new JsonNumberEnumConverter<MonumentType>());
     }
 
     /// <inheritdoc/>
@@ -59,8 +63,19 @@ public sealed class RustMapsClient : IRustMapsClient
 
     /// <inheritdoc/>
     public Task<Result<MapGenerationStatus>> CreateMapAsync(MapGenerationRequest request,
-        CancellationToken cancellationToken = default) =>
-        PostJsonAsync<MapGenerationRequest, MapGenerationStatus>(BasePath, request, orgId: null, cancellationToken);
+        CancellationToken cancellationToken = default)
+    {
+#if NET
+        ArgumentNullException.ThrowIfNull(request);
+#else
+        if (request is null)
+        {
+            throw new ArgumentNullException(nameof(request));
+        }
+#endif
+        return PostJsonAsync<MapGenerationRequest, MapGenerationStatus>(BasePath, request, orgId: null,
+            cancellationToken);
+    }
 
     /// <inheritdoc/>
     [System.Diagnostics.CodeAnalysis.SuppressMessage(

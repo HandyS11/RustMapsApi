@@ -73,4 +73,13 @@ public class RustMapsClientMapsTests
         Assert.False(result.IsSuccess);
         Assert.Equal(RustMapsErrorKind.Queued, result.Error!.Kind);
     }
+
+    [Fact]
+    public async Task CreateMapAsync_NullRequest_Throws()
+    {
+        var handler = new TestHttpMessageHandler(HttpStatusCode.OK, "{}");
+        var client = CreateClient(handler);
+
+        await Assert.ThrowsAsync<ArgumentNullException>(() => client.CreateMapAsync(null!));
+    }
 }

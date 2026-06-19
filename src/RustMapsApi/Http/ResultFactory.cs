@@ -66,8 +66,17 @@ internal static class ResultFactory
         if (response.IsSuccessStatusCode)
         {
             var envelope = JsonSerializer.Deserialize<PagedServiceResponse<IReadOnlyList<T>>>(body, options);
-            var data = envelope?.Data ?? Array.Empty<T>();
-            return Result<IReadOnlyList<T>>.Success(data, statusCode);
+
+            // An empty list is a valid "no matches" result; a missing/null data field on a
+            // 2xx is a malformed envelope and fails (consistent with FromResponseAsync).
+            if (envelope is { Data: { } data })
+            {
+                return Result<IReadOnlyList<T>>.Success(data, statusCode);
+            }
+
+            return Result<IReadOnlyList<T>>.Failure(
+                new RustMapsError(RustMapsErrorKind.Unknown, "Response contained no data.", body, null),
+                statusCode);
         }
 
         var kind = MapStatusCode(statusCode);

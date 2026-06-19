@@ -47,4 +47,30 @@ public class RustMapsClientSearchTests
         Assert.Equal("/v4/maps/search", handler.LastRequest.RequestUri!.AbsolutePath);
         Assert.Contains("page=0", handler.LastRequest.RequestUri.Query);
     }
+
+    [Fact]
+    public async Task SearchAsync_EmptyDataArray_SucceedsWithEmptyList()
+    {
+        var handler = new TestHttpMessageHandler(
+            HttpStatusCode.OK, "{\"meta\":{\"status\":\"Success\",\"statusCode\":200},\"data\":[]}");
+        var client = CreateClient(handler);
+
+        var result = await client.SearchAsync(new SearchQuery(), page: 0);
+
+        Assert.True(result.IsSuccess);
+        Assert.Empty(result.Data!);
+    }
+
+    [Fact]
+    public async Task SearchAsync_MissingData_Fails()
+    {
+        var handler = new TestHttpMessageHandler(
+            HttpStatusCode.OK, "{\"meta\":{\"status\":\"Success\",\"statusCode\":200}}");
+        var client = CreateClient(handler);
+
+        var result = await client.SearchAsync(new SearchQuery(), page: 0);
+
+        Assert.False(result.IsSuccess);
+        Assert.NotNull(result.Error);
+    }
 }
