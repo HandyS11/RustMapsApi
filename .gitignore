@@ -421,6 +421,9 @@ docs/product/
 # Stryker mutation testing output
 StrykerOutput/
 
+# Subagent-driven-development scratch state
+.superpowers/
+
 tmp/
 temp/
 
