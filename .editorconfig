@@ -22,7 +22,7 @@ trim_trailing_whitespace = true
 # Organize usings
 dotnet_separate_import_directive_groups = false:suggestion
 dotnet_sort_system_directives_first = false:suggestion
-csharp_using_directive_placement = outside_namespace:suggestion
+csharp_using_directive_placement = outside_namespace:warning
 file_header_template = unset
 
 # this. and Me. preferences
@@ -392,7 +392,9 @@ roslynator_compiler_diagnostic_fixes.enabled = true
 dotnet_diagnostic.CA1002.severity = none # Do not expose generic lists — API uses List<T> intentionally for protobuf collections
 dotnet_diagnostic.CA1008.severity = none # Enums should have zero value
 dotnet_diagnostic.CA1031.severity = none # Do not catch general exception types (intentional for fail-safe CLI resilience)
+dotnet_diagnostic.CA1054.severity = none # Uri parameters should not be strings — RustMaps map URLs are user-supplied strings
 dotnet_diagnostic.CA1056.severity = none # Uri properties should not be strings
+dotnet_diagnostic.CA2234.severity = none # Pass System.Uri — typed HttpClient uses relative path strings against a base address
 dotnet_diagnostic.CA1303.severity = none # Do not pass literals as localized parameters (literal strings in console output — CLI tool not localized)
 dotnet_diagnostic.CA1308.severity = none # Normalize strings to uppercase
 dotnet_diagnostic.CS1574.severity = none # XML comment has cref attribute that could not be resolved (boring with {} generics)
@@ -452,6 +454,8 @@ dotnet_diagnostic.CA2227.severity = none # Collection properties should be read-
 
 [**/*Tests*/**.cs]
 dotnet_diagnostic.CA1309.severity = none # Use ordinal string comparison (not suitable for testing gridify sorting)
+dotnet_diagnostic.CA1307.severity = none # StringComparison overload not necessary for test assertions
+dotnet_diagnostic.CA2263.severity = none # Non-generic JsonSerializer overload is fine in tests
 dotnet_diagnostic.CA1515.severity = none # Application API means internal classes
 dotnet_diagnostic.CS1591.severity = none # Missing XML comment for publicly visible type or member
 dotnet_diagnostic.CA2000.severity = none # Using statement required for IDisposable
