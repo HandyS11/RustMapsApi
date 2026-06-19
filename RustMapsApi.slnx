@@ -3,5 +3,6 @@
     <Project Path="src/RustMapsApi/RustMapsApi.csproj" />
   </Folder>
   <Folder Name="/tests/">
+    <Project Path="tests/RustMapsApi.Tests/RustMapsApi.Tests.csproj" />
   </Folder>
 </Solution>
