@@ -49,6 +49,66 @@ public class RustMapsClientSearchTests
     }
 
     [Fact]
+    public async Task SearchAsync_SerializesSearchQueryIntoBody()
+    {
+        var handler = new TestHttpMessageHandler(HttpStatusCode.OK, PagedJson);
+        var client = CreateClient(handler);
+
+        await client.SearchAsync(new SearchQuery
+        {
+            Size = new MinMaxFilter(4500, 4500)
+        }, page: 0);
+
+        Assert.NotNull(handler.LastRequest!.Content);
+        Assert.Contains("searchQuery", handler.LastRequestBody);
+        Assert.Contains("4500", handler.LastRequestBody);
+    }
+
+    [Fact]
+    public async Task SearchAsync_WithOrgId_SendsOrgHeader()
+    {
+        var handler = new TestHttpMessageHandler(HttpStatusCode.OK, PagedJson);
+        var client = CreateClient(handler);
+
+        await client.SearchAsync(new SearchQuery(), page: 0, orgId: "org-9");
+
+        Assert.True(handler.LastRequest!.Headers.Contains("x-org-id"));
+    }
+
+    [Fact]
+    public async Task SearchAsync_WithoutOrgId_OmitsOrgHeader()
+    {
+        var handler = new TestHttpMessageHandler(HttpStatusCode.OK, PagedJson);
+        var client = CreateClient(handler);
+
+        await client.SearchAsync(new SearchQuery(), page: 0);
+
+        Assert.False(handler.LastRequest!.Headers.Contains("x-org-id"));
+    }
+
+    [Fact]
+    public async Task SearchByFilterAsync_WithOrgId_SendsOrgHeader()
+    {
+        var handler = new TestHttpMessageHandler(HttpStatusCode.OK, PagedJson);
+        var client = CreateClient(handler);
+
+        await client.SearchByFilterAsync("filter-1", page: 0, orgId: "org-2");
+
+        Assert.True(handler.LastRequest!.Headers.Contains("x-org-id"));
+    }
+
+    [Fact]
+    public async Task SearchByFilterAsync_WithoutOrgId_OmitsOrgHeader()
+    {
+        var handler = new TestHttpMessageHandler(HttpStatusCode.OK, PagedJson);
+        var client = CreateClient(handler);
+
+        await client.SearchByFilterAsync("filter-1", page: 0);
+
+        Assert.False(handler.LastRequest!.Headers.Contains("x-org-id"));
+    }
+
+    [Fact]
     public async Task SearchAsync_EmptyDataArray_SucceedsWithEmptyList()
     {
         var handler = new TestHttpMessageHandler(

@@ -11,6 +11,9 @@
       "low": 70,
       "break": 60
     },
-    "mutation-level": "Standard"
+    "mutation-level": "Standard",
+    "ignore-methods": [
+      "ConfigureAwait"
+    ]
   }
 }

@@ -28,7 +28,43 @@ public class ServiceCollectionExtensionsTests
         using var provider = services.BuildServiceProvider();
 
         var options = provider.GetRequiredService<IOptions<RustMapsClientOptions>>();
-        Assert.Throws<OptionsValidationException>(() => _ = options.Value);
+        var ex = Assert.Throws<OptionsValidationException>(() => _ = options.Value);
+        Assert.Contains("RustMaps ApiKey must be provided.", ex.Message);
+    }
+
+    [Fact]
+    public void AddRustMapsClientV4_WithIConfiguration_EmptyApiKey_FailsWithSameMessage()
+    {
+        var configuration = new ConfigurationBuilder()
+            .AddInMemoryCollection(new Dictionary<string, string?>
+            {
+                {
+                    "ApiKey", ""
+                }
+            })
+            .Build();
+
+        var services = new ServiceCollection();
+        services.AddRustMapsClientV4(configuration);
+        using var provider = services.BuildServiceProvider();
+
+        var options = provider.GetRequiredService<IOptions<RustMapsClientOptions>>();
+        var ex = Assert.Throws<OptionsValidationException>(() => _ = options.Value);
+        Assert.Contains("RustMaps ApiKey must be provided.", ex.Message);
+    }
+
+    [Fact]
+    public void AddRustMapsClientV4_ConfiguredClient_SendsApiKeyHeader()
+    {
+        var services = new ServiceCollection();
+        services.AddRustMapsClientV4(options => options.ApiKey = "secret-key");
+        using var provider = services.BuildServiceProvider();
+
+        var factory = provider.GetRequiredService<IHttpClientFactory>();
+        using var http = factory.CreateClient(nameof(IRustMapsClient));
+
+        Assert.True(http.DefaultRequestHeaders.Contains("X-API-Key"));
+        Assert.Equal("secret-key", http.DefaultRequestHeaders.GetValues("X-API-Key").Single());
     }
 
     [Fact]
