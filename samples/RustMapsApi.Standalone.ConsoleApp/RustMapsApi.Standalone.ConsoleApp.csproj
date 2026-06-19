@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net10.0</TargetFramework>
+    <IsPackable>false</IsPackable>
+    <!-- S1075: the RustMaps base URL is intentionally shown inline so the sample documents the address. -->
+    <NoWarn>$(NoWarn);S1075</NoWarn>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\RustMapsApi.Samples.Shared\RustMapsApi.Samples.Shared.csproj" />
+  </ItemGroup>
+
+</Project>
