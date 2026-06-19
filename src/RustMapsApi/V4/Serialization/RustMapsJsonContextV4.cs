@@ -16,6 +16,7 @@ namespace RustMapsApi.V4.Serialization;
 [JsonSerializable(typeof(ServiceResponse<object>))]
 [JsonSerializable(typeof(PagedServiceResponse<IReadOnlyList<MapThumbnail>>))]
 [JsonSerializable(typeof(MapGenerationRequest))]
+[JsonSerializable(typeof(MapSearchRequest))]
 [JsonSerializable(typeof(SearchQuery))]
 [JsonSerializable(typeof(CreateCustomMapRequest))]
 [JsonSerializable(typeof(CreateCustomMapFromConfigRequest))]

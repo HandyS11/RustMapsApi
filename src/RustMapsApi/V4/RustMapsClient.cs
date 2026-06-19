@@ -85,18 +85,41 @@ public sealed class RustMapsClient : IRustMapsClient
         return await ResultFactory.FromResponseAsync<UploadedMap>(response, _jsonOptions, cancellationToken).ConfigureAwait(false);
     }
 
-    // Remaining members implemented in Tasks 13-15.
+    /// <inheritdoc/>
+    public async Task<Result<IReadOnlyList<MapThumbnail>>> SearchByFilterAsync(
+        string filterId, int page, SearchOptions? options = null, string? orgId = null, CancellationToken cancellationToken = default)
+    {
+        var path = $"{BasePath}/filter/{Uri.EscapeDataString(filterId)}{QueryStringBuilder.Build(page, options)}";
+        using var request = new HttpRequestMessage(HttpMethod.Get, path);
+        if (orgId is not null)
+        {
+            request.Headers.Add("x-org-id", orgId);
+        }
+
+        using var response = await _httpClient.SendAsync(request, cancellationToken).ConfigureAwait(false);
+        return await ResultFactory.FromPagedResponseAsync<MapThumbnail>(response, _jsonOptions, cancellationToken).ConfigureAwait(false);
+    }
+
+    /// <inheritdoc/>
+    public async Task<Result<IReadOnlyList<MapThumbnail>>> SearchAsync(
+        SearchQuery query, int page, SearchOptions? options = null, string? orgId = null, CancellationToken cancellationToken = default)
+    {
+        var path = $"{BasePath}/search{QueryStringBuilder.Build(page, options)}";
+        using var request = new HttpRequestMessage(HttpMethod.Post, path)
+        {
+            Content = JsonContent(new MapSearchRequest { SearchQuery = query }),
+        };
+        if (orgId is not null)
+        {
+            request.Headers.Add("x-org-id", orgId);
+        }
+
+        using var response = await _httpClient.SendAsync(request, cancellationToken).ConfigureAwait(false);
+        return await ResultFactory.FromPagedResponseAsync<MapThumbnail>(response, _jsonOptions, cancellationToken).ConfigureAwait(false);
+    }
+
+    // Remaining members implemented in Tasks 14-15.
     // Temporary NotImplemented stubs keep the interface satisfied until then.
-
-    /// <inheritdoc/>
-    public Task<Result<IReadOnlyList<MapThumbnail>>> SearchByFilterAsync(
-        string filterId, int page, SearchOptions? options = null, string? orgId = null, CancellationToken cancellationToken = default) =>
-        throw new NotImplementedException();
-
-    /// <inheritdoc/>
-    public Task<Result<IReadOnlyList<MapThumbnail>>> SearchAsync(
-        SearchQuery query, int page, SearchOptions? options = null, string? orgId = null, CancellationToken cancellationToken = default) =>
-        throw new NotImplementedException();
 
     /// <inheritdoc/>
     public Task<Result<MapGenLimits>> GetLimitsAsync(string? orgId = null, CancellationToken cancellationToken = default) =>
