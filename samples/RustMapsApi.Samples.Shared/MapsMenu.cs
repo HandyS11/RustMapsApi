@@ -86,7 +86,10 @@ public static class MapsMenu
         var max = ConsolePrompt.ReadInt("Max size", 4500);
         var page = ConsolePrompt.ReadInt("Page (zero-based)", 0);
         // SearchQuery exposes many filters; this sample uses the size range only.
-        var query = new SearchQuery { Size = new MinMaxFilter(min, max) };
+        var query = new SearchQuery
+        {
+            Size = new MinMaxFilter(min, max)
+        };
         ResultRenderer.Render(await client.SearchAsync(query, page, options: null, orgId: null, ct));
     }
 
@@ -128,7 +131,10 @@ public static class MapsMenu
             return;
         }
 
-        var request = new MapGenerationRequest { Size = size, Seed = seed, Staging = false };
+        var request = new MapGenerationRequest
+        {
+            Size = size, Seed = seed, Staging = false
+        };
         ResultRenderer.Render(await client.CreateMapAsync(request, ct));
     }
 
@@ -153,7 +159,10 @@ public static class MapsMenu
 
         var request = new CreateCustomMapRequest
         {
-            MapParameters = new MapGenerationRequest { Size = size, Seed = seed, Staging = false },
+            MapParameters = new MapGenerationRequest
+            {
+                Size = size, Seed = seed, Staging = false
+            },
             CustomMapSettings = defaults.Data!,
         };
         ResultRenderer.Render(await client.CreateCustomMapAsync(request, ct));
@@ -172,7 +181,10 @@ public static class MapsMenu
 
         var request = new CreateCustomMapFromConfigRequest
         {
-            MapParameters = new MapGenerationRequest { Size = size, Seed = seed, Staging = false },
+            MapParameters = new MapGenerationRequest
+            {
+                Size = size, Seed = seed, Staging = false
+            },
             ConfigName = configName,
         };
         ResultRenderer.Render(await client.CreateCustomMapFromConfigAsync(request, ct));
@@ -196,9 +208,7 @@ public static class MapsMenu
         await using var stream = File.OpenRead(path);
         var upload = new MapUpload
         {
-            Map = stream,
-            FileName = Path.GetFileName(path),
-            Staging = false,
+            Map = stream, FileName = Path.GetFileName(path), Staging = false,
         };
         ResultRenderer.Render(await client.UploadMapAsync(upload, ct));
     }

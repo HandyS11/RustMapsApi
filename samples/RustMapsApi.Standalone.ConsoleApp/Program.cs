@@ -8,7 +8,10 @@ if (string.IsNullOrWhiteSpace(apiKey))
     return 1;
 }
 
-using var http = new HttpClient { BaseAddress = new Uri("https://api.rustmaps.com") };
+using var http = new HttpClient
+{
+    BaseAddress = new Uri("https://api.rustmaps.com")
+};
 http.DefaultRequestHeaders.Add("X-API-Key", apiKey);
 
 var client = new RustMapsClient(http);
