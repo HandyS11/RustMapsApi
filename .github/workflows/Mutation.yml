@@ -1,0 +1,48 @@
+name: Mutation Testing
+
+permissions:
+  contents: read
+
+# Mutation runs rebuild + rerun the suite per mutant, so they are slow. Gate them
+# behind manual dispatch and a weekly schedule rather than every PR.
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 3 * * 1" # Mondays 03:00 UTC
+
+jobs:
+  stryker:
+    name: Stryker mutation testing
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v5
+        with:
+          dotnet-version: 10.0.x
+
+      - name: Restore tools
+        run: dotnet tool restore
+
+      - name: Stryker with dashboard
+        env:
+          STRYKER_DASHBOARD_API_KEY: ${{ secrets.STRYKER_DASHBOARD_API_KEY }}
+        working-directory: tests/RustMapsApi.Tests
+        run: >
+          dotnet stryker
+          --config-file stryker-config.json
+          --project RustMapsApi.csproj
+          --version ${{ github.ref_name }}
+          --reporter cleartext
+          --reporter html
+          --reporter dashboard
+
+      - name: Upload mutation report
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: stryker-report
+          path: tests/RustMapsApi.Tests/StrykerOutput/**/reports/mutation-report.html
+          if-no-files-found: ignore
