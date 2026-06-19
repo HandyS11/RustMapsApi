@@ -1,0 +1,58 @@
+{
+  "meta": {
+    "status": "Success",
+    "statusCode": 200
+  },
+  "data": {
+    "id": "abc123",
+    "type": "procedural",
+    "seed": 1803363826,
+    "size": 4500,
+    "saveVersion": 262,
+    "url": "https://rustmaps.com/map/4500_1803363826",
+    "rawImageUrl": "https://content.rustmaps.com/maps/abc123/raw.png",
+    "imageUrl": "https://content.rustmaps.com/maps/abc123/image.png",
+    "imageIconUrl": "https://content.rustmaps.com/maps/abc123/icons.png",
+    "thumbnailUrl": "https://content.rustmaps.com/maps/abc123/thumbnail.png",
+    "isStaging": false,
+    "isCustomMap": false,
+    "canDownload": true,
+    "downloadUrl": "https://content.rustmaps.com/maps/abc123/map.map",
+    "totalMonuments": 2,
+    "monuments": [
+      {
+        "type": 90,
+        "coordinates": {
+          "x": 1200,
+          "y": 3400
+        },
+        "nameOverride": null
+      },
+      {
+        "type": 45,
+        "coordinates": {
+          "x": 800,
+          "y": 2100
+        },
+        "nameOverride": "Custom Launch"
+      }
+    ],
+    "landPercentageOfMap": 72,
+    "biomePercentages": {
+      "s": 0.30,
+      "d": 0.20,
+      "f": 0.35,
+      "t": 0.10,
+      "j": 0.05
+    },
+    "islands": 4,
+    "mountains": 6,
+    "iceLakes": 2,
+    "rivers": 3,
+    "lakes": 1,
+    "canyons": 2,
+    "oases": 0,
+    "buildableRocks": 18,
+    "estimatedDeletionDate": "2026-09-01T00:00:00+00:00"
+  }
+}
