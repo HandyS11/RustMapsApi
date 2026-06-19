@@ -123,14 +123,17 @@ public sealed class RustMapsClient : IRustMapsClient
 
     /// <inheritdoc/>
     public Task<Result<MapGenLimits>> GetLimitsAsync(string? orgId = null, CancellationToken cancellationToken = default) =>
-        throw new NotImplementedException();
+        GetAsync<MapGenLimits>($"{BasePath}/limits", orgId, cancellationToken);
 
     /// <inheritdoc/>
-    public Task<Result<IReadOnlyList<CustomMapSettings>>> GetSavedConfigsAsync(CancellationToken cancellationToken = default) =>
-        throw new NotImplementedException();
+    public async Task<Result<IReadOnlyList<MapSettings>>> GetSavedConfigsAsync(CancellationToken cancellationToken = default)
+    {
+        using var response = await _httpClient.GetAsync($"{BasePath}/custom/saved-configs", cancellationToken).ConfigureAwait(false);
+        return await ResultFactory.FromResponseAsync<IReadOnlyList<MapSettings>>(response, _jsonOptions, cancellationToken).ConfigureAwait(false);
+    }
 
     /// <inheritdoc/>
-    public Task<Result<MapSettings>> GetMapSettingsAsync(string mapId, CancellationToken cancellationToken = default) =>
+    public Task<Result<CustomMapSettings>> GetMapSettingsAsync(string mapId, CancellationToken cancellationToken = default) =>
         throw new NotImplementedException();
 
     /// <inheritdoc/>
@@ -144,6 +147,18 @@ public sealed class RustMapsClient : IRustMapsClient
     /// <inheritdoc/>
     public Task<Result<MapGenerationStatus>> CreateCustomMapFromConfigAsync(CreateCustomMapFromConfigRequest request, CancellationToken cancellationToken = default) =>
         throw new NotImplementedException();
+
+    private async Task<Result<TResponse>> GetAsync<TResponse>(string path, string? orgId, CancellationToken cancellationToken)
+    {
+        using var request = new HttpRequestMessage(HttpMethod.Get, path);
+        if (orgId is not null)
+        {
+            request.Headers.Add("x-org-id", orgId);
+        }
+
+        using var response = await _httpClient.SendAsync(request, cancellationToken).ConfigureAwait(false);
+        return await ResultFactory.FromResponseAsync<TResponse>(response, _jsonOptions, cancellationToken).ConfigureAwait(false);
+    }
 
     private async Task<Result<TResponse>> PostJsonAsync<TRequest, TResponse>(
         string path, TRequest body, string? orgId, CancellationToken cancellationToken)

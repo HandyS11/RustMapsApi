@@ -12,7 +12,7 @@ namespace RustMapsApi.V4.Serialization;
 [JsonSerializable(typeof(ServiceResponse<MapSettings>))]
 [JsonSerializable(typeof(ServiceResponse<CustomMapSettings>))]
 [JsonSerializable(typeof(ServiceResponse<UploadedMap>))]
-[JsonSerializable(typeof(ServiceResponse<IReadOnlyList<CustomMapSettings>>))]
+[JsonSerializable(typeof(ServiceResponse<IReadOnlyList<MapSettings>>))]
 [JsonSerializable(typeof(ServiceResponse<object>))]
 [JsonSerializable(typeof(PagedServiceResponse<IReadOnlyList<MapThumbnail>>))]
 [JsonSerializable(typeof(MapGenerationRequest))]

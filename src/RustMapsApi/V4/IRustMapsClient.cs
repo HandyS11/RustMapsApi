@@ -67,14 +67,14 @@ public interface IRustMapsClient
 
     /// <summary>Gets the caller's saved custom-map configs.</summary>
     /// <param name="cancellationToken">A token to cancel the request.</param>
-    /// <returns>The saved configs.</returns>
-    Task<Result<IReadOnlyList<CustomMapSettings>>> GetSavedConfigsAsync(CancellationToken cancellationToken = default);
+    /// <returns>The saved, named configs.</returns>
+    Task<Result<IReadOnlyList<MapSettings>>> GetSavedConfigsAsync(CancellationToken cancellationToken = default);
 
     /// <summary>Gets the custom-map settings used to generate a map.</summary>
     /// <param name="mapId">The map identifier.</param>
     /// <param name="cancellationToken">A token to cancel the request.</param>
-    /// <returns>The saved settings.</returns>
-    Task<Result<MapSettings>> GetMapSettingsAsync(string mapId, CancellationToken cancellationToken = default);
+    /// <returns>The settings tree.</returns>
+    Task<Result<CustomMapSettings>> GetMapSettingsAsync(string mapId, CancellationToken cancellationToken = default);
 
     /// <summary>Gets the default custom-map configuration.</summary>
     /// <param name="cancellationToken">A token to cancel the request.</param>
