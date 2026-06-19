@@ -29,7 +29,7 @@ jobs:
       - name: Stryker with dashboard
         env:
           STRYKER_DASHBOARD_API_KEY: ${{ secrets.STRYKER_DASHBOARD_API_KEY }}
-        working-directory: tests/RustMapsApi.Tests
+        working-directory: tests/RustMapsApi.Tests.Unit
         run: >
           dotnet stryker
           --config-file stryker-config.json
@@ -44,5 +44,5 @@ jobs:
         uses: actions/upload-artifact@v7
         with:
           name: stryker-report
-          path: tests/RustMapsApi.Tests/StrykerOutput/**/reports/mutation-report.html
+          path: tests/RustMapsApi.Tests.Unit/StrykerOutput/**/reports/mutation-report.html
           if-no-files-found: ignore
