@@ -12,23 +12,18 @@ using RustMapsApi.V4.Serialization;
 namespace RustMapsApi.V4;
 
 /// <inheritdoc cref="IRustMapsClient"/>
-public sealed class RustMapsClient : IRustMapsClient
+/// <param name="httpClient">The configured HTTP client (base address and auth header set by the caller).</param>
+public sealed class RustMapsClient(HttpClient httpClient) : IRustMapsClient
 {
     private const string BasePath = "v4/maps";
+    private const string OrgIdHeader = "x-org-id";
 
-    private readonly HttpClient _httpClient;
-    private readonly JsonSerializerOptions _jsonOptions;
+    private readonly HttpClient _httpClient = httpClient ?? throw new ArgumentNullException(nameof(httpClient));
 
-    /// <summary>Creates a client over the supplied <see cref="HttpClient"/>.</summary>
-    /// <param name="httpClient">The configured HTTP client (base address and auth header set by the caller).</param>
-    public RustMapsClient(HttpClient httpClient)
-    {
-        _httpClient = httpClient ?? throw new ArgumentNullException(nameof(httpClient));
-        _jsonOptions = RustMapsJsonOptions.Create(
-            RustMapsJsonContextV4.Default,
-            new JsonNumberEnumConverter<BiomeType>(),
-            new JsonNumberEnumConverter<MonumentType>());
-    }
+    private readonly JsonSerializerOptions _jsonOptions = RustMapsJsonOptions.Create(
+        RustMapsJsonContextV4.Default,
+        new JsonNumberEnumConverter<BiomeType>(),
+        new JsonNumberEnumConverter<MonumentType>());
 
     /// <inheritdoc/>
     public async Task<Result<MapInfo>> GetMapByIdAsync(string mapId, CancellationToken cancellationToken = default)
@@ -124,7 +119,7 @@ public sealed class RustMapsClient : IRustMapsClient
         using var request = new HttpRequestMessage(HttpMethod.Get, path);
         if (orgId is not null)
         {
-            request.Headers.Add("x-org-id", orgId);
+            request.Headers.Add(OrgIdHeader, orgId);
         }
 
         using var response = await _httpClient.SendAsync(request, cancellationToken).ConfigureAwait(false);
@@ -150,7 +145,7 @@ public sealed class RustMapsClient : IRustMapsClient
         };
         if (orgId is not null)
         {
-            request.Headers.Add("x-org-id", orgId);
+            request.Headers.Add(OrgIdHeader, orgId);
         }
 
         using var response = await _httpClient.SendAsync(request, cancellationToken).ConfigureAwait(false);
@@ -236,7 +231,7 @@ public sealed class RustMapsClient : IRustMapsClient
         using var request = new HttpRequestMessage(HttpMethod.Get, path);
         if (orgId is not null)
         {
-            request.Headers.Add("x-org-id", orgId);
+            request.Headers.Add(OrgIdHeader, orgId);
         }
 
         using var response = await _httpClient.SendAsync(request, cancellationToken).ConfigureAwait(false);
@@ -256,7 +251,7 @@ public sealed class RustMapsClient : IRustMapsClient
         };
         if (orgId is not null)
         {
-            request.Headers.Add("x-org-id", orgId);
+            request.Headers.Add(OrgIdHeader, orgId);
         }
 
         using var response = await _httpClient.SendAsync(request, cancellationToken).ConfigureAwait(false);
