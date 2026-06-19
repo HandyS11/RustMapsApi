@@ -452,6 +452,8 @@ dotnet_diagnostic.CA2227.severity = none # Collection properties should be read-
 
 [**/*Tests*/**.cs]
 dotnet_diagnostic.CA1309.severity = none # Use ordinal string comparison (not suitable for testing gridify sorting)
+dotnet_diagnostic.CA1307.severity = none # StringComparison overload not necessary for test assertions
+dotnet_diagnostic.CA2263.severity = none # Non-generic JsonSerializer overload is fine in tests
 dotnet_diagnostic.CA1515.severity = none # Application API means internal classes
 dotnet_diagnostic.CS1591.severity = none # Missing XML comment for publicly visible type or member
 dotnet_diagnostic.CA2000.severity = none # Using statement required for IDisposable
