@@ -18,6 +18,7 @@ public class ResultFactoryErrorTests
     [InlineData(HttpStatusCode.Unauthorized, RustMapsErrorKind.Unauthorized)]
     [InlineData(HttpStatusCode.Forbidden, RustMapsErrorKind.Forbidden)]
     [InlineData(HttpStatusCode.NotFound, RustMapsErrorKind.NotFound)]
+    [InlineData(HttpStatusCode.Conflict, RustMapsErrorKind.Queued)]
     [InlineData(HttpStatusCode.TooManyRequests, RustMapsErrorKind.RateLimited)]
     [InlineData(HttpStatusCode.InternalServerError, RustMapsErrorKind.Unknown)]
     public async Task GetMapByIdAsync_MapsStatusCodeToErrorKind(HttpStatusCode status, RustMapsErrorKind expected)
