@@ -1,0 +1,7 @@
+# DocFX API filter for RustMapsApi.
+# Unlike RustPlusApi there are no internal protocol/wire namespaces to hide — the
+# entire public V4 surface (client, models, requests, results) is documented. This
+# file is kept for parity and future use; it only drops generated assembly metadata.
+apiRules:
+  - exclude:
+      uidRegex: ^RustMapsApi\.Properties
