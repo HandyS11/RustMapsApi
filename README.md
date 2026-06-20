@@ -8,12 +8,17 @@ generation limits — with `Result<T>` everywhere and first-class dependency inj
 
 [![CI](https://github.com/HandyS11/RustMapsApi/actions/workflows/CI.yml/badge.svg)](https://github.com/HandyS11/RustMapsApi/actions/workflows/CI.yml)
 [![CD](https://github.com/HandyS11/RustMapsApi/actions/workflows/CD.yml/badge.svg)](https://github.com/HandyS11/RustMapsApi/actions/workflows/CD.yml)
+[![Docs](https://github.com/HandyS11/RustMapsApi/actions/workflows/Documentation.yml/badge.svg)](https://handys11.github.io/RustMapsApi/)
 
 ![.NET](https://img.shields.io/badge/.NET-Standard%202.0%20%7C%2010-512BD4)
 [![NuGet Version](https://img.shields.io/nuget/v/RustMapsApi.svg)](https://www.nuget.org/packages/RustMapsApi)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![codecov](https://codecov.io/gh/HandyS11/RustMapsApi/branch/develop/graph/badge.svg?token=ua3M5MyCNz)](https://codecov.io/gh/HandyS11/RustMapsApi)
 [![Mutation Score](https://img.shields.io/endpoint?style=flat&url=https%3A%2F%2Fbadge-api.stryker-mutator.io%2Fgithub.com%2FHandyS11%2FRustMapsApi%2Fdevelop)](https://dashboard.stryker-mutator.io/reports/github.com/HandyS11/RustMapsApi/develop)
+
+[Getting Started](https://handys11.github.io/RustMapsApi/articles/getting-started.html) ·
+[Documentation](https://handys11.github.io/RustMapsApi/) ·
+[Samples](samples/README.md)
 
 </div>
 
@@ -71,6 +76,14 @@ dotnet test
 ```
 
 Live integration tests run only when `RUSTMAPS_API_KEY` is set; otherwise they are skipped.
+
+## Documentation
+
+Full guides and the API reference live on the
+**[documentation site](https://handys11.github.io/RustMapsApi/)** (built with DocFX). Start with
+[Getting Started](https://handys11.github.io/RustMapsApi/articles/getting-started.html), then see
+the [Client](https://handys11.github.io/RustMapsApi/articles/client.html) guide for the full API
+surface. Runnable examples are in [`samples/`](samples/README.md).
 
 ## Credits
 

@@ -1,13 +1,10 @@
 # RustMapsApi
 
 Strongly-typed .NET client for the public [RustMaps API](https://rustmaps.com) (v4).
-Targets `netstandard2.0` and `net10.0`.
 
-## Install
-
-```bash
-dotnet add package RustMapsApi
-```
+📖 **[Documentation](https://handys11.github.io/RustMapsApi/)** ·
+[Getting Started](https://handys11.github.io/RustMapsApi/articles/getting-started.html) ·
+[Client guide](https://handys11.github.io/RustMapsApi/articles/client.html)
 
 ## Usage (dependency injection)
 
