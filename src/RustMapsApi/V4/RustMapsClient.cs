@@ -1,7 +1,6 @@
 using System.Net.Http;
 using System.Text;
 using System.Text.Json;
-using System.Text.Json.Serialization;
 using RustMapsApi.Http;
 using RustMapsApi.Results;
 using RustMapsApi.Serialization;
@@ -22,8 +21,8 @@ public sealed class RustMapsClient(HttpClient httpClient) : IRustMapsClient
 
     private readonly JsonSerializerOptions _jsonOptions = RustMapsJsonOptions.Create(
         RustMapsJsonContextV4.Default,
-        new JsonNumberEnumConverter<BiomeType>(),
-        new JsonNumberEnumConverter<MonumentType>());
+        new TolerantNumberEnumConverter<BiomeType>(BiomeType.Unknown),
+        new TolerantNumberEnumConverter<MonumentType>(MonumentType.Unknown));
 
     /// <inheritdoc/>
     public async Task<Result<MapInfo>> GetMapByIdAsync(string mapId, CancellationToken cancellationToken = default)

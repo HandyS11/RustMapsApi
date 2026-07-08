@@ -10,8 +10,8 @@ public partial class EnumWireFormatTests
 {
     private static JsonSerializerOptions Options() => RustMapsJsonOptions.Create(
         EnumContext.Default,
-        new JsonNumberEnumConverter<BiomeType>(),
-        new JsonNumberEnumConverter<MonumentType>());
+        new TolerantNumberEnumConverter<BiomeType>(BiomeType.Unknown),
+        new TolerantNumberEnumConverter<MonumentType>(MonumentType.Unknown));
 
     [Fact]
     public void BiomeType_SerializesAsInteger()
@@ -45,6 +45,15 @@ public partial class EnumWireFormatTests
 
         Assert.Contains("\"type\":45", json);
         Assert.DoesNotContain("launchSite", json);
+    }
+
+    [Fact]
+    public void MonumentType_ApartmentsComplex_DeserializesFromWireValue560()
+    {
+        var filter = JsonSerializer.Deserialize<MonumentFilter>(
+            "{\"type\":560,\"selectionStatus\":\"noPreference\"}", Options());
+
+        Assert.Equal(MonumentType.ApartmentsComplex, filter!.Type);
     }
 
     [Fact]

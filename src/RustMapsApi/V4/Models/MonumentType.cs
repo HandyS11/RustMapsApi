@@ -1,8 +1,13 @@
 namespace RustMapsApi.V4.Models;
 
-/// <summary>A Rust monument type. Values match the RustMaps wire protocol.</summary>
+/// <summary>A Rust monument type. Numeric values match the RustMaps wire protocol, except the
+/// <c>Unknown</c> (-1) member, which is a library-only fallback for values this version does not recognize.</summary>
 public enum MonumentType
 {
+    /// <summary>An unrecognized monument type not known to this library version. Not part of the
+    /// wire protocol; the tolerant-deserialization fallback for any undefined value.</summary>
+    Unknown = -1,
+
     /// <summary>The NotImplemented monument type (wire value 0).</summary>
     NotImplemented = 0,
 
@@ -311,6 +316,9 @@ public enum MonumentType
 
     /// <summary>The JungleZigguratA monument type (wire value 555).</summary>
     JungleZigguratA = 555,
+
+    /// <summary>The ApartmentsComplex monument type (wire value 560).</summary>
+    ApartmentsComplex = 560,
 
     /// <summary>The CustomMonument monument type (wire value 10000).</summary>
     CustomMonument = 10000,
