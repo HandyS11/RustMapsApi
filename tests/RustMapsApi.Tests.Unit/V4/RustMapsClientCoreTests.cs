@@ -36,10 +36,10 @@ public class RustMapsClientCoreTests
     public async Task GetMapByIdAsync_UnknownMonumentType_DeserializesToUnknownAndKeepsRawImageUrl()
     {
         const string json = """
-            {"meta":{"status":"Success","statusCode":200},
-            "data":{"id":"abc","rawImageUrl":"https://example/raw.png",
-            "monuments":[{"type":99999}]}}
-            """;
+                            {"meta":{"status":"Success","statusCode":200},
+                            "data":{"id":"abc","rawImageUrl":"https://example/raw.png",
+                            "monuments":[{"type":99999}]}}
+                            """;
         var handler = new TestHttpMessageHandler(HttpStatusCode.OK, json);
         var client = CreateClient(handler);
 

@@ -77,7 +77,10 @@ public partial class TolerantNumberEnumConverterTests
     [Fact]
     public void MonumentType_KnownValue_SerializesAsInteger()
     {
-        var json = JsonSerializer.Serialize(new Monument { Type = MonumentType.LaunchSite }, Options());
+        var json = JsonSerializer.Serialize(new Monument
+        {
+            Type = MonumentType.LaunchSite
+        }, Options());
 
         Assert.Contains("\"type\":45", json);
     }
@@ -85,7 +88,10 @@ public partial class TolerantNumberEnumConverterTests
     [Fact]
     public void MonumentType_Unknown_SerializesAsNegativeOne()
     {
-        var json = JsonSerializer.Serialize(new Monument { Type = MonumentType.Unknown }, Options());
+        var json = JsonSerializer.Serialize(new Monument
+        {
+            Type = MonumentType.Unknown
+        }, Options());
 
         Assert.Contains("\"type\":-1", json);
     }
@@ -94,10 +100,10 @@ public partial class TolerantNumberEnumConverterTests
     public void MapInfo_WithUnknownMonument_DeserializesAndKeepsRawImageUrl()
     {
         const string json = """
-            {"data":{"rawImageUrl":"https://example/raw.png",
-            "monuments":[{"type":99999},{"type":45}]},
-            "meta":{"status":"success","statusCode":200}}
-            """;
+                            {"data":{"rawImageUrl":"https://example/raw.png",
+                            "monuments":[{"type":99999},{"type":45}]},
+                            "meta":{"status":"success","statusCode":200}}
+                            """;
 
         var envelope = JsonSerializer.Deserialize<ServiceResponse<MapInfo>>(json, Options());
 
