@@ -1,4 +1,3 @@
-using System;
 using System.Globalization;
 using System.Text.Json;
 using System.Text.Json.Serialization;
@@ -11,14 +10,12 @@ namespace RustMapsApi.Serialization;
 /// unrecognized value never aborts the whole payload. <see cref="Write"/> emits the numeric value.
 /// </summary>
 /// <typeparam name="TEnum">The Int32-backed enum type.</typeparam>
-internal sealed class TolerantNumberEnumConverter<TEnum> : JsonConverter<TEnum>
+/// <remarks>Creates the converter with the fallback used for unrecognized values.</remarks>
+/// <param name="fallback">The member returned for any value not defined in <typeparamref name="TEnum"/>.</param>
+internal sealed class TolerantNumberEnumConverter<TEnum>(TEnum fallback) : JsonConverter<TEnum>
     where TEnum : struct, Enum
 {
-    private readonly TEnum _fallback;
-
-    /// <summary>Creates the converter with the fallback used for unrecognized values.</summary>
-    /// <param name="fallback">The member returned for any value not defined in <typeparamref name="TEnum"/>.</param>
-    public TolerantNumberEnumConverter(TEnum fallback) => _fallback = fallback;
+    private readonly TEnum _fallback = fallback;
 
     /// <summary>
     /// Overridden so <see cref="Read"/> is invoked for JSON null too, letting a null wire value

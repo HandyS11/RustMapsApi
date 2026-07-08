@@ -1,7 +1,6 @@
-using global::Microsoft.Extensions.Configuration;
-using global::Microsoft.Extensions.DependencyInjection;
-using global::Microsoft.Extensions.Options;
-using RustMapsApi;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
 using RustMapsApi.V4;
 
 namespace RustMapsApi.Tests.Unit.V4.DependencyInjection;

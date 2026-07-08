@@ -1,4 +1,3 @@
-using System.Net.Http;
 using RustMapsApi.V4;
 
 namespace RustMapsApi.Tests.Integration;

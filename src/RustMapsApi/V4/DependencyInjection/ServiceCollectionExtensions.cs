@@ -1,4 +1,4 @@
-using global::Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Configuration;
 using RustMapsApi;
 using RustMapsApi.V4;
 

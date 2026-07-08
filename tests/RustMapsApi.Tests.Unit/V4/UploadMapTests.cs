@@ -1,5 +1,4 @@
 using System.Net;
-using System.Net.Http;
 using System.Text;
 using RustMapsApi.V4;
 using RustMapsApi.V4.Requests;

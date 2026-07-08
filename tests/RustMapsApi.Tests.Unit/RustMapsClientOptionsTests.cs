@@ -1,5 +1,3 @@
-using RustMapsApi;
-
 namespace RustMapsApi.Tests.Unit;
 
 public class RustMapsClientOptionsTests
