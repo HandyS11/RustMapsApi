@@ -1,6 +1,7 @@
 namespace RustMapsApi.V4.Models;
 
-/// <summary>A Rust biome type. Values match the RustMaps wire protocol.</summary>
+/// <summary>A Rust biome type. Numeric values match the RustMaps wire protocol, except the
+/// <c>Unknown</c> (-1) member, which is a library-only fallback for values this version does not recognize.</summary>
 [System.Diagnostics.CodeAnalysis.SuppressMessage(
     "Design", "CA1027:Mark enums with FlagsAttribute",
     Justification =

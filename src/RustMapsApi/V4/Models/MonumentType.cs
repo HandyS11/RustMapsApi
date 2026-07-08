@@ -1,6 +1,7 @@
 namespace RustMapsApi.V4.Models;
 
-/// <summary>A Rust monument type. Values match the RustMaps wire protocol.</summary>
+/// <summary>A Rust monument type. Numeric values match the RustMaps wire protocol, except the
+/// <c>Unknown</c> (-1) member, which is a library-only fallback for values this version does not recognize.</summary>
 public enum MonumentType
 {
     /// <summary>An unrecognized monument type not known to this library version. Not part of the
