@@ -3,7 +3,7 @@ namespace RustMapsApi.V4.Models;
 /// <summary>A Rust biome type. Values match the RustMaps wire protocol.</summary>
 [System.Diagnostics.CodeAnalysis.SuppressMessage(
     "Design", "CA1027:Mark enums with FlagsAttribute",
-    Justification = "Power-of-two values mirror the wire protocol but are used as single values, not bitwise flags.")]
+    Justification = "Values mirror the wire protocol (mostly powers of two, plus the -1 Unknown fallback) and are used as single values, not bitwise flags.")]
 public enum BiomeType
 {
     /// <summary>An unrecognized biome type not known to this library version. Not part of the

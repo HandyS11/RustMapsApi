@@ -316,7 +316,7 @@ public enum MonumentType
     /// <summary>The JungleZigguratA monument type (wire value 555).</summary>
     JungleZigguratA = 555,
 
-    /// <summary>The Apartments Complex monument type (wire value 560).</summary>
+    /// <summary>The ApartmentsComplex monument type (wire value 560).</summary>
     ApartmentsComplex = 560,
 
     /// <summary>The CustomMonument monument type (wire value 10000).</summary>

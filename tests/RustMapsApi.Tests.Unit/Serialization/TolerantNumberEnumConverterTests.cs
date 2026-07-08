@@ -47,6 +47,26 @@ public partial class TolerantNumberEnumConverterTests
     }
 
     [Fact]
+    public void MonumentType_ObjectValue_SkipsTokenAndMapsToUnknown()
+    {
+        var monument = JsonSerializer.Deserialize<Monument>(
+            "{\"type\":{\"nested\":1},\"nameOverride\":\"x\"}", Options());
+
+        Assert.Equal(MonumentType.Unknown, monument!.Type);
+        Assert.Equal("x", monument.NameOverride);
+    }
+
+    [Fact]
+    public void MonumentType_ArrayValue_SkipsTokenAndMapsToUnknown()
+    {
+        var monument = JsonSerializer.Deserialize<Monument>(
+            "{\"type\":[1,2],\"nameOverride\":\"y\"}", Options());
+
+        Assert.Equal(MonumentType.Unknown, monument!.Type);
+        Assert.Equal("y", monument.NameOverride);
+    }
+
+    [Fact]
     public void BiomeType_UnknownWireValue_MapsToUnknown()
     {
         var filter = JsonSerializer.Deserialize<BiomeFilter>("{\"type\":9999}", Options());

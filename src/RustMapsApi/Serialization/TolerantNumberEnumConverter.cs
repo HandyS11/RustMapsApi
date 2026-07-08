@@ -6,11 +6,11 @@ using System.Text.Json.Serialization;
 namespace RustMapsApi.Serialization;
 
 /// <summary>
-/// Converts an integer-on-the-wire enum, mapping any value not defined in
+/// Converts an Int32-backed integer-on-the-wire enum, mapping any value not defined in
 /// <typeparamref name="TEnum"/> to a supplied fallback member instead of throwing, so one
 /// unrecognized value never aborts the whole payload. <see cref="Write"/> emits the numeric value.
 /// </summary>
-/// <typeparam name="TEnum">The integer-backed enum type.</typeparam>
+/// <typeparam name="TEnum">The Int32-backed enum type.</typeparam>
 internal sealed class TolerantNumberEnumConverter<TEnum> : JsonConverter<TEnum>
     where TEnum : struct, Enum
 {
