@@ -6,6 +6,10 @@ namespace RustMapsApi.V4.Models;
     Justification = "Power-of-two values mirror the wire protocol but are used as single values, not bitwise flags.")]
 public enum BiomeType
 {
+    /// <summary>An unrecognized biome type not known to this library version. Not part of the
+    /// wire protocol; the tolerant-deserialization fallback for any undefined value.</summary>
+    Unknown = -1,
+
     /// <summary>The snow (arctic) biome.</summary>
     Snow = 2,
 

@@ -3,6 +3,10 @@ namespace RustMapsApi.V4.Models;
 /// <summary>A Rust monument type. Values match the RustMaps wire protocol.</summary>
 public enum MonumentType
 {
+    /// <summary>An unrecognized monument type not known to this library version. Not part of the
+    /// wire protocol; the tolerant-deserialization fallback for any undefined value.</summary>
+    Unknown = -1,
+
     /// <summary>The NotImplemented monument type (wire value 0).</summary>
     NotImplemented = 0,
 
