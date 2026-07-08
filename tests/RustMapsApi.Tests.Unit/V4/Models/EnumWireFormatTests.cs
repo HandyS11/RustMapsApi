@@ -48,6 +48,15 @@ public partial class EnumWireFormatTests
     }
 
     [Fact]
+    public void MonumentType_ApartmentsComplex_DeserializesFromWireValue560()
+    {
+        var filter = JsonSerializer.Deserialize<MonumentFilter>(
+            "{\"type\":560,\"selectionStatus\":\"noPreference\"}", Options());
+
+        Assert.Equal(MonumentType.ApartmentsComplex, filter!.Type);
+    }
+
+    [Fact]
     public void StringEnums_StillSerializeAsCamelCaseNames()
     {
         var state = JsonSerializer.Serialize(MapState.InQueue, Options());
