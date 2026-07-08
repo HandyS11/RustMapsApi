@@ -1,5 +1,6 @@
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using RustMapsApi.Http;
 using RustMapsApi.Serialization;
 using RustMapsApi.V4.Models;
 using RustMapsApi.V4.Requests;
@@ -69,7 +70,25 @@ public partial class TolerantNumberEnumConverterTests
         Assert.Contains("\"type\":-1", json);
     }
 
+    [Fact]
+    public void MapInfo_WithUnknownMonument_DeserializesAndKeepsRawImageUrl()
+    {
+        const string json = """
+            {"data":{"rawImageUrl":"https://example/raw.png",
+            "monuments":[{"type":99999},{"type":45}]},
+            "meta":{"status":"success","statusCode":200}}
+            """;
+
+        var envelope = JsonSerializer.Deserialize<ServiceResponse<MapInfo>>(json, Options());
+
+        Assert.NotNull(envelope!.Data);
+        Assert.Equal("https://example/raw.png", envelope.Data!.RawImageUrl);
+        Assert.Equal(MonumentType.Unknown, envelope.Data.Monuments![0].Type);
+        Assert.Equal(MonumentType.LaunchSite, envelope.Data.Monuments[1].Type);
+    }
+
     [JsonSerializable(typeof(Monument))]
     [JsonSerializable(typeof(BiomeFilter))]
+    [JsonSerializable(typeof(ServiceResponse<MapInfo>))]
     private sealed partial class ConverterContext : JsonSerializerContext;
 }

@@ -1,5 +1,4 @@
 using System.Text.Json;
-using System.Text.Json.Serialization;
 using RustMapsApi.Http;
 using RustMapsApi.Serialization;
 using RustMapsApi.V4.Models;
@@ -12,8 +11,8 @@ public class CustomMapSettingsRoundTripTests
     private static JsonSerializerOptions Options() =>
         RustMapsJsonOptions.Create(
             RustMapsJsonContextV4.Default,
-            new JsonNumberEnumConverter<BiomeType>(),
-            new JsonNumberEnumConverter<MonumentType>());
+            new TolerantNumberEnumConverter<BiomeType>(BiomeType.Unknown),
+            new TolerantNumberEnumConverter<MonumentType>(MonumentType.Unknown));
 
     [Fact]
     public void CustomMapSettings_DeserializesNestedConfigTree()

@@ -10,8 +10,8 @@ public partial class EnumWireFormatTests
 {
     private static JsonSerializerOptions Options() => RustMapsJsonOptions.Create(
         EnumContext.Default,
-        new JsonNumberEnumConverter<BiomeType>(),
-        new JsonNumberEnumConverter<MonumentType>());
+        new TolerantNumberEnumConverter<BiomeType>(BiomeType.Unknown),
+        new TolerantNumberEnumConverter<MonumentType>(MonumentType.Unknown));
 
     [Fact]
     public void BiomeType_SerializesAsInteger()
