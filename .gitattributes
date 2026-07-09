@@ -1,0 +1,6 @@
+# Enforce LF line endings for all text files (matches .editorconfig end_of_line = lf).
+# Guarantees the ReSharper format check in CI behaves identically on Linux and Windows runners.
+* text=auto eol=lf
+
+# Never touch binary assets.
+*.png binary

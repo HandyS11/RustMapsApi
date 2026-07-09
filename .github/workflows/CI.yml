@@ -33,11 +33,9 @@ jobs:
         run: dotnet build --no-restore --configuration Release
 
       - name: Restore tools
-        if: matrix.os == 'ubuntu-latest'
         run: dotnet tool restore
 
       - name: Check formatting (ReSharper)
-        if: matrix.os == 'ubuntu-latest'
         run: |
           dotnet jb cleanupcode RustMapsApi.slnx --profile="ReformatAndReorder" --no-build --verbosity=ERROR
           git diff --exit-code
@@ -46,9 +44,8 @@ jobs:
         run: dotnet test tests/RustMapsApi.Tests.Unit/RustMapsApi.Tests.Unit.csproj --no-build --configuration Release --verbosity normal --collect:"XPlat Code Coverage" --results-directory ./coverage
 
       - name: Upload coverage reports
-        if: matrix.os == 'ubuntu-latest'
         uses: actions/upload-artifact@v7
         with:
-          name: coverage-reports
+          name: coverage-reports-${{ matrix.os }}
           path: ./coverage/**/coverage.cobertura.xml
           retention-days: 14

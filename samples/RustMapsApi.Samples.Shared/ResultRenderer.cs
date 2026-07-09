@@ -1,6 +1,5 @@
 using RustMapsApi.Results;
 using RustMapsApi.V4.Models;
-using RustMapsApi.V4.Requests;
 
 namespace RustMapsApi.Samples.Shared;
 
