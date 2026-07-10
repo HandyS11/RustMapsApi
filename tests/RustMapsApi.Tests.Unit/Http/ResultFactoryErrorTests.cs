@@ -1,4 +1,5 @@
 using System.Net;
+using System.Net.Http.Headers;
 using RustMapsApi.Results;
 using RustMapsApi.V4;
 
@@ -22,8 +23,8 @@ public class ResultFactoryErrorTests
     [InlineData(HttpStatusCode.InternalServerError, RustMapsErrorKind.Unknown)]
     public async Task GetMapByIdAsync_MapsStatusCodeToErrorKind(HttpStatusCode status, RustMapsErrorKind expected)
     {
-        var handler = new TestHttpMessageHandler(
-            status, "{\"meta\":{\"status\":\"Failed\",\"statusCode\":0,\"errors\":[\"boom\"]}}");
+        const string body = "{\"meta\":{\"status\":\"Failed\",\"statusCode\":0,\"errors\":[\"boom\"]}}";
+        var handler = new TestHttpMessageHandler(status, body);
         var client = CreateClient(handler);
 
         var result = await client.GetMapByIdAsync("missing");
@@ -31,6 +32,106 @@ public class ResultFactoryErrorTests
         Assert.False(result.IsSuccess);
         Assert.Equal(expected, result.Error!.Kind);
         Assert.Equal("boom", result.Error.Message);
+        Assert.Equal(body, result.Error.RawBody);
+    }
+
+    [Fact]
+    public async Task SearchByFilterAsync_ErrorStatus_MapsPagedResponseToFailure()
+    {
+        var handler = new TestHttpMessageHandler(
+            HttpStatusCode.TooManyRequests,
+            "{\"meta\":{\"status\":\"Failed\",\"statusCode\":0,\"errors\":[\"slow down\"]}}");
+        var client = CreateClient(handler);
+
+        var result = await client.SearchByFilterAsync("filter-1", 0);
+
+        Assert.False(result.IsSuccess);
+        Assert.Equal(RustMapsErrorKind.RateLimited, result.Error!.Kind);
+        Assert.Equal("slow down", result.Error.Message);
+    }
+
+    [Fact]
+    public async Task SearchByFilterAsync_SuccessWithNoData_FailsAsUnknown()
+    {
+        var handler = new TestHttpMessageHandler(
+            HttpStatusCode.OK, "{\"meta\":{\"status\":\"Success\",\"statusCode\":200}}");
+        var client = CreateClient(handler);
+
+        var result = await client.SearchByFilterAsync("filter-1", 0);
+
+        Assert.False(result.IsSuccess);
+        Assert.Equal(RustMapsErrorKind.Unknown, result.Error!.Kind);
+    }
+
+    [Fact]
+    public async Task SearchByFilterAsync_RateLimited_ParsesRetryAfterHeader()
+    {
+        var handler = new TestHttpMessageHandler(_ =>
+        {
+            var response = new HttpResponseMessage(HttpStatusCode.TooManyRequests)
+            {
+                Content = new StringContent("{\"meta\":{\"status\":\"Failed\",\"statusCode\":0}}")
+            };
+            response.Headers.RetryAfter = new RetryConditionHeaderValue(TimeSpan.FromSeconds(30));
+            return response;
+        });
+        var client = CreateClient(handler);
+
+        var result = await client.SearchByFilterAsync("filter-1", 0);
+
+        Assert.False(result.IsSuccess);
+        Assert.Equal(RustMapsErrorKind.RateLimited, result.Error!.Kind);
+        Assert.Equal(TimeSpan.FromSeconds(30), result.Error.RetryAfter);
+    }
+
+    [Fact]
+    public async Task GetMapByIdAsync_ErrorBodyWithoutMeta_LeavesMessageNull()
+    {
+        var handler = new TestHttpMessageHandler(HttpStatusCode.BadRequest, "{}");
+        var client = CreateClient(handler);
+
+        var result = await client.GetMapByIdAsync("x");
+
+        Assert.False(result.IsSuccess);
+        Assert.Equal(RustMapsErrorKind.Validation, result.Error!.Kind);
+        Assert.Null(result.Error.Message);
+    }
+
+    [Fact]
+    public async Task GetMapByIdAsync_SuccessWithNullBody_FailsAsUnknown()
+    {
+        var handler = new TestHttpMessageHandler(HttpStatusCode.OK, "null");
+        var client = CreateClient(handler);
+
+        var result = await client.GetMapByIdAsync("x");
+
+        Assert.False(result.IsSuccess);
+        Assert.Equal(RustMapsErrorKind.Unknown, result.Error!.Kind);
+    }
+
+    [Fact]
+    public async Task SearchByFilterAsync_SuccessWithNullBody_FailsAsUnknown()
+    {
+        var handler = new TestHttpMessageHandler(HttpStatusCode.OK, "null");
+        var client = CreateClient(handler);
+
+        var result = await client.SearchByFilterAsync("filter-1", 0);
+
+        Assert.False(result.IsSuccess);
+        Assert.Equal(RustMapsErrorKind.Unknown, result.Error!.Kind);
+    }
+
+    [Fact]
+    public async Task GetMapByIdAsync_ErrorWithNullBody_LeavesMessageNull()
+    {
+        var handler = new TestHttpMessageHandler(HttpStatusCode.BadRequest, "null");
+        var client = CreateClient(handler);
+
+        var result = await client.GetMapByIdAsync("x");
+
+        Assert.False(result.IsSuccess);
+        Assert.Equal(RustMapsErrorKind.Validation, result.Error!.Kind);
+        Assert.Null(result.Error.Message);
     }
 
     [Fact]

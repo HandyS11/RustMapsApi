@@ -26,14 +26,15 @@ jobs:
       - name: Restore tools
         run: dotnet tool restore
 
+      # Solution mode mutates every source project in the solution, so new projects are
+      # covered automatically without editing this workflow.
       - name: Stryker with dashboard
         env:
           STRYKER_DASHBOARD_API_KEY: ${{ secrets.STRYKER_DASHBOARD_API_KEY }}
-        working-directory: tests/RustMapsApi.Tests.Unit
         run: >
           dotnet stryker
+          --solution RustMapsApi.slnx
           --config-file stryker-config.json
-          --project RustMapsApi.csproj
           --version ${{ github.ref_name }}
           --reporter cleartext
           --reporter html
@@ -44,5 +45,5 @@ jobs:
         uses: actions/upload-artifact@v7
         with:
           name: stryker-report
-          path: tests/RustMapsApi.Tests.Unit/StrykerOutput/**/reports/mutation-report.html
+          path: StrykerOutput/**/reports/mutation-report.html
           if-no-files-found: ignore

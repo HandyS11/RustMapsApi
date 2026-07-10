@@ -30,7 +30,7 @@ jobs:
         run: dotnet restore
 
       - name: Build
-        run: dotnet build --no-restore --configuration Release
+        run: dotnet build RustMapsApi.slnx --no-restore --configuration Release
 
       - name: Restore tools
         run: dotnet tool restore
@@ -41,7 +41,7 @@ jobs:
           git diff --exit-code
 
       - name: Test
-        run: dotnet test tests/RustMapsApi.Tests.Unit/RustMapsApi.Tests.Unit.csproj --no-build --configuration Release --verbosity normal --collect:"XPlat Code Coverage" --results-directory ./coverage
+        run: dotnet test RustMapsApi.slnx --no-build --configuration Release --verbosity normal --collect:"XPlat Code Coverage" --results-directory ./coverage
 
       - name: Upload coverage reports
         uses: actions/upload-artifact@v7

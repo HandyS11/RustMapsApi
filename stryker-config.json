@@ -1,5 +1,4 @@
 {
-  "$schema": "https://raw.githubusercontent.com/stryker-mutator/stryker-net/master/src/Stryker.Core/Stryker.Core/Schema/stryker-config.schema.json",
   "stryker-config": {
     "project-info": {
       "name": "github.com/HandyS11/RustMapsApi",
