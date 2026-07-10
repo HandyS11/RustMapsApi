@@ -9,6 +9,7 @@
     <Project Path="src/RustMapsApi.Assets/RustMapsApi.Assets.csproj" />
   </Folder>
   <Folder Name="/tests/">
+    <Project Path="tests/RustMapsApi.Assets.Tests.Integration/RustMapsApi.Assets.Tests.Integration.csproj" />
     <Project Path="tests/RustMapsApi.Tests.Integration/RustMapsApi.Tests.Integration.csproj" />
     <Project Path="tests/RustMapsApi.Tests.Unit/RustMapsApi.Tests.Unit.csproj" />
     <Project Path="tests/RustMapsApi.Assets.Tests.Unit/RustMapsApi.Assets.Tests.Unit.csproj" />
