@@ -8,7 +8,7 @@ public static class MonumentAssets
 {
     /// <summary>All monument types that have an icon asset.</summary>
     public static IReadOnlyCollection<MonumentType> AvailableTypes { get; } =
-        MonumentAssetMap.AssetNames.Keys.ToArray();
+        Array.AsReadOnly(MonumentAssetMap.AssetNames.Keys.ToArray());
 
     /// <summary>Attempts to resolve the icon asset for a monument type.</summary>
     /// <param name="type">The monument type from an API response.</param>

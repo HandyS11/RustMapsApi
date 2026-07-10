@@ -6,13 +6,17 @@ namespace RustMapsApi.Assets.Tests.Unit;
 
 public sealed class MapIntegrityTests
 {
+    private const string ResourcePrefix = "RustMapsApi.Assets.Assets.";
+
     private static Assembly AssetsAssembly => typeof(MonumentAsset).Assembly;
 
     private static IEnumerable<string> EmbeddedAssetNames() =>
         AssetsAssembly.GetManifestResourceNames()
-            .Where(n => n.EndsWith(".svg", StringComparison.Ordinal))
-            .Select(n => n.Substring("RustMapsApi.Assets.Assets.".Length))
-            .Select(n => n.Substring(0, n.Length - ".svg".Length));
+            .Where(n => n.StartsWith(ResourcePrefix, StringComparison.Ordinal)
+                        && n.EndsWith(".svg", StringComparison.Ordinal))
+            .Select(n => n.Substring(
+                ResourcePrefix.Length,
+                n.Length - ResourcePrefix.Length - ".svg".Length));
 
     [Fact]
     public void EveryMappedType_ResolvesToNonEmptyStream()

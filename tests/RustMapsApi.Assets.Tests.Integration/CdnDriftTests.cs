@@ -34,8 +34,11 @@ public sealed class CdnDriftTests
     {
         Skip.IfNot(LiveEnabled, "Set RUSTMAPS_ASSETS_LIVE=1 to run live CDN drift checks.");
 
-        using var http = new HttpClient();
-        http.DefaultRequestHeaders.Add("User-Agent", Ua);
+        using var http = new HttpClient
+        {
+            Timeout = TimeSpan.FromSeconds(30)
+        };
+        http.DefaultRequestHeaders.TryAddWithoutValidation("User-Agent", Ua);
         using var request = new HttpRequestMessage(HttpMethod.Head, uri);
         using var response = await http.SendAsync(request);
 
