@@ -1,10 +1,5 @@
-using System;
-using System.Collections.Generic;
 using System.Net;
-using System.Net.Http;
-using System.Threading.Tasks;
 using RustMapsApi.V4.Assets;
-using Xunit;
 
 namespace RustMapsApi.Assets.Tests.Integration;
 
@@ -25,7 +20,10 @@ public sealed class CdnDriftTests
             MonumentAssets.TryGetAsset(type, out var asset);
             if (seen.Add(asset!.AssetName))
             {
-                yield return new object[] { asset.SourceUri };
+                yield return new object[]
+                {
+                    asset.SourceUri
+                };
             }
         }
     }

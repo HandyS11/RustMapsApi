@@ -1,5 +1,3 @@
-using System;
-using System.IO;
 using System.Reflection;
 using RustMapsApi.V4.Assets;
 using RustMapsApi.V4.Models;
@@ -14,7 +12,10 @@ public sealed class MonumentAssetTests
             typeof(MonumentAsset),
             BindingFlags.Instance | BindingFlags.NonPublic,
             binder: null,
-            args: new object[] { MonumentType.CaveLargeHard, "Cave" },
+            args: new object[]
+            {
+                MonumentType.CaveLargeHard, "Cave"
+            },
             culture: null)!;
 
     [Fact]

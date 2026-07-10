@@ -6,6 +6,9 @@ namespace RustMapsApi.V4.Assets;
 /// <summary>An injectable source of RustMaps monument icon assets.</summary>
 public interface IMonumentAssetSource
 {
+    /// <summary>All monument types that have an icon asset.</summary>
+    IReadOnlyCollection<MonumentType> AvailableTypes { get; }
+
     /// <summary>Attempts to resolve the icon asset for a monument type.</summary>
     /// <param name="type">The monument type from an API response.</param>
     /// <param name="asset">The resolved asset when this returns <c>true</c>.</param>
@@ -21,7 +24,4 @@ public interface IMonumentAssetSource
     /// <param name="type">The monument type.</param>
     /// <returns><c>true</c> if an icon exists for the type.</returns>
     bool HasAsset(MonumentType type);
-
-    /// <summary>All monument types that have an icon asset.</summary>
-    IReadOnlyCollection<MonumentType> AvailableTypes { get; }
 }
