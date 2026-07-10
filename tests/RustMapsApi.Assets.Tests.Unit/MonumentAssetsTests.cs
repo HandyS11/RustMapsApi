@@ -49,7 +49,8 @@ public sealed class MonumentAssetsTests
     [Fact]
     public void GetAsset_AssetlessType_Throws()
     {
-        Assert.Throws<KeyNotFoundException>(() => MonumentAssets.GetAsset(MonumentType.Mountain1));
+        var ex = Assert.Throws<KeyNotFoundException>(() => MonumentAssets.GetAsset(MonumentType.Mountain1));
+        Assert.Contains("Mountain1", ex.Message, StringComparison.Ordinal);
     }
 
     [Fact]

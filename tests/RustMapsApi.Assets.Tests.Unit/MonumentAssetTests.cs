@@ -12,10 +12,7 @@ public sealed class MonumentAssetTests
             typeof(MonumentAsset),
             BindingFlags.Instance | BindingFlags.NonPublic,
             binder: null,
-            args: new object[]
-            {
-                MonumentType.CaveLargeHard, "Cave"
-            },
+            args: [MonumentType.CaveLargeHard, "Cave"],
             culture: null)!;
 
     [Fact]
@@ -50,5 +47,19 @@ public sealed class MonumentAssetTests
         var asset = Cave();
         using var stream = asset.OpenStream();
         Assert.Equal(stream.Length, asset.GetBytes().Length);
+    }
+
+    [Fact]
+    public void OpenStream_MissingEmbeddedResource_Throws()
+    {
+        var asset = (MonumentAsset)Activator.CreateInstance(
+            typeof(MonumentAsset),
+            BindingFlags.Instance | BindingFlags.NonPublic,
+            binder: null,
+            args: [MonumentType.Unknown, "NoSuchAsset"],
+            culture: null)!;
+
+        var ex = Assert.Throws<InvalidOperationException>(() => asset.OpenStream());
+        Assert.Contains("NoSuchAsset.svg", ex.Message, StringComparison.Ordinal);
     }
 }

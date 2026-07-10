@@ -18,6 +18,7 @@ public sealed class DependencyInjectionTests
         Assert.True(source.HasAsset(MonumentType.Outpost));
         Assert.True(source.TryGetAsset(MonumentType.Outpost, out var asset));
         Assert.Equal("Outpost", asset.AssetName);
+        Assert.Equal("Outpost", source.GetAsset(MonumentType.Outpost).AssetName);
         Assert.False(source.HasAsset(MonumentType.Mountain1));
         Assert.NotEmpty(source.AvailableTypes);
     }
