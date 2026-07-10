@@ -5,8 +5,7 @@ namespace RustMapsApi.Assets.Tests.Unit;
 
 public sealed class EmbeddedResourceTests
 {
-    private static Assembly AssetsAssembly =>
-        Assembly.Load("RustMapsApi.Assets");
+    private static Assembly AssetsAssembly => typeof(RustMapsApi.V4.Assets.MonumentAsset).Assembly;
 
     [Fact]
     public void EmbeddedSvgResources_CountIs42()
