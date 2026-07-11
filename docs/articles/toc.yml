@@ -8,6 +8,8 @@
   items:
     - name: Client
       href: client.md
+    - name: Assets
+      href: assets.md
 - name: Resources
   items:
     - name: Samples
