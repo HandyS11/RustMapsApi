@@ -23,6 +23,9 @@ public sealed class App : Application
             {
                 DataContext = services.GetRequiredService<MainWindowViewModel>(),
             };
+
+            // Dispose the DI container (and its disposable singletons) when the app exits.
+            desktop.Exit += (_, _) => services.Dispose();
         }
 
         base.OnFrameworkInitializationCompleted();
