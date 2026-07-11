@@ -9,6 +9,12 @@
     <!-- Avalonia XAML-generated code + the analyzer stack would otherwise fail the build
          under the repo-wide TreatWarningsAsErrors. Analyzers still run; warnings stay non-fatal. -->
     <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <!-- NU1903: Avalonia.Desktop -> Avalonia.X11 pins Tmds.DBus.Protocol 0.21.2 (the Linux D-Bus
+         backend), which carries advisory GHSA-xrw6-gwf8-vvr9. The entire Avalonia 11.3.x line pins
+         that version; an upstream fix needs Avalonia 11.4+/12, which Avalonia.Svg.Skia 11.3.0 does
+         not yet support. This is a non-shipped demo app (IsPackable=false), so the advisory never
+         reaches package consumers. -->
+    <NoWarn>$(NoWarn);NU1903</NoWarn>
   </PropertyGroup>
 
   <ItemGroup>
