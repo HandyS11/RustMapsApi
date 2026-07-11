@@ -19,6 +19,9 @@ internal static class SvgImageFactory
     {
         using var stream = asset.OpenStream();
         var document = SvgDocument.Open<SvgDocument>(stream);
-        return new SvgImage { Source = SvgSource.LoadFromSvgDocument(document) };
+        return new SvgImage
+        {
+            Source = SvgSource.LoadFromSvgDocument(document)
+        };
     }
 }
