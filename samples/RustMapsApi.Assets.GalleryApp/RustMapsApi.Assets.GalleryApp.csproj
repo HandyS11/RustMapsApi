@@ -22,6 +22,10 @@
     <PackageReference Include="Avalonia.Desktop" />
     <PackageReference Include="Avalonia.Svg.Skia" />
     <PackageReference Include="Avalonia.Themes.Fluent" />
+    <!-- Aligns the Linux native libSkiaSharp with the managed SkiaSharp 3.116.1 that
+         Avalonia.Svg.Skia pulls; without it the Linux native stays at Avalonia's 2.88.9 and the
+         app crashes at startup. Only deploys for linux RIDs, so it is inert on Windows/macOS. -->
+    <PackageReference Include="SkiaSharp.NativeAssets.Linux" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" />
   </ItemGroup>
 
