@@ -13,6 +13,8 @@ namespace RustMapsApi.Assets.GalleryApp;
 // everything else binds to Avalonia.Media.IImage and is unaffected.
 internal static class SvgImageFactory
 {
+    // The returned SvgImage is held by a tile for the whole app lifetime (the gallery is static),
+    // so it is intentionally not disposed here; the OS reclaims it on exit.
     public static SvgImage Create(MonumentAsset asset)
     {
         using var stream = asset.OpenStream();
