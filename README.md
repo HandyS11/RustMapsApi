@@ -22,10 +22,18 @@ generation limits — with `Result<T>` everywhere and first-class dependency inj
 
 </div>
 
+## Packages
+
+| Package | NuGet | Description |
+| --- | --- | --- |
+| **RustMapsApi** | [![NuGet](https://img.shields.io/nuget/v/RustMapsApi.svg)](https://www.nuget.org/packages/RustMapsApi) | The v4 API client — `IRustMapsClient`, `Result<T>`, models & requests, DI. |
+| **RustMapsApi.Assets** | [![NuGet](https://img.shields.io/nuget/v/RustMapsApi.Assets.svg)](https://www.nuget.org/packages/RustMapsApi.Assets) | Monument icon artwork (SVG) mapped by `MonumentType` — resolve a monument's icon offline. |
+
 ## Install
 
 ```bash
-dotnet add package RustMapsApi
+dotnet add package RustMapsApi          # the API client
+dotnet add package RustMapsApi.Assets   # optional monument icons
 ```
 
 ## Quickstart
@@ -67,6 +75,25 @@ var limits = await client.GetLimitsAsync();
 
 You can also new up the client directly with your own `HttpClient` — see the
 [package README](src/RustMapsApi/README.md) for the standalone usage and the full API surface.
+
+## Monument icons
+
+[`RustMapsApi.Assets`](src/RustMapsApi.Assets/README.md) bundles RustMaps' monument icon artwork
+(SVG) and maps each `MonumentType` to its icon — resolve a monument's icon straight from an API
+response with no network call:
+
+```csharp
+using RustMapsApi.V4.Assets;
+
+foreach (var monument in map.Monuments ?? [])
+{
+    if (MonumentAssets.TryGetAsset(monument.Type, out var asset))
+        File.WriteAllText(asset.FileName, asset.GetSvg());
+}
+```
+
+See the runnable [Avalonia icon gallery](samples/RustMapsApi.Assets.GalleryApp/README.md) that
+renders every bundled icon.
 
 ## Build and test
 
