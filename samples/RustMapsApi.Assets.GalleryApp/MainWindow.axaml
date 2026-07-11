@@ -1,0 +1,6 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        x:Class="RustMapsApi.Assets.GalleryApp.MainWindow"
+        Width="900" Height="640"
+        Title="RustMaps Monument Icons">
+</Window>

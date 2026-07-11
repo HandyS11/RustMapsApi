@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net10.0</TargetFramework>
+    <AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
+    <!-- UI sample: App/Window/view-model types are not a documented API surface. -->
+    <GenerateDocumentationFile>false</GenerateDocumentationFile>
+    <!-- Avalonia XAML-generated code + the analyzer stack would otherwise fail the build
+         under the repo-wide TreatWarningsAsErrors. Analyzers still run; warnings stay non-fatal. -->
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Avalonia" />
+    <PackageReference Include="Avalonia.Desktop" />
+    <PackageReference Include="Avalonia.Themes.Fluent" />
+  </ItemGroup>
+
+</Project>
