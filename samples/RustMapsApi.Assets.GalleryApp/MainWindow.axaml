@@ -21,9 +21,13 @@
           <DataTemplate x:DataType="vm:MonumentIconViewModel">
             <Border Width="140" Margin="8" Padding="8"
                     BorderThickness="1" BorderBrush="#22808080" CornerRadius="6">
-              <TextBlock Text="{Binding TypeName}"
-                         HorizontalAlignment="Center"
-                         TextWrapping="Wrap" />
+              <StackPanel HorizontalAlignment="Center">
+                <Image Source="{Binding Image}" Width="96" Height="96" />
+                <TextBlock Text="{Binding TypeName}"
+                           HorizontalAlignment="Center"
+                           TextWrapping="Wrap"
+                           Margin="0,8,0,0" />
+              </StackPanel>
             </Border>
           </DataTemplate>
         </ItemsControl.ItemTemplate>

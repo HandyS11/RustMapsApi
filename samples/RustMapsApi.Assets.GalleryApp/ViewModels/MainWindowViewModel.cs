@@ -9,7 +9,7 @@ public sealed class MainWindowViewModel
         Icons = assets.AvailableTypes
             .Select(assets.GetAsset)
             .OrderBy(asset => asset.AssetName, StringComparer.Ordinal)
-            .Select(asset => new MonumentIconViewModel(asset))
+            .Select(asset => new MonumentIconViewModel(asset, SvgImageFactory.Create(asset)))
             .ToList();
 
         Header = $"{Icons.Count} monument icons";
