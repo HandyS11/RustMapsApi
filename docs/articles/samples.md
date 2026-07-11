@@ -1,9 +1,9 @@
 # Samples
 
-Two runnable console apps in [`samples/`](https://github.com/HandyS11/RustMapsApi/tree/develop/samples)
-demonstrate the two ways to consume RustMapsApi. Both present the same interactive menu over the
-full `IRustMapsClient` surface; they differ only in how the client is constructed and where the API
-key comes from.
+The [`samples/`](https://github.com/HandyS11/RustMapsApi/tree/develop/samples) folder has three
+runnable apps: two console apps over the client, and a desktop icon gallery for the Assets package.
+Both present the same interactive menu over the full `IRustMapsClient` surface; they differ only in
+how the client is constructed and where the API key comes from.
 
 > **Reads** (lookup, search, limits, configs) are safe to run freely. **Writes** (create / upload)
 > **consume real generation credits** and are gated behind a `yes` confirmation.
@@ -27,6 +27,16 @@ user-secrets:
 dotnet user-secrets set "RustMaps:ApiKey" "YOUR_KEY" \
   --project samples/RustMapsApi.DependencyInjection.ConsoleApp
 dotnet run --project samples/RustMapsApi.DependencyInjection.ConsoleApp
+```
+
+## Monument icon gallery (Avalonia)
+
+A cross-platform desktop app that renders every monument icon bundled in
+[`RustMapsApi.Assets`](assets.md) — **no API key, no network**. It wires the package's DI
+(`AddRustMapsAssets`) and injects `IMonumentAssetSource`.
+
+```bash
+dotnet run --project samples/RustMapsApi.Assets.GalleryApp
 ```
 
 ## Menu

@@ -1,6 +1,7 @@
 # Samples
 
-Two runnable console apps demonstrating the two ways to consume `RustMapsApi`.
+Three runnable samples: two console apps demonstrating the two ways to consume `RustMapsApi`, and a
+desktop icon gallery for the companion `RustMapsApi.Assets` package.
 Both present the same interactive menu over the full `IRustMapsClient` surface;
 they differ only in how the client is constructed and where the API key comes
 from.
@@ -32,6 +33,16 @@ dotnet run --project samples/RustMapsApi.DependencyInjection.ConsoleApp
 
 Until a real key is supplied, the app detects the `REPLACE_ME` placeholder (and a
 blank key via `ValidateOnStart`), prints the command above, and exits non-zero.
+
+## Monument icon gallery (Avalonia)
+
+A cross-platform desktop app that renders every monument icon from
+[`RustMapsApi.Assets`](../src/RustMapsApi.Assets/README.md) — **no API key, no network**. It wires
+`AddRustMapsAssets()` and injects `IMonumentAssetSource`.
+
+```bash
+dotnet run --project samples/RustMapsApi.Assets.GalleryApp
+```
 
 ## Menu
 

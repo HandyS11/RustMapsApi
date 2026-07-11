@@ -49,6 +49,11 @@ _disableBreadcrumb: true
     <h3>Dependency injection</h3>
     <p>Register with <code>AddRustMapsClientV4</code> and inject <code>IRustMapsClient</code>, or new it up by hand.</p>
   </a>
+  <a class="rp-card" href="articles/assets.md">
+    <div class="rp-card-icon">🖼️</div>
+    <h3>Monument icons</h3>
+    <p>Resolve a monument's icon (SVG) straight from a <code>MonumentType</code> — offline, no network call.</p>
+  </a>
   <a class="rp-card" href="articles/introduction.md">
     <div class="rp-card-icon">🎯</div>
     <h3>Broad targeting</h3>
@@ -61,6 +66,7 @@ _disableBreadcrumb: true
 | Package | Downloads | Description |
 | --- | --- | --- |
 | **[RustMapsApi](xref:RustMapsApi)** | [![Downloads](https://img.shields.io/nuget/dt/RustMapsApi.svg)](https://www.nuget.org/packages/RustMapsApi) | Strongly-typed RustMaps API v4 client — `IRustMapsClient`, `Result<T>`, models & requests, and DI registration. |
+| **[RustMapsApi.Assets](articles/assets.md)** | [![Downloads](https://img.shields.io/nuget/dt/RustMapsApi.Assets.svg)](https://www.nuget.org/packages/RustMapsApi.Assets) | Monument icon artwork (SVG) mapped by `MonumentType` — resolve a monument's icon offline, no network call. |
 
 ## Quickstart
 
