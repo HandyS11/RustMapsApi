@@ -27,6 +27,7 @@
          app crashes at startup. Only deploys for linux RIDs, so it is inert on Windows/macOS. -->
     <PackageReference Include="SkiaSharp.NativeAssets.Linux" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" />
+    <PackageReference Include="Tmds.DBus.Protocol" />
   </ItemGroup>
 
   <ItemGroup>
