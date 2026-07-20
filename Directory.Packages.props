@@ -13,10 +13,10 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Samples (UI) -->
-    <PackageVersion Include="Avalonia" Version="11.3.0" />
+    <PackageVersion Include="Avalonia" Version="12.1.0" />
     <PackageVersion Include="Avalonia.Desktop" Version="11.3.0" />
     <PackageVersion Include="Avalonia.Svg.Skia" Version="11.3.0" />
-    <PackageVersion Include="Avalonia.Themes.Fluent" Version="11.3.0" />
+    <PackageVersion Include="Avalonia.Themes.Fluent" Version="12.1.0" />
     <!-- Avalonia.Svg.Skia 11.3.0 forces managed SkiaSharp to 3.116.1, but SkiaSharp 3.x's
          metapackage omits the Linux native asset, leaving Avalonia.Skia's 2.88.9 libSkiaSharp.so
          in place -> native/managed mismatch at startup on Linux. Pin the matching 3.116.1 Linux
@@ -26,8 +26,8 @@
   <ItemGroup>
     <!-- Test + sample -->
     <PackageVersion Include="Microsoft.Extensions.DependencyInjection" Version="10.0.10" />
-    <PackageVersion Include="Microsoft.Extensions.Hosting" Version="10.0.9" />
-    <PackageVersion Include="Microsoft.Extensions.Configuration.UserSecrets" Version="10.0.9" />
+    <PackageVersion Include="Microsoft.Extensions.Hosting" Version="10.0.10" />
+    <PackageVersion Include="Microsoft.Extensions.Configuration.UserSecrets" Version="10.0.10" />
     <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="18.7.0" />
     <PackageVersion Include="coverlet.collector" Version="10.0.1" />
     <PackageVersion Include="xunit" Version="2.9.3" />
@@ -37,7 +37,7 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Analyzers -->
-    <PackageVersion Include="Microsoft.CodeAnalysis.NetAnalyzers" Version="10.0.301" />
+    <PackageVersion Include="Microsoft.CodeAnalysis.NetAnalyzers" Version="10.0.302" />
     <PackageVersion Include="Microsoft.VisualStudio.Threading.Analyzers" Version="18.7.23" />
     <PackageVersion Include="Roslynator.Analyzers" Version="4.15.0" />
     <PackageVersion Include="Roslynator.Formatting.Analyzers" Version="4.15.0" />
