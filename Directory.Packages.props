@@ -13,10 +13,10 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Samples (UI) -->
-    <PackageVersion Include="Avalonia" Version="11.3.0" />
+    <PackageVersion Include="Avalonia" Version="12.1.0" />
     <PackageVersion Include="Avalonia.Desktop" Version="11.3.0" />
     <PackageVersion Include="Avalonia.Svg.Skia" Version="11.3.0" />
-    <PackageVersion Include="Avalonia.Themes.Fluent" Version="11.3.0" />
+    <PackageVersion Include="Avalonia.Themes.Fluent" Version="12.1.0" />
     <!-- Avalonia.Svg.Skia 11.3.0 forces managed SkiaSharp to 3.116.1, but SkiaSharp 3.x's
          metapackage omits the Linux native asset, leaving Avalonia.Skia's 2.88.9 libSkiaSharp.so
          in place -> native/managed mismatch at startup on Linux. Pin the matching 3.116.1 Linux
