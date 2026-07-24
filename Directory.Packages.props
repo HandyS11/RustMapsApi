@@ -24,7 +24,7 @@
          Deliberately NOT on SkiaSharp 4.x: Avalonia.Svg.Skia is still capped at 11.3.0, which
          pulls Svg.Skia 3.0.2 and SkiaSharp.HarfBuzz 3.x. Forcing 4.x builds and starts, but puts
          the whole SVG render path on a major version it never targeted. -->
-    <PackageVersion Include="SkiaSharp.NativeAssets.Linux" Version="3.119.4" />
+    <PackageVersion Include="SkiaSharp.NativeAssets.Linux" Version="4.150.1" />
   </ItemGroup>
   <ItemGroup>
     <!-- Test + sample -->
