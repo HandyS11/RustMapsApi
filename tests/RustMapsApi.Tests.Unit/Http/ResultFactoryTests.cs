@@ -44,7 +44,7 @@ public partial class ResultFactoryTests
 
         Assert.False(result.IsSuccess);
         Assert.NotNull(result.Error);
-        Assert.Equal(expected, result.Error!.Kind);
+        Assert.Equal(expected, result.Error.Kind);
         Assert.Equal((int)status, result.StatusCode);
     }
 

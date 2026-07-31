@@ -25,9 +25,9 @@ public class RecordCoverageTests
         var envelope = JsonSerializer.Deserialize<ServiceResponse<MapSettings>>(json, options);
 
         Assert.NotNull(envelope);
-        var settings = envelope!.Data;
+        var settings = envelope.Data;
         Assert.NotNull(settings);
-        Assert.Equal("cfg-42", settings!.Id);
+        Assert.Equal("cfg-42", settings.Id);
         Assert.Equal("My Config", settings.Name);
         Assert.Null(settings.Settings);
     }
@@ -42,11 +42,11 @@ public class RecordCoverageTests
         var envelope = JsonSerializer.Deserialize<ServiceResponse<MapSettings>>(json, options);
 
         Assert.NotNull(envelope);
-        var settings = envelope!.Data;
+        var settings = envelope.Data;
         Assert.NotNull(settings);
-        Assert.Equal("cfg-99", settings!.Id);
+        Assert.Equal("cfg-99", settings.Id);
         Assert.NotNull(settings.Settings);
-        Assert.True(settings.Settings!.RemoveCarWrecks);
+        Assert.True(settings.Settings.RemoveCarWrecks);
     }
 
     [Fact]
@@ -57,7 +57,7 @@ public class RecordCoverageTests
         var prefab = JsonSerializer.Deserialize<CustomPrefab>(json, Options());
 
         Assert.NotNull(prefab);
-        Assert.True(prefab!.Enabled);
+        Assert.True(prefab.Enabled);
         Assert.Equal("prefab-abc", prefab.Id);
     }
 
@@ -69,7 +69,7 @@ public class RecordCoverageTests
         var prefab = JsonSerializer.Deserialize<CustomPrefab>(json, Options());
 
         Assert.NotNull(prefab);
-        Assert.False(prefab!.Enabled);
+        Assert.False(prefab.Enabled);
         Assert.Null(prefab.Id);
     }
 
@@ -81,7 +81,7 @@ public class RecordCoverageTests
         var pref = JsonSerializer.Deserialize<MonumentBiomePreference>(json, Options());
 
         Assert.NotNull(pref);
-        Assert.Equal(BiomeType.Forest, pref!.BiomeType);
+        Assert.Equal(BiomeType.Forest, pref.BiomeType);
         Assert.Equal(SelectionStatus.Wanted, pref.Selection);
     }
 
@@ -93,7 +93,7 @@ public class RecordCoverageTests
         var pref = JsonSerializer.Deserialize<MonumentBiomePreference>(json, Options());
 
         Assert.NotNull(pref);
-        Assert.Equal(BiomeType.Desert, pref!.BiomeType);
+        Assert.Equal(BiomeType.Desert, pref.BiomeType);
         Assert.Equal(SelectionStatus.NotWanted, pref.Selection);
     }
 
@@ -106,12 +106,12 @@ public class RecordCoverageTests
         var config = JsonSerializer.Deserialize<PrefabCustomizableMonumentConfiguration>(json, Options());
 
         Assert.NotNull(config);
-        Assert.Equal(MonumentType.Outpost, config!.Type);
+        Assert.Equal(MonumentType.Outpost, config.Type);
         Assert.False(config.Blocked);
         Assert.True(config.AllowedToSetBiomes);
         Assert.True(config.Desired);
         Assert.NotNull(config.CustomPrefab);
-        Assert.True(config.CustomPrefab!.Enabled);
+        Assert.True(config.CustomPrefab.Enabled);
         Assert.Equal("prefab-xyz", config.CustomPrefab.Id);
     }
 
@@ -133,7 +133,7 @@ public class RecordCoverageTests
         var deserialized = JsonSerializer.Deserialize<CreateCustomMapFromConfigRequest>(json, options);
 
         Assert.NotNull(deserialized);
-        Assert.Equal("my-config", deserialized!.ConfigName);
+        Assert.Equal("my-config", deserialized.ConfigName);
         Assert.Equal(3500, deserialized.MapParameters.Size);
         Assert.Equal(777, deserialized.MapParameters.Seed);
         Assert.False(deserialized.MapParameters.Staging);

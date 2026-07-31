@@ -108,7 +108,7 @@ public partial class TolerantNumberEnumConverterTests
         var envelope = JsonSerializer.Deserialize<ServiceResponse<MapInfo>>(json, Options());
 
         Assert.NotNull(envelope!.Data);
-        Assert.Equal("https://example/raw.png", envelope.Data!.RawImageUrl);
+        Assert.Equal("https://example/raw.png", envelope.Data.RawImageUrl);
         Assert.Equal(MonumentType.Unknown, envelope.Data.Monuments![0].Type);
         Assert.Equal(MonumentType.LaunchSite, envelope.Data.Monuments[1].Type);
     }

@@ -162,7 +162,7 @@ public static class MapsMenu
             {
                 Size = size, Seed = seed, Staging = false
             },
-            CustomMapSettings = defaults.Data!,
+            CustomMapSettings = defaults.Data,
         };
         ResultRenderer.Render(await client.CreateCustomMapAsync(request, ct));
     }

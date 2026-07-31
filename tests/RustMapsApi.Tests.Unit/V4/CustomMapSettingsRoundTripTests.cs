@@ -22,36 +22,36 @@ public class CustomMapSettingsRoundTripTests
         var envelope = JsonSerializer.Deserialize<ServiceResponse<CustomMapSettings>>(json, Options());
 
         Assert.NotNull(envelope);
-        var settings = envelope!.Data;
+        var settings = envelope.Data;
         Assert.NotNull(settings);
 
         // Scalars on the root record.
-        Assert.True(settings!.RemoveCarWrecks);
+        Assert.True(settings.RemoveCarWrecks);
         Assert.True(settings.AllowBuildingOnRoads);
 
         // Terrain -> biome nested config.
         Assert.NotNull(settings.TerrainConfiguration);
-        Assert.NotNull(settings.TerrainConfiguration!.BiomeConfig);
-        Assert.True(settings.TerrainConfiguration.BiomeConfig!.Enabled);
+        Assert.NotNull(settings.TerrainConfiguration.BiomeConfig);
+        Assert.True(settings.TerrainConfiguration.BiomeConfig.Enabled);
         Assert.Equal(0.25f, settings.TerrainConfiguration.BiomeConfig.AridPercentage);
 
         // Oil rig list (derived record) + position.
         Assert.NotNull(settings.OilRigConfigurations);
-        var rig = Assert.Single(settings.OilRigConfigurations!);
+        var rig = Assert.Single(settings.OilRigConfigurations);
         Assert.NotNull(rig.Position);
-        Assert.True(rig.Position!.Enabled);
+        Assert.True(rig.Position.Enabled);
 
         // Lab-style config.
         Assert.NotNull(settings.LakesConfiguration);
-        Assert.Equal(2, settings.LakesConfiguration!.MaxAmount);
+        Assert.Equal(2, settings.LakesConfiguration.MaxAmount);
 
         // Webhook.
         Assert.NotNull(settings.Webhook);
-        Assert.True(settings.Webhook!.Enabled);
+        Assert.True(settings.Webhook.Enabled);
         Assert.Equal("https://hooks.example.com/rust", settings.Webhook.Url);
 
         // Basic monument list.
         Assert.NotNull(settings.SmallMonuments);
-        Assert.NotEmpty(settings.SmallMonuments!);
+        Assert.NotEmpty(settings.SmallMonuments);
     }
 }

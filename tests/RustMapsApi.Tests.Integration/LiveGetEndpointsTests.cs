@@ -68,13 +68,13 @@ public sealed class LiveGetEndpointsTests(LiveApiFixture fixture)
 
         // Chained: get the same map by id.
         await _fixture.ThrottleAsync();
-        var byId = await _fixture.Client.GetMapByIdAsync(id!);
+        var byId = await _fixture.Client.GetMapByIdAsync(id);
         Assert.True(byId.IsSuccess, byId.Error?.Message);
         Assert.Equal(id, byId.Data!.Id);
 
         // Chained: get the same map by url.
         await _fixture.ThrottleAsync();
-        var byUrl = await _fixture.Client.GetMapByUrlAsync(url!);
+        var byUrl = await _fixture.Client.GetMapByUrlAsync(url);
         Assert.True(byUrl.IsSuccess, byUrl.Error?.Message);
     }
 
@@ -117,7 +117,7 @@ public sealed class LiveGetEndpointsTests(LiveApiFixture fixture)
             "RUSTMAPS_TEST_FILTER_ID not set (filter ids are created on the homepage).");
 
         await _fixture.ThrottleAsync();
-        var result = await _fixture.Client.SearchByFilterAsync(_fixture.FilterId!, page: 0);
+        var result = await _fixture.Client.SearchByFilterAsync(_fixture.FilterId, page: 0);
 
         Assert.True(result.IsSuccess, result.Error?.Message);
     }
