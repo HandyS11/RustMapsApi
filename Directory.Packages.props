@@ -13,7 +13,7 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Samples (UI) -->
-    <PackageVersion Include="Avalonia" Version="12.1.0" />
+    <PackageVersion Include="Avalonia" Version="12.1.1" />
     <PackageVersion Include="Avalonia.Desktop" Version="12.1.0" />
     <PackageVersion Include="Avalonia.Svg.Skia" Version="11.3.0" />
     <PackageVersion Include="Avalonia.Themes.Fluent" Version="12.1.0" />
