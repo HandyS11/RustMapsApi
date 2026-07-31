@@ -23,7 +23,7 @@ public static class ResultRenderer
             return;
         }
 
-        var map = result.Data!;
+        var map = result.Data;
         Console.WriteLine($"  Id={map.Id} Type={map.Type} Size={map.Size} Seed={map.Seed}");
         Console.WriteLine($"  Url={map.Url}");
         Console.WriteLine($"  Custom={map.IsCustomMap} Staging={map.IsStaging} Monuments={map.TotalMonuments}");
@@ -38,7 +38,7 @@ public static class ResultRenderer
             return;
         }
 
-        var maps = result.Data!;
+        var maps = result.Data;
         Console.WriteLine($"  {maps.Count} result(s):");
         foreach (var map in maps)
         {
@@ -55,7 +55,7 @@ public static class ResultRenderer
             return;
         }
 
-        var status = result.Data!;
+        var status = result.Data;
         Console.WriteLine(
             $"  State={status.State} MapId={status.MapId} Queue={status.QueuePosition} Step={status.CurrentStep}");
     }
@@ -69,7 +69,7 @@ public static class ResultRenderer
             return;
         }
 
-        var limits = result.Data!;
+        var limits = result.Data;
         Console.WriteLine($"  Concurrent: {limits.Concurrent?.Current}/{limits.Concurrent?.Allowed}");
         Console.WriteLine($"  Monthly:    {limits.Monthly?.Current}/{limits.Monthly?.Allowed}");
     }
@@ -83,7 +83,7 @@ public static class ResultRenderer
             return;
         }
 
-        var configs = result.Data!;
+        var configs = result.Data;
         Console.WriteLine($"  {configs.Count} saved config(s):");
         foreach (var config in configs)
         {
@@ -112,7 +112,7 @@ public static class ResultRenderer
             return;
         }
 
-        var map = result.Data!;
+        var map = result.Data;
         Console.WriteLine($"  Uploaded: Id={map.Id} Name={map.DisplayName} State={map.State} Slug={map.Slug}");
     }
 }

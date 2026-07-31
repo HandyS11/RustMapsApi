@@ -16,7 +16,7 @@ public partial class MapModelsTests
         var thumbnail = JsonSerializer.Deserialize<MapThumbnail>(json, options);
 
         Assert.NotNull(thumbnail);
-        Assert.Equal("abc", thumbnail!.MapId);
+        Assert.Equal("abc", thumbnail.MapId);
         Assert.Equal(123, thumbnail.Seed);
         Assert.Equal(4500, thumbnail.Size);
     }

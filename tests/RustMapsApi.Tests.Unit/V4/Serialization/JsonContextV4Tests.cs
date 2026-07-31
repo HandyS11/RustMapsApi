@@ -17,6 +17,6 @@ public class JsonContextV4Tests
         var envelope = JsonSerializer.Deserialize<ServiceResponse<MapInfo>>(json, options);
 
         Assert.NotNull(envelope);
-        Assert.NotNull(envelope!.Data);
+        Assert.NotNull(envelope.Data);
     }
 }

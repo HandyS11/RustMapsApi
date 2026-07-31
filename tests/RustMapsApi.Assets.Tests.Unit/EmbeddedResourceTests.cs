@@ -26,7 +26,7 @@ public sealed class EmbeddedResourceTests
         {
             using var stream = AssetsAssembly.GetManifestResourceStream(name);
             Assert.NotNull(stream);
-            Assert.True(stream!.Length > 0, $"{name} is empty");
+            Assert.True(stream.Length > 0, $"{name} is empty");
         }
     }
 }
