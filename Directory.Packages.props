@@ -16,7 +16,7 @@
     <PackageVersion Include="Avalonia" Version="12.1.1" />
     <PackageVersion Include="Avalonia.Desktop" Version="12.1.1" />
     <PackageVersion Include="Avalonia.Svg.Skia" Version="11.3.0" />
-    <PackageVersion Include="Avalonia.Themes.Fluent" Version="12.1.0" />
+    <PackageVersion Include="Avalonia.Themes.Fluent" Version="12.1.1" />
     <!-- SkiaSharp's metapackage omits the Linux native asset, so without an explicit pin the
          managed SkiaSharp and the deployed libSkiaSharp.so drift apart -> native/managed mismatch
          at startup on Linux. Keep this in lockstep with the managed SkiaSharp that Avalonia.Skia
