@@ -4,11 +4,11 @@
   </PropertyGroup>
   <ItemGroup>
     <!-- Packages -->
-    <PackageVersion Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="10.0.10" />
-    <PackageVersion Include="Microsoft.Extensions.Http" Version="10.0.10" />
-    <PackageVersion Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="10.0.10" />
-    <PackageVersion Include="Microsoft.Extensions.Options.DataAnnotations" Version="10.0.10" />
-    <PackageVersion Include="System.Text.Json" Version="10.0.10" />
+    <PackageVersion Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="10.0.11" />
+    <PackageVersion Include="Microsoft.Extensions.Http" Version="10.0.11" />
+    <PackageVersion Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="10.0.11" />
+    <PackageVersion Include="Microsoft.Extensions.Options.DataAnnotations" Version="10.0.11" />
+    <PackageVersion Include="System.Text.Json" Version="10.0.11" />
     <PackageVersion Include="PolySharp" Version="1.16.0" />
   </ItemGroup>
   <ItemGroup>
@@ -24,26 +24,26 @@
          Deliberately NOT on SkiaSharp 4.x: Avalonia.Svg.Skia is still capped at 11.3.0, which
          pulls Svg.Skia 3.0.2 and SkiaSharp.HarfBuzz 3.x. Forcing 4.x builds and starts, but puts
          the whole SVG render path on a major version it never targeted. -->
-    <PackageVersion Include="SkiaSharp.NativeAssets.Linux" Version="4.151.0" />
+    <PackageVersion Include="SkiaSharp.NativeAssets.Linux" Version="4.151.1" />
   </ItemGroup>
   <ItemGroup>
     <!-- Test + sample -->
-    <PackageVersion Include="Microsoft.Extensions.DependencyInjection" Version="10.0.10" />
-    <PackageVersion Include="Microsoft.Extensions.Hosting" Version="10.0.10" />
-    <PackageVersion Include="Microsoft.Extensions.Configuration.UserSecrets" Version="10.0.10" />
-    <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="18.8.1" />
+    <PackageVersion Include="Microsoft.Extensions.DependencyInjection" Version="10.0.11" />
+    <PackageVersion Include="Microsoft.Extensions.Hosting" Version="10.0.11" />
+    <PackageVersion Include="Microsoft.Extensions.Configuration.UserSecrets" Version="10.0.11" />
+    <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="18.9.0" />
     <PackageVersion Include="coverlet.collector" Version="10.0.1" />
     <PackageVersion Include="xunit" Version="2.9.3" />
     <PackageVersion Include="xunit.runner.visualstudio" Version="3.1.5" />
-    <PackageVersion Include="NSubstitute" Version="6.0.0" />
+    <PackageVersion Include="NSubstitute" Version="6.2.0" />
     <PackageVersion Include="Xunit.SkippableFact" Version="1.5.61" />
   </ItemGroup>
   <ItemGroup>
     <!-- Analyzers -->
-    <PackageVersion Include="Microsoft.CodeAnalysis.NetAnalyzers" Version="10.0.302" />
+    <PackageVersion Include="Microsoft.CodeAnalysis.NetAnalyzers" Version="10.0.400" />
     <PackageVersion Include="Microsoft.VisualStudio.Threading.Analyzers" Version="18.7.23" />
-    <PackageVersion Include="Roslynator.Analyzers" Version="4.15.0" />
-    <PackageVersion Include="Roslynator.Formatting.Analyzers" Version="4.15.0" />
-    <PackageVersion Include="SonarAnalyzer.CSharp" Version="10.31.0.145097" />
+    <PackageVersion Include="Roslynator.Analyzers" Version="4.16.0" />
+    <PackageVersion Include="Roslynator.Formatting.Analyzers" Version="4.16.0" />
+    <PackageVersion Include="SonarAnalyzer.CSharp" Version="10.32.0.713" />
   </ItemGroup>
 </Project>
