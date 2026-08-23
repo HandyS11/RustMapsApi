@@ -10,9 +10,10 @@ updates:
     schedule:
       interval: "weekly"
     groups:
-      nuget-minor-and-patch:
+      nuget:
         applies-to: version-updates
         update-types:
+          - "major"
           - "minor"
           - "patch"
       nuget-security:
