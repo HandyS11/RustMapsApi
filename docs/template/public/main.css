@@ -1,11 +1,14 @@
-@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap');
 
-/* ---------- palette ---------- */
+/* ---------- palette ----------
+   Drawn from the RustMapsApi mark: a white map pin on a brick plate.
+   Brick is the identity, map-water teal is the ink, parchment is the ground. */
 :root {
-  --rp-rust: #ce412b;
-  --rp-rust-bright: #e25640;
-  --rp-amber: #e8a33d;
-  --rp-link-dark: #f08a5c;
+  --rm-brick: #b8402c;
+  --rm-brick-bright: #d24e37;
+  --rm-water: #4fa3a3;
+  --rm-water-deep: #0f6b6b;
+  --rm-sand: #d9c08a;
 }
 
 /* ---------- typography ---------- */
@@ -14,25 +17,27 @@ body {
 }
 
 h1, h2, h3, h4, .navbar-brand {
-  font-family: 'Oswald', 'Inter', sans-serif;
-  letter-spacing: 0.01em;
+  font-family: 'Chakra Petch', 'Inter', sans-serif;
+  letter-spacing: -0.005em;
 }
 
 code, pre, kbd, samp {
   font-family: 'JetBrains Mono', ui-monospace, monospace;
 }
 
-/* ---------- dark theme (default) ---------- */
+/* ---------- dark theme (default) — the map at night ---------- */
 [data-bs-theme="dark"] {
-  --bs-body-bg: #171311;
-  --bs-body-color: #d8d1c9;
-  --bs-secondary-bg: #241e1a;
-  --bs-tertiary-bg: #1f1a17;
-  --bs-border-color: #3a312b;
-  --bs-link-color-rgb: 240, 138, 92;
-  --bs-link-hover-color-rgb: 232, 163, 61;
-  --bs-primary-rgb: 206, 65, 43;
-  --bs-code-color: var(--rp-amber);
+  --bs-body-bg: #14181a;
+  --bs-body-color: #ccd3d3;
+  --bs-secondary-bg: #1c2225;
+  --bs-tertiary-bg: #191f21;
+  --bs-border-color: #2e373b;
+  --bs-link-color-rgb: 79, 163, 163;
+  --bs-link-hover-color-rgb: 217, 192, 138;
+  --bs-primary-rgb: 184, 64, 44;
+  --bs-code-color: var(--rm-sand);
+  --rm-grid: rgba(140, 176, 176, 0.10);
+  --rm-surface-hover: #1f2629;
 }
 
 [data-bs-theme="dark"] body,
@@ -41,21 +46,23 @@ code, pre, kbd, samp {
 }
 
 [data-bs-theme="dark"] pre {
-  background-color: #1f1a17;
-  border: 1px solid #3a312b;
+  background-color: #191f21;
+  border: 1px solid #2e373b;
 }
 
-/* ---------- light theme (warm paper) ---------- */
+/* ---------- light theme — survey parchment ---------- */
 [data-bs-theme="light"] {
-  --bs-body-bg: #faf6f1;
-  --bs-body-color: #2e2723;
-  --bs-secondary-bg: #f1eae2;
-  --bs-tertiary-bg: #f5efe8;
-  --bs-border-color: #ddd2c6;
-  --bs-link-color-rgb: 178, 49, 27;
-  --bs-link-hover-color-rgb: 206, 65, 43;
-  --bs-primary-rgb: 206, 65, 43;
-  --bs-code-color: #a3501f;
+  --bs-body-bg: #f4efe3;
+  --bs-body-color: #2b2a26;
+  --bs-secondary-bg: #ece4d4;
+  --bs-tertiary-bg: #f0e9db;
+  --bs-border-color: #d6cab2;
+  --bs-link-color-rgb: 15, 107, 107;
+  --bs-link-hover-color-rgb: 184, 64, 44;
+  --bs-primary-rgb: 184, 64, 44;
+  --bs-code-color: #9c3d24;
+  --rm-grid: rgba(90, 80, 60, 0.10);
+  --rm-surface-hover: #e8dfcc;
 }
 
 /* ---------- header / nav ---------- */
@@ -68,69 +75,91 @@ header .navbar-brand img {
 
 header .navbar-brand {
   font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.005em;
 }
 
 header .navbar-brand:hover {
-  color: var(--rp-rust-bright);
+  color: var(--rm-brick-bright);
 }
 
-/* rust underline accent below the header */
 header {
-  border-bottom: 2px solid var(--rp-rust) !important;
+  border-bottom: 2px solid var(--rm-brick) !important;
 }
 
 /* ---------- buttons ---------- */
 .btn-primary {
-  --bs-btn-bg: var(--rp-rust);
-  --bs-btn-border-color: var(--rp-rust);
-  --bs-btn-hover-bg: var(--rp-rust-bright);
-  --bs-btn-hover-border-color: var(--rp-rust-bright);
-  --bs-btn-active-bg: var(--rp-rust-bright);
-  --bs-btn-active-border-color: var(--rp-rust-bright);
+  --bs-btn-bg: var(--rm-brick);
+  --bs-btn-border-color: var(--rm-brick);
+  --bs-btn-hover-bg: var(--rm-brick-bright);
+  --bs-btn-hover-border-color: var(--rm-brick-bright);
+  --bs-btn-active-bg: var(--rm-brick-bright);
+  --bs-btn-active-border-color: var(--rm-brick-bright);
 }
 
-/* ---------- hero (landing page) ---------- */
-.rp-hero {
+.btn-primary,
+.btn-outline-secondary {
+  border-radius: 2px;
+}
+
+/* ---------- hero: a framed map plate ---------- */
+.rm-hero {
+  position: relative;
+  overflow: hidden;
   text-align: center;
   padding: 4rem 1rem 3rem;
-  background:
-    radial-gradient(ellipse at 50% -20%, rgba(206, 65, 43, 0.18), transparent 60%),
-    radial-gradient(ellipse at 80% 110%, rgba(232, 163, 61, 0.08), transparent 50%);
-  border-radius: 1rem;
+  border: 1px solid var(--bs-border-color);
+  border-radius: 2px;
+  background: var(--bs-tertiary-bg);
   margin-bottom: 2.5rem;
 }
 
-.rp-hero .rp-hero-logo {
+/* ruled survey grid, fading out toward the frame */
+.rm-hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(to right, var(--rm-grid) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--rm-grid) 1px, transparent 1px);
+  background-size: 48px 48px;
+  -webkit-mask-image: radial-gradient(ellipse 48% 62% at 50% 45%, #000 20%, transparent 100%);
+  mask-image: radial-gradient(ellipse 48% 62% at 50% 45%, #000 20%, transparent 100%);
+  pointer-events: none;
+}
+
+.rm-hero > * {
+  position: relative;
+}
+
+.rm-hero .rm-hero-logo {
   width: 96px;
   height: auto;
   margin-bottom: 1rem;
-  filter: drop-shadow(0 0 24px rgba(206, 65, 43, 0.45));
+  border-radius: 3px;
 }
 
-.rp-hero .rp-badges img {
+.rm-hero .rm-badges img {
   width: auto;
   height: 20px;
   margin: 0 2px;
 }
 
-.rp-hero h1 {
+.rm-hero h1 {
   font-size: 3rem;
   font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
+  letter-spacing: -0.02em;
   margin-bottom: 0.5rem;
 }
 
-.rp-hero .rp-tagline {
-  font-size: 1.2rem;
+.rm-hero .rm-tagline {
+  font-size: 1.15rem;
+  line-height: 1.6;
   opacity: 0.85;
-  max-width: 42rem;
+  max-width: 40rem;
   margin: 0 auto 1.5rem;
 }
 
-.rp-hero .rp-cta {
+.rm-hero .rm-cta {
   display: flex;
   gap: 0.75rem;
   justify-content: center;
@@ -138,58 +167,70 @@ header {
   margin-bottom: 1.25rem;
 }
 
-.rp-hero .rp-cta .btn {
+.rm-hero .rm-cta .btn {
   padding: 0.6rem 1.6rem;
   font-weight: 600;
 }
 
 /* ---------- card grids ---------- */
-.rp-grid {
+.rm-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 1rem;
   margin: 1.5rem 0 2.5rem;
 }
 
-.rp-card {
+.rm-card {
   display: block;
   color: inherit;
   text-decoration: none;
   border: 1px solid var(--bs-border-color);
-  border-radius: 0.75rem;
-  padding: 1.25rem;
+  border-radius: 2px;
+  padding: 1.15rem 1.25rem;
   background: var(--bs-tertiary-bg);
-  transition: border-color 0.15s ease, box-shadow 0.15s ease, transform 0.15s ease;
+  transition: border-color 0.15s ease, background-color 0.15s ease;
 }
 
-.rp-card:hover {
+.rm-card:hover {
   color: inherit;
-  border-color: var(--rp-rust);
-  box-shadow: 0 0 20px rgba(206, 65, 43, 0.25);
-  transform: translateY(-2px);
+  border-color: var(--rm-water);
+  background: var(--rm-surface-hover);
 }
 
-.rp-card .rp-card-icon {
-  font-size: 1.6rem;
+/* icons sit in a legend key, the way a map legend lists its symbols */
+.rm-card .rm-card-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  border: 1px solid var(--bs-border-color);
+  border-radius: 2px;
+  font-size: 1.15rem;
   line-height: 1;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.75rem;
 }
 
-.rp-card h3 {
+.rm-card:hover .rm-card-icon {
+  border-color: var(--rm-water);
+}
+
+.rm-card h3 {
   color: rgb(var(--bs-link-color-rgb));
   font-size: 1.05rem;
   margin: 0 0 0.4rem;
 }
 
-.rp-card p {
+.rm-card p {
   font-size: 0.9rem;
+  line-height: 1.55;
   margin: 0;
   opacity: 0.85;
 }
 
 /* ---------- tables ---------- */
 .table thead th {
-  border-bottom: 2px solid var(--rp-rust);
+  border-bottom: 2px solid var(--rm-water);
 }
 
 /* ---------- misc ---------- */
@@ -200,6 +241,18 @@ body:not([data-yaml-mime="ManagedReference"]) article h2 {
   margin-top: 2.2rem;
 }
 
+@media (prefers-reduced-motion: reduce) {
+  .rm-card {
+    transition: none;
+  }
+}
+
 @media (max-width: 576px) {
-  .rp-hero h1 { font-size: 2.1rem; }
+  .rm-hero {
+    padding: 2.5rem 1rem 2rem;
+  }
+
+  .rm-hero h1 {
+    font-size: 2.1rem;
+  }
 }
