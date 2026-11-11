@@ -61,7 +61,7 @@ public sealed class LiveGetEndpointsTests(LiveApiFixture fixture)
         // assertions rather than failing — and never trigger generation (no credits).
         Skip.IfNot(anchor.IsSuccess, $"Anchor map not available: {anchor.Error?.Kind} {anchor.Error?.Message}");
 
-        var id = anchor.Data!.Id;
+        var id = anchor.Data.Id;
         var url = anchor.Data.Url;
         Assert.False(string.IsNullOrWhiteSpace(id));
         Assert.False(string.IsNullOrWhiteSpace(url));
@@ -70,7 +70,7 @@ public sealed class LiveGetEndpointsTests(LiveApiFixture fixture)
         await _fixture.ThrottleAsync();
         var byId = await _fixture.Client.GetMapByIdAsync(id);
         Assert.True(byId.IsSuccess, byId.Error?.Message);
-        Assert.Equal(id, byId.Data!.Id);
+        Assert.Equal(id, byId.Data.Id);
 
         // Chained: get the same map by url.
         await _fixture.ThrottleAsync();
@@ -102,7 +102,7 @@ public sealed class LiveGetEndpointsTests(LiveApiFixture fixture)
         Skip.IfNot(anchor.IsSuccess, $"Anchor map not available: {anchor.Error?.Kind}");
 
         await _fixture.ThrottleAsync();
-        var result = await _fixture.Client.GetMapSettingsAsync(anchor.Data!.Id!);
+        var result = await _fixture.Client.GetMapSettingsAsync(anchor.Data.Id!);
 
         SkipIfSubscriptionRequired(result.Error?.Kind);
         Skip.If(result.Error?.Kind == RustMapsErrorKind.NotFound, "Anchor map has no custom settings.");

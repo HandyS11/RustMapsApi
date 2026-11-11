@@ -6,7 +6,7 @@ using RustMapsApi.Assets.GalleryApp.ViewModels;
 
 namespace RustMapsApi.Assets.GalleryApp;
 
-public sealed class App : Application
+internal sealed class App : Application
 {
     public override void Initialize() => AvaloniaXamlLoader.Load(this);
 

@@ -27,7 +27,7 @@ public class RustMapsClientSearchTests
         });
 
         Assert.True(result.IsSuccess);
-        Assert.Single(result.Data!);
+        Assert.Single(result.Data);
         Assert.Equal("/v4/maps/filter/filter-1", handler.LastRequest!.RequestUri!.AbsolutePath);
         Assert.Contains("page=2", handler.LastRequest.RequestUri.Query);
         Assert.Contains("customMaps=true", handler.LastRequest.RequestUri.Query);
@@ -118,7 +118,7 @@ public class RustMapsClientSearchTests
         var result = await client.SearchAsync(new SearchQuery(), page: 0);
 
         Assert.True(result.IsSuccess);
-        Assert.Empty(result.Data!);
+        Assert.Empty(result.Data);
     }
 
     [Fact]

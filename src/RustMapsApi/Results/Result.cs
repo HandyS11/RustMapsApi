@@ -1,3 +1,5 @@
+using System.Diagnostics.CodeAnalysis;
+
 namespace RustMapsApi.Results;
 
 /// <summary>The outcome of a RustMaps API call.</summary>
@@ -13,6 +15,8 @@ public sealed class Result<T>
     }
 
     /// <summary>Whether the call succeeded.</summary>
+    [MemberNotNullWhen(true, nameof(Data))]
+    [MemberNotNullWhen(false, nameof(Error))]
     public bool IsSuccess { get; }
 
     /// <summary>The payload, populated when <see cref="IsSuccess"/> is <c>true</c>.</summary>
@@ -28,7 +32,7 @@ public sealed class Result<T>
     /// <param name="data">The payload to carry.</param>
     /// <param name="statusCode">The HTTP status code of the response.</param>
     /// <returns>A successful <see cref="Result{T}"/>.</returns>
-    [System.Diagnostics.CodeAnalysis.SuppressMessage(
+    [SuppressMessage(
         "Design", "CA1000:Do not declare static members on generic types",
         Justification = "Factory methods are the intended construction API for this result type.")]
     public static Result<T> Success(T data, int statusCode) =>
@@ -38,7 +42,7 @@ public sealed class Result<T>
     /// <param name="error">The error describing the failure.</param>
     /// <param name="statusCode">The HTTP status code of the response.</param>
     /// <returns>A failed <see cref="Result{T}"/>.</returns>
-    [System.Diagnostics.CodeAnalysis.SuppressMessage(
+    [SuppressMessage(
         "Design", "CA1000:Do not declare static members on generic types",
         Justification = "Factory methods are the intended construction API for this result type.")]
     public static Result<T> Failure(RustMapsError error, int statusCode) =>

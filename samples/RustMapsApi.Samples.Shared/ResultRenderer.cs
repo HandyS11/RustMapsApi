@@ -7,6 +7,8 @@ namespace RustMapsApi.Samples.Shared;
 public static class ResultRenderer
 {
     /// <summary>Prints the status code, error kind and message for a failed call.</summary>
+    /// <typeparam name="T">The payload type of the failed call.</typeparam>
+    /// <param name="result">The failed result to print.</param>
     public static void RenderFailure<T>(Result<T> result)
     {
         var error = result.Error;
@@ -15,6 +17,7 @@ public static class ResultRenderer
     }
 
     /// <summary>Renders a single map.</summary>
+    /// <param name="result">The call outcome to render.</param>
     public static void Render(Result<MapInfo> result)
     {
         if (!result.IsSuccess)
@@ -30,6 +33,7 @@ public static class ResultRenderer
     }
 
     /// <summary>Renders a page of search results.</summary>
+    /// <param name="result">The call outcome to render.</param>
     public static void Render(Result<IReadOnlyList<MapThumbnail>> result)
     {
         if (!result.IsSuccess)
@@ -47,6 +51,7 @@ public static class ResultRenderer
     }
 
     /// <summary>Renders a generation status.</summary>
+    /// <param name="result">The call outcome to render.</param>
     public static void Render(Result<MapGenerationStatus> result)
     {
         if (!result.IsSuccess)
@@ -61,6 +66,7 @@ public static class ResultRenderer
     }
 
     /// <summary>Renders generation limits.</summary>
+    /// <param name="result">The call outcome to render.</param>
     public static void Render(Result<MapGenLimits> result)
     {
         if (!result.IsSuccess)
@@ -75,6 +81,7 @@ public static class ResultRenderer
     }
 
     /// <summary>Renders saved configs.</summary>
+    /// <param name="result">The call outcome to render.</param>
     public static void Render(Result<IReadOnlyList<MapSettings>> result)
     {
         if (!result.IsSuccess)
@@ -92,6 +99,7 @@ public static class ResultRenderer
     }
 
     /// <summary>Renders a custom-map settings tree (summary only).</summary>
+    /// <param name="result">The call outcome to render.</param>
     public static void Render(Result<CustomMapSettings> result)
     {
         if (!result.IsSuccess)
@@ -104,6 +112,7 @@ public static class ResultRenderer
     }
 
     /// <summary>Renders an uploaded-map outcome.</summary>
+    /// <param name="result">The call outcome to render.</param>
     public static void Render(Result<UploadedMap> result)
     {
         if (!result.IsSuccess)

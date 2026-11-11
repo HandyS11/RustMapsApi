@@ -83,7 +83,7 @@ public class RustMapsClientMapsTests
         });
 
         Assert.False(result.IsSuccess);
-        Assert.Equal(RustMapsErrorKind.Queued, result.Error!.Kind);
+        Assert.Equal(RustMapsErrorKind.Queued, result.Error.Kind);
     }
 
     [Fact]

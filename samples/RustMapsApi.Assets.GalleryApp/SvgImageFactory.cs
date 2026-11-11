@@ -7,14 +7,22 @@ using SvgImage = Avalonia.Svg.Skia.SvgImage;
 
 namespace RustMapsApi.Assets.GalleryApp;
 
-// The only place that touches Avalonia.Svg.Skia. It reads the SVG from the *package*
-// (MonumentAsset.OpenStream) so the sample proves the package delivers the icon. If the
-// pinned Avalonia.Svg.Skia version exposes a different loader, adjust ONLY this method —
-// everything else binds to Avalonia.Media.IImage and is unaffected.
+/// <summary>Turns a packaged monument SVG into an Avalonia image.</summary>
+/// <remarks>
+/// The only place that touches Avalonia.Svg.Skia. It reads the SVG from the <em>package</em>
+/// (<see cref="MonumentAsset.OpenStream"/>) so the sample proves the package delivers the icon. If the
+/// pinned Avalonia.Svg.Skia version exposes a different loader, adjust ONLY this method —
+/// everything else binds to Avalonia.Media.IImage and is unaffected.
+/// </remarks>
 internal static class SvgImageFactory
 {
-    // The returned SvgImage is held by a tile for the whole app lifetime (the gallery is static),
-    // so it is intentionally not disposed here; the OS reclaims it on exit.
+    /// <summary>Loads <paramref name="asset"/>'s SVG into a renderable image.</summary>
+    /// <param name="asset">The packaged monument asset to load.</param>
+    /// <returns>The image for a gallery tile.</returns>
+    /// <remarks>
+    /// The returned image is held by a tile for the whole app lifetime (the gallery is static),
+    /// so it is intentionally not disposed here; the OS reclaims it on exit.
+    /// </remarks>
     public static SvgImage Create(MonumentAsset asset)
     {
         using var stream = asset.OpenStream();

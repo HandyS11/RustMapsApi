@@ -45,7 +45,7 @@ public class RustMapsClientCoreTests
         var result = await client.GetMapByIdAsync("abc");
 
         Assert.True(result.IsSuccess);
-        Assert.Equal(MonumentType.Unknown, result.Data!.Monuments![0].Type);
+        Assert.Equal(MonumentType.Unknown, result.Data.Monuments![0].Type);
         Assert.Equal("https://example/raw.png", result.Data.RawImageUrl);
     }
 }

@@ -34,7 +34,7 @@ public class UploadMapTests
         var result = await client.UploadMapAsync(Upload(note: "first build"));
 
         Assert.True(result.IsSuccess, result.Error?.Message);
-        Assert.Equal("u-1", result.Data!.Id);
+        Assert.Equal("u-1", result.Data.Id);
         Assert.Equal(HttpMethod.Post, handler.LastRequest!.Method);
         Assert.Equal("/v4/maps/upload", handler.LastRequest.RequestUri!.AbsolutePath);
 

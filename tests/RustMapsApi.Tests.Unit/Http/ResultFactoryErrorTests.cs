@@ -30,7 +30,7 @@ public class ResultFactoryErrorTests
         var result = await client.GetMapByIdAsync("missing");
 
         Assert.False(result.IsSuccess);
-        Assert.Equal(expected, result.Error!.Kind);
+        Assert.Equal(expected, result.Error.Kind);
         Assert.Equal("boom", result.Error.Message);
         Assert.Equal(body, result.Error.RawBody);
     }
@@ -46,7 +46,7 @@ public class ResultFactoryErrorTests
         var result = await client.SearchByFilterAsync("filter-1", 0);
 
         Assert.False(result.IsSuccess);
-        Assert.Equal(RustMapsErrorKind.RateLimited, result.Error!.Kind);
+        Assert.Equal(RustMapsErrorKind.RateLimited, result.Error.Kind);
         Assert.Equal("slow down", result.Error.Message);
     }
 
@@ -60,7 +60,7 @@ public class ResultFactoryErrorTests
         var result = await client.SearchByFilterAsync("filter-1", 0);
 
         Assert.False(result.IsSuccess);
-        Assert.Equal(RustMapsErrorKind.Unknown, result.Error!.Kind);
+        Assert.Equal(RustMapsErrorKind.Unknown, result.Error.Kind);
     }
 
     [Fact]
@@ -80,7 +80,7 @@ public class ResultFactoryErrorTests
         var result = await client.SearchByFilterAsync("filter-1", 0);
 
         Assert.False(result.IsSuccess);
-        Assert.Equal(RustMapsErrorKind.RateLimited, result.Error!.Kind);
+        Assert.Equal(RustMapsErrorKind.RateLimited, result.Error.Kind);
         Assert.Equal(TimeSpan.FromSeconds(30), result.Error.RetryAfter);
     }
 
@@ -93,7 +93,7 @@ public class ResultFactoryErrorTests
         var result = await client.GetMapByIdAsync("x");
 
         Assert.False(result.IsSuccess);
-        Assert.Equal(RustMapsErrorKind.Validation, result.Error!.Kind);
+        Assert.Equal(RustMapsErrorKind.Validation, result.Error.Kind);
         Assert.Null(result.Error.Message);
     }
 
@@ -106,7 +106,7 @@ public class ResultFactoryErrorTests
         var result = await client.GetMapByIdAsync("x");
 
         Assert.False(result.IsSuccess);
-        Assert.Equal(RustMapsErrorKind.Unknown, result.Error!.Kind);
+        Assert.Equal(RustMapsErrorKind.Unknown, result.Error.Kind);
     }
 
     [Fact]
@@ -118,7 +118,7 @@ public class ResultFactoryErrorTests
         var result = await client.SearchByFilterAsync("filter-1", 0);
 
         Assert.False(result.IsSuccess);
-        Assert.Equal(RustMapsErrorKind.Unknown, result.Error!.Kind);
+        Assert.Equal(RustMapsErrorKind.Unknown, result.Error.Kind);
     }
 
     [Fact]
@@ -130,7 +130,7 @@ public class ResultFactoryErrorTests
         var result = await client.GetMapByIdAsync("x");
 
         Assert.False(result.IsSuccess);
-        Assert.Equal(RustMapsErrorKind.Validation, result.Error!.Kind);
+        Assert.Equal(RustMapsErrorKind.Validation, result.Error.Kind);
         Assert.Null(result.Error.Message);
     }
 
@@ -144,7 +144,7 @@ public class ResultFactoryErrorTests
         var result = await client.GetMapByIdAsync("x");
 
         Assert.False(result.IsSuccess);
-        Assert.Equal(RustMapsErrorKind.Unknown, result.Error!.Kind);
+        Assert.Equal(RustMapsErrorKind.Unknown, result.Error.Kind);
     }
 
     [Fact]
@@ -156,7 +156,7 @@ public class ResultFactoryErrorTests
         var result = await client.GetMapByIdAsync("x");
 
         Assert.False(result.IsSuccess);
-        Assert.Equal(RustMapsErrorKind.Unknown, result.Error!.Kind);
+        Assert.Equal(RustMapsErrorKind.Unknown, result.Error.Kind);
         Assert.Null(result.Error.Message);
     }
 }
