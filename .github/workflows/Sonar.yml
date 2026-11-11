@@ -22,10 +22,12 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Set up JDK 17
+      # SonarQube Community Build 26.8+ removed Java 17 support for scanners; Java 21 is required.
+      # Also the fallback runtime: ubuntu-latest's default JAVA_HOME is still 17.
+      - name: Set up JDK 21
         uses: actions/setup-java@v6.1.0
         with:
-          java-version: 17
+          java-version: 21
           distribution: 'zulu'
 
       - name: Setup .NET
@@ -33,32 +35,39 @@ jobs:
         with:
           dotnet-version: 10.0.x
 
+      # ~/.sonar/cache holds what the scanner downloads from the server (analyzer plugins, the
+      # provisioned JRE), so its content changes when the server is upgraded. Key on the server
+      # version: a constant key is restored forever and never re-saved, so the cache goes stale.
+      - name: Resolve SonarQube server version
+        id: sonar-server
+        env:
+          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+        run: |
+          version=$(curl -fsS "$SONAR_HOST_URL/api/server/version" | tr -cd '0-9.')
+          echo "version=${version:-unknown}" >> "$GITHUB_OUTPUT"
+
       - name: Cache SonarQube packages
         uses: actions/cache@v6
         with:
           path: ~/.sonar/cache
-          key: ${{ runner.os }}-sonar
-          restore-keys: ${{ runner.os }}-sonar
+          key: ${{ runner.os }}-sonar-cache-${{ steps.sonar-server.outputs.version }}
+          restore-keys: ${{ runner.os }}-sonar-cache-
 
-      - name: Cache SonarQube scanner
-        id: cache-sonar-scanner
-        uses: actions/cache@v6
-        with:
-          path: ./.sonar/scanner
-          key: ${{ runner.os }}-sonar-scanner
-          restore-keys: ${{ runner.os }}-sonar-scanner
-
+      # The scanner version is pinned in .config/dotnet-tools.json, where Dependabot bumps it. Install
+      # only that tool: `dotnet tool restore` would also pull ~1.6 GB of ReSharper/docfx/Stryker.
+      # No cache: the old constant-key cache pinned whatever version it first saw, forever.
       - name: Install SonarQube scanner
-        if: steps.cache-sonar-scanner.outputs.cache-hit != 'true'
         run: |
-          mkdir -p ./.sonar/scanner
-          dotnet tool update dotnet-sonarscanner --tool-path ./.sonar/scanner
+          version=$(jq -r '.tools["dotnet-sonarscanner"].version' .config/dotnet-tools.json)
+          dotnet tool install dotnet-sonarscanner --version "$version" --tool-path ./.sonar/scanner
 
+      # The junit logger writes one JUnit XML per test assembly into ./TestResults: Codecov test
+      # analytics only accepts JUnit XML, and dotnet test produces none by default.
       - name: Build and analyze
         run: |
           ./.sonar/scanner/dotnet-sonarscanner begin /k:"${{ secrets.SONAR_PROJECT_KEY }}" /d:sonar.token="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="${{ secrets.SONAR_HOST_URL }}" /d:sonar.exclusions="**/samples/**" /d:sonar.coverage.exclusions="**/samples/**,**/tests/**" /d:sonar.cs.opencover.reportsPaths="**/coverage.opencover.xml"
           dotnet build RustMapsApi.slnx
-          dotnet test RustMapsApi.slnx --no-build --collect:"XPlat Code Coverage;Format=opencover" --blame-hang-timeout 60s
+          dotnet test RustMapsApi.slnx --no-build --collect:"XPlat Code Coverage;Format=opencover" --blame-hang-timeout 60s --logger "junit;LogFilePath=$GITHUB_WORKSPACE/TestResults/{assembly}.junit.xml;MethodFormat=Class;FailureBodyFormat=Verbose"
           ./.sonar/scanner/dotnet-sonarscanner end /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
 
       - name: Upload coverage reports to Codecov
@@ -66,9 +75,12 @@ jobs:
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
 
+      # fail_ci_if_error: an upload that finds no JUnit files must fail the job, not pass silently.
       - name: Upload test results to Codecov
         if: ${{ !cancelled() }}
         uses: codecov/codecov-action@v7
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           report_type: test_results
+          directory: ./TestResults
+          fail_ci_if_error: true

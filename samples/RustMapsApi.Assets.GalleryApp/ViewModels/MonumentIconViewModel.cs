@@ -3,18 +3,11 @@ using RustMapsApi.V4.Assets;
 
 namespace RustMapsApi.Assets.GalleryApp.ViewModels;
 
-public sealed class MonumentIconViewModel
+internal sealed class MonumentIconViewModel(MonumentAsset asset, IImage image)
 {
-    public MonumentIconViewModel(MonumentAsset asset, IImage image)
-    {
-        TypeName = asset.MonumentType.ToString();
-        AssetName = asset.AssetName;
-        Image = image;
-    }
+    public string TypeName { get; } = asset.MonumentType.ToString();
 
-    public string TypeName { get; }
+    public string AssetName { get; } = asset.AssetName;
 
-    public string AssetName { get; }
-
-    public IImage Image { get; }
+    public IImage Image { get; } = image;
 }

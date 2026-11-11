@@ -59,7 +59,7 @@ public partial class ResultFactoryTests
         var result = await ResultFactory.FromResponseAsync<string>(response, Options(), CancellationToken.None);
 
         Assert.False(result.IsSuccess);
-        Assert.Equal(RustMapsErrorKind.Unknown, result.Error!.Kind);
+        Assert.Equal(RustMapsErrorKind.Unknown, result.Error.Kind);
         Assert.Equal("Response contained no data.", result.Error.Message);
     }
 
@@ -101,7 +101,7 @@ public partial class ResultFactoryTests
         var result = await ResultFactory.FromResponseAsync<string>(response, Options(), CancellationToken.None);
 
         Assert.False(result.IsSuccess);
-        Assert.Null(result.Error!.Message);
+        Assert.Null(result.Error.Message);
     }
 
     [Fact]
@@ -115,7 +115,7 @@ public partial class ResultFactoryTests
         var result = await ResultFactory.FromPagedResponseAsync<string>(response, Options(), CancellationToken.None);
 
         Assert.False(result.IsSuccess);
-        Assert.Equal(RustMapsErrorKind.Unknown, result.Error!.Kind);
+        Assert.Equal(RustMapsErrorKind.Unknown, result.Error.Kind);
         Assert.Equal("Response contained no data.", result.Error.Message);
     }
 
@@ -131,7 +131,7 @@ public partial class ResultFactoryTests
         var result = await ResultFactory.FromPagedResponseAsync<string>(response, Options(), CancellationToken.None);
 
         Assert.True(result.IsSuccess);
-        Assert.Equal(2, result.Data!.Count);
+        Assert.Equal(2, result.Data.Count);
     }
 
     [Fact]

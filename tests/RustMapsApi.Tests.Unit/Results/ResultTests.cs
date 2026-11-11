@@ -27,4 +27,25 @@ public class ResultTests
         Assert.Same(error, result.Error);
         Assert.Equal(404, result.StatusCode);
     }
+
+    [Fact]
+    public void IsSuccess_NarrowsDataAndErrorNullability()
+    {
+        // Compile-time contract: checking IsSuccess must narrow Data/Error to non-null for callers.
+        // Without [MemberNotNullWhen] on IsSuccess, the dereferences below are CS8602 and fail the build.
+        var success = Result<string>.Success("payload", 200);
+        var failure = Result<string>.Failure(new RustMapsError(RustMapsErrorKind.NotFound, "missing", null, null), 404);
+
+        Assert.True(success.IsSuccess);
+        Assert.False(failure.IsSuccess);
+        if (success.IsSuccess)
+        {
+            Assert.Equal(7, success.Data.Length);
+        }
+
+        if (!failure.IsSuccess)
+        {
+            Assert.Equal(RustMapsErrorKind.NotFound, failure.Error.Kind);
+        }
+    }
 }

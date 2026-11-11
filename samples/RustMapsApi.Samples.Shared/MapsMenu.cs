@@ -7,6 +7,9 @@ namespace RustMapsApi.Samples.Shared;
 public static class MapsMenu
 {
     /// <summary>Runs the menu loop until the user quits.</summary>
+    /// <param name="client">The RustMaps client the menu actions call.</param>
+    /// <param name="ct">Stops the loop and cancels the in-flight request.</param>
+    /// <returns>A task that completes when the user quits or <paramref name="ct"/> is cancelled.</returns>
     public static async Task RunAsync(IRustMapsClient client, CancellationToken ct = default)
     {
         ArgumentNullException.ThrowIfNull(client);

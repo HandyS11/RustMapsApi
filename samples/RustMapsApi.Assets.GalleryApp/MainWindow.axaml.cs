@@ -3,7 +3,7 @@ using Avalonia.Markup.Xaml;
 
 namespace RustMapsApi.Assets.GalleryApp;
 
-public sealed partial class MainWindow : Window
+internal sealed partial class MainWindow : Window
 {
     public MainWindow() => InitializeComponent();
 
