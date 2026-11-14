@@ -25,7 +25,7 @@ jobs:
       # SonarQube Community Build 26.8+ removed Java 17 support for scanners; Java 21 is required.
       # Also the fallback runtime: ubuntu-latest's default JAVA_HOME is still 17.
       - name: Set up JDK 21
-        uses: actions/setup-java@v6.1.0
+        uses: actions/setup-java@v6.2.0
         with:
           java-version: 21
           distribution: 'zulu'
